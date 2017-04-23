@@ -62,6 +62,18 @@ public class GridComponent extends JComponent
 	
 	private void buttonOnClick(JButton button)
 	{
+		/*
+		 * left click:
+		 * if bomb - flip over all bombs, if there's a flag that's not a bomb show bomb with X, end the game
+		 * if not bomb - flip over number, plus all adjacent zeros up until including the next number
+		 * if it's a flag - it can't be clicked
+		 * if all numbers are turned over - win
+		 * 
+		 * 
+		 * right click:
+		 * if blank button - flag, decrease number of bombs
+		 * if flag - blank, increase number of bombs
+		 */
 		System.out.println(button.getClientProperty("index2"));
 		
 	}
