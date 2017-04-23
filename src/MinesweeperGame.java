@@ -49,7 +49,6 @@ public class MinesweeperGame
 		menuExit = new JMenuItem("Exit");
 		menuExit.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, ActionEvent.CTRL_MASK));	//CTRL-ESC will close game
 		menu.add(menuExit);
-
 		
 		return menuBar;
 	}

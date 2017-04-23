@@ -3,6 +3,8 @@ package GUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.Random;
 
 import javax.swing.*;
@@ -40,13 +42,25 @@ public class GridComponent extends JComponent
 				squares[i][j].setPreferredSize(new Dimension(40, 40)); //set the size of each button to be a square
 				
 				//TODO generate mouse listener
-				squares[i][j].addActionListener(new ActionListener() 
+				squares[i][j].addMouseListener(new MouseListener() 
 				{ 
-					  public void actionPerformed(ActionEvent e) 
-					  { 
-						  JButton button = (JButton) e.getSource();
-						  buttonOnClick(button);
-					  } 
+					
+					@Override
+					public void mouseClicked(MouseEvent e)
+					{
+						JButton button = (JButton) e.getSource();
+						
+						//checks if the button was clicked with right or left and calls appropriate method
+						if(SwingUtilities.isLeftMouseButton(e)) leftMouseClick(button);
+						if(SwingUtilities.isRightMouseButton(e)) rightMouseClick(button);	
+					}
+
+					//methods needed for interface that don't want to do anything
+					public void mouseExited(MouseEvent arg0){}
+					public void mousePressed(MouseEvent arg0){}
+					public void mouseReleased(MouseEvent arg0){}
+					public void mouseEntered(MouseEvent arg0){}
+					
 				} );
 				
 				this.add(squares[i][j]);	//add the button to the grid layout
@@ -60,21 +74,25 @@ public class GridComponent extends JComponent
 		//TODO set the bombs based on random number of row and column
 	}
 	
-	private void buttonOnClick(JButton button)
+	/*
+	 * left click:
+	 * if bomb - flip over all bombs, if there's a flag that's not a bomb show bomb with X, end the game
+	 * if not bomb - flip over number, plus all adjacent zeros up until including the next number
+	 * if it's a flag - it can't be clicked
+	 * if all numbers are turned over - win
+	 * 
+	 * 
+	 * right click:
+	 * if blank button - flag, decrease number of bombs
+	 * if flag - blank, increase number of bombs
+	 */
+	private void leftMouseClick(JButton button)
 	{
-		/*
-		 * left click:
-		 * if bomb - flip over all bombs, if there's a flag that's not a bomb show bomb with X, end the game
-		 * if not bomb - flip over number, plus all adjacent zeros up until including the next number
-		 * if it's a flag - it can't be clicked
-		 * if all numbers are turned over - win
-		 * 
-		 * 
-		 * right click:
-		 * if blank button - flag, decrease number of bombs
-		 * if flag - blank, increase number of bombs
-		 */
-		System.out.println(button.getClientProperty("index2"));
+		
+	}
+	
+	private void rightMouseClick(JButton button)
+	{
 		
 	}
 
