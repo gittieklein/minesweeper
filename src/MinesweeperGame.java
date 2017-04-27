@@ -8,8 +8,6 @@ import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
-import GUI.MinesweeperJFrame;
-
 public class MinesweeperGame
 {
 
