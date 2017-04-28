@@ -42,7 +42,8 @@ public class GridComponent extends JComponent
 				squares[i][j].putClientProperty("index1", i);	//add property of row location
 				squares[i][j].putClientProperty("index2", j);	//add property of column location
 				squares[i][j].setPreferredSize(new Dimension(40, 40)); //set the size of each button to be a square
-				
+				squares[i][j].setBackground(Color.lightGray);	//set the buttons to gray
+						
 				//TODO generate mouse listener
 				squares[i][j].addMouseListener(new MouseListener() 
 				{ 
@@ -78,7 +79,7 @@ public class GridComponent extends JComponent
 		{
 			x = rand.nextInt(ROWS);
 			y = rand.nextInt(COLS);
-			if(squares[x][y].getButtonType().equals(ButtonType.BLANK))
+			if(squares[x][y].getButtonType() == ButtonType.BLANK)
 			{
 				squares[x][y].setButtonType(ButtonType.BOMB);
 				i++;

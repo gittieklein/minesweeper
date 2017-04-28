@@ -25,7 +25,7 @@ public class BelowComponent extends JComponent
 		icon = new ImageIcon(bombimg);
 		bombIcon.setIcon(icon);
 	
-		bombLabel.setFont(new Font("Calibri", Font.PLAIN, 32));	//set font and size of test
+		bombLabel.setFont(new Font("Calibri", Font.PLAIN, 32));	//set font and size of text
 
 		
 		//add number of bombs and bomb image to the component

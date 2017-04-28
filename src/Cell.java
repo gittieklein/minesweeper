@@ -1,3 +1,5 @@
+import java.awt.Image;
+
 import javax.swing.JButton;
 
 import Enums.ButtonType;
@@ -10,6 +12,7 @@ public class Cell extends JButton
 	
 	//what the button has behind it
 	private ButtonType type;
+	private Image img;
 	
 	public Cell(int x, int y)
 	{
