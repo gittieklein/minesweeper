@@ -19,7 +19,7 @@ public class BelowComponent extends JComponent
 		JLabel bombLabel = new JLabel(bombs + " ");
 		JLabel bombIcon = new JLabel();
 		ImageIcon icon = new ImageIcon
-				("C:\\Users\\Gittie Klein\\OneDrive\\Documents\\Data Structures 2 - Prof. Katz\\MCO 364\\MineSweeper\\src\\images\\mine.png");
+				("src/images/mine.png");
 		Image img = icon.getImage();
 		Image bombimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(bombimg);
