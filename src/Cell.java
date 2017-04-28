@@ -1,14 +1,21 @@
 import javax.swing.JButton;
 
+import Enums.ButtonType;
+
 public class Cell extends JButton
 {
+	//the index of the button in the array
 	private int xindex;
 	private int yindex;
+	
+	//what the button has behind it
+	private ButtonType type;
 	
 	public Cell(int x, int y)
 	{
 		xindex = x;
 		yindex = y;
+		type = ButtonType.BLANK;	//all squares should be initialized to blank
 	}
 
 	public int getXindex()
@@ -16,18 +23,19 @@ public class Cell extends JButton
 		return xindex;
 	}
 
-	public void setXindex(int xindex)
-	{
-		this.xindex = xindex;
-	}
-
 	public int getYindex()
 	{
 		return yindex;
 	}
-
-	public void setYindex(int yindex)
+	
+	public ButtonType getButtonType()
 	{
-		this.yindex = yindex;
+		return type;
 	}
+	
+	public void setButtonType(ButtonType type)
+	{
+		this.type = type;
+	}
+
 }

@@ -9,6 +9,8 @@ import java.util.Random;
 
 import javax.swing.*;
 
+import Enums.ButtonType;
+
 public class GridComponent extends JComponent
 {
 	private static final long serialVersionUID = 1L;
@@ -71,6 +73,17 @@ public class GridComponent extends JComponent
 	private void setBombs()
 	{
 		Random rand = new Random();
+		int x, y;
+		for(int i = 0; i < BOMBS;)
+		{
+			x = rand.nextInt(ROWS);
+			y = rand.nextInt(COLS);
+			if(squares[x][y].getButtonType().equals(ButtonType.BLANK))
+			{
+				squares[x][y].setButtonType(ButtonType.BOMB);
+				i++;
+			}
+		}
 		//TODO set the bombs based on random number of row and column
 	}
 	
@@ -89,6 +102,7 @@ public class GridComponent extends JComponent
 	private void leftMouseClick(Cell button)
 	{
 		System.out.println(button.getYindex());
+		System.out.println(button.getButtonType());
 	}
 	
 	private void rightMouseClick(Cell button)
