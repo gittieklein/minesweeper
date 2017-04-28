@@ -12,7 +12,7 @@ import javax.swing.*;
 public class GridComponent extends JComponent
 {
 	private static final long serialVersionUID = 1L;
-	private JButton squares[][];	//the grid of squares - they're buttons so you could click them
+	private Cell squares[][];	//the grid of squares - they're buttons so you could click them
 	private final int ROWS;
 	private final int COLS;
 	private final int BOMBS;
@@ -22,7 +22,7 @@ public class GridComponent extends JComponent
 		ROWS = r;
 		COLS = c;
 		BOMBS = bomb;
-		squares = new JButton[ROWS][COLS];
+		squares = new Cell[ROWS][COLS];
 		setLayout(new GridLayout(ROWS,COLS));
 		
 		buildButtons();
@@ -36,7 +36,7 @@ public class GridComponent extends JComponent
 		{
 			for(int j = 0; j < COLS; j++)
 			{
-				squares[i][j] = new JButton();	//create a new button
+				squares[i][j] = new Cell(i, j);	//create a new button
 				squares[i][j].putClientProperty("index1", i);	//add property of row location
 				squares[i][j].putClientProperty("index2", j);	//add property of column location
 				squares[i][j].setPreferredSize(new Dimension(40, 40)); //set the size of each button to be a square
@@ -48,7 +48,7 @@ public class GridComponent extends JComponent
 					@Override
 					public void mouseClicked(MouseEvent e)
 					{
-						JButton button = (JButton) e.getSource();
+						Cell button = (Cell) e.getSource();
 						
 						//checks if the button was clicked with right or left and calls appropriate method
 						if(SwingUtilities.isLeftMouseButton(e)) leftMouseClick(button);
@@ -86,12 +86,12 @@ public class GridComponent extends JComponent
 	 * if blank button - flag, decrease number of bombs
 	 * if flag - blank, increase number of bombs
 	 */
-	private void leftMouseClick(JButton button)
+	private void leftMouseClick(Cell button)
 	{
-		
+		System.out.println(button.getYindex());
 	}
 	
-	private void rightMouseClick(JButton button)
+	private void rightMouseClick(Cell button)
 	{
 		
 	}
