@@ -12,7 +12,7 @@ public class MinesweeperJFrame extends JFrame
 	public MinesweeperJFrame(int rows, int cols, int bombs) 
 	{
 		setTitle("Minesweeper");	
-		setSize(cols*50,rows*50);
+		setSize(cols*50 + 40, rows*50 + 40);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//window closes when click x
 		setResizable(false);	//the user can't resize the screen - ensures the buttons stay squares
 		setLocationRelativeTo(null);	//centers the window on the screen

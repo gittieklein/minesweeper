@@ -18,6 +18,8 @@ public class GridComponent extends JComponent
 	private final int ROWS;
 	private final int COLS;
 	private final int BOMBS;
+	private ImageIcon[] images;
+	
 	
 	public GridComponent(int r, int c, int bomb)
 	{
@@ -27,18 +29,35 @@ public class GridComponent extends JComponent
 		squares = new Cell[ROWS][COLS];
 		setLayout(new GridLayout(ROWS,COLS));
 		
+		//create array of images
+		images = new ImageIcon[13];
+		images[0] = new ImageIcon("src/images/zero.png");
+		images[1] = new ImageIcon("src/images/one.png");
+		images[2] = new ImageIcon("src/images/two.png");
+		images[3] = new ImageIcon("src/images/three.png");
+		images[4] = new ImageIcon("src/images/four.png");
+		images[5] = new ImageIcon("src/images/five.png");
+		images[6] = new ImageIcon("src/images/six.png");
+		images[7] = new ImageIcon("src/images/seven.png");
+		images[8] = new ImageIcon("src/images/eight.png");
+		images[9] = new ImageIcon("src/images/mineboard.png");
+		images[10] = new ImageIcon("src/images/xmine.png");
+		images[11] = new ImageIcon("src/images/button.png");
+		images[12] = new ImageIcon("src/images/button-flag.png");
+		
+		Image imgTemp;
+		for(int i = 0; i < images.length; i++)
+		{
+			imgTemp = images[i].getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+			images[i] = new ImageIcon(imgTemp);
+		}
+		
 		buildButtons();
 		setBombs();
 	}
 
 	private void buildButtons()
-	{
-		//make image
-		ImageIcon icon = new ImageIcon("src/images/button.png");
-		Image img = icon.getImage();
-		Image bombimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
-		icon = new ImageIcon(bombimg);
-		
+	{		
 		//loop through the 2D array
 		for(int i = 0; i < ROWS; i++)
 		{
@@ -51,7 +70,7 @@ public class GridComponent extends JComponent
 				//squares[i][j].setBackground(Color.lightGray);	//set the buttons to gray
 				
 				//set button image to all buttons
-				squares[i][j].setIcon(icon);
+				//squares[i][j].setIcon(icon);
 						
 				//TODO generate mouse listener
 				squares[i][j].addMouseListener(new MouseListener() 
@@ -91,6 +110,7 @@ public class GridComponent extends JComponent
 			if(squares[x][y].getButtonType() == ButtonType.BLANK)
 			{
 				squares[x][y].setButtonType(ButtonType.BOMB);
+				squares[x][y].setImg(images[9]);
 				i++;
 			}
 		}
@@ -154,50 +174,47 @@ public class GridComponent extends JComponent
 						if(squares[i][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
 					}
 					
-					ImageIcon icon = new ImageIcon("src/images/zero.png");
 					ButtonType type = ButtonType.BLANK;
+					ImageIcon icon;
 					switch (numBombs)
 					{
 						case 1:
-							icon = new ImageIcon("src/images/one.png");
+							icon = images[1];
 							type = ButtonType.ONE;
 							break;
 						case 2:
-							icon = new ImageIcon("src/images/two.png");
+							icon = images[2];
 							type = ButtonType.TWO;
 							break;
 						case 3: 
-							icon = new ImageIcon("src/images/three.png");
+							icon = images[3];
 							type = ButtonType.THREE;
 							break;
 						case 4: 
-							icon = new ImageIcon("src/images/four.png");
+							icon = images[4];
 							type = ButtonType.FOUR;
 							break;
 						case 5:
-							icon = new ImageIcon("src/images/five.png");
+							icon = images[5];
 							type = ButtonType.FIVE;
 							break;
 						case 6:
-							icon = new ImageIcon("src/images/six.png");
+							icon = images[6];
 							type = ButtonType.SIX;
 							break;
 						case 7:
-							icon = new ImageIcon("src/images/seven.png");
+							icon = images[7];
 							type = ButtonType.SEVEN;
 							break;
 						case 8:
-							icon = new ImageIcon("src/images/eight.png");
+							icon = images[8];
 							type = ButtonType.EIGHT;
 							break;
 						default:
-							icon = new ImageIcon("src/images/one.png");
+							icon = images[0];
 							type = ButtonType.BLANK;		
 					}
 					squares[i][j].setButtonType(type);
-					Image img = icon.getImage();
-					Image bombimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
-					icon = new ImageIcon(bombimg);
 					squares[i][j].setImg(icon);
 				}
 			}
@@ -236,14 +253,7 @@ public class GridComponent extends JComponent
 			//button.setIcon(new ImageIcon("src/images/flag.png"));
 			//need to disable left button click.
 			
-			
-			
-			
-			ImageIcon icon = new ImageIcon("src/images/button-flag.png");
-			Image img = icon.getImage();
-			Image bombimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
-			icon = new ImageIcon(bombimg);
-			button.setIcon(icon);
+			button.setIcon(images[12]);
 		}		
 	}
 
