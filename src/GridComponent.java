@@ -85,7 +85,99 @@ public class GridComponent extends JComponent
 				i++;
 			}
 		}
-		//TODO set the bombs based on random number of row and column
+		
+		//now that all bombs are in place, set the numbers around them
+		//check every sqaure, if it's blank, check the cells around it 
+		for(int i = 0; i < ROWS; i++)
+		{
+			for(int j = 0; j < COLS; j++)
+			{
+				int numBombs = 0;
+				if(squares[i][j].getButtonType() == ButtonType.BLANK)
+				{
+					//count the bombs around it in all directions
+					if(i > 0)
+					{
+						//1 cell up
+						if(squares[i-1][j].getButtonType() == ButtonType.BOMB) numBombs++;
+						
+						if(j > 0)
+						{
+							//1 cell up to the left
+							if(squares[i-1][j-1].getButtonType() == ButtonType.BOMB) numBombs++;
+						}
+						
+						if(j < COLS - 1)
+						{
+							//1 cell up to the right
+							if(squares[i-1][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
+						}
+					}
+					
+					if(j > 0)
+					{
+						//1 cell to the left
+						if(squares[i][j-1].getButtonType() == ButtonType.BOMB) numBombs++;
+						
+						if(i < ROWS - 1)
+						{
+							//1 cell down to the left
+							if(squares[i+1][j-1].getButtonType() == ButtonType.BOMB) numBombs++;
+						}
+					}
+					
+					if(i < ROWS - 1)
+					{
+						//1 cell down
+						if(squares[i+1][j].getButtonType() == ButtonType.BOMB) numBombs++;
+						
+						if(j < COLS - 1)
+						{
+							//1 cell down to the right
+							if(squares[i+1][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
+						}
+					}
+					
+					//1 cell to the right
+					if(j < COLS - 1)
+					{
+						if(squares[i][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
+					}
+					
+					ButtonType type = ButtonType.BLANK;
+					switch (numBombs)
+					{
+						case 1:
+							type = ButtonType.ONE;
+							break;
+						case 2:
+							type = ButtonType.TWO;
+							break;
+						case 3: 
+							type = ButtonType.THREE;
+							break;
+						case 4: 
+							type = ButtonType.FOUR;
+							break;
+						case 5:
+							type = ButtonType.FIVE;
+							break;
+						case 6:
+							type = ButtonType.SIX;
+							break;
+						case 7:
+							type = ButtonType.SEVEN;
+							break;
+						case 8:
+							type = ButtonType.EIGHT;
+							break;
+						default:
+							type = ButtonType.BLANK;		
+					}
+					squares[i][j].setButtonType(type);
+				}
+			}
+		}
 	}
 	
 	/*
