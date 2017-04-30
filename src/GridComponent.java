@@ -200,7 +200,17 @@ public class GridComponent extends JComponent
 	
 	private void rightMouseClick(Cell button)
 	{
-		
+		if(button.getModel().isPressed())
+		{
+		 //this doesnt work	button.setIcon(null);
+		}
+		else
+		{
+			JLabel flagIcon = new JLabel();
+			//add number of bombs and bomb image to the component
+			button.setIcon(new ImageIcon("src/images/flag.png"));
+			//need to disable left button click.
+		}		
 	}
 
 }

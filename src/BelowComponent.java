@@ -18,8 +18,7 @@ public class BelowComponent extends JComponent
 		//scale the image so you could set the size
 		JLabel bombLabel = new JLabel(bombs + " ");
 		JLabel bombIcon = new JLabel();
-		ImageIcon icon = new ImageIcon
-				("src/images/mine.png");
+		ImageIcon icon = new ImageIcon("src/images/mine.png");
 		Image img = icon.getImage();
 		Image bombimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(bombimg);
