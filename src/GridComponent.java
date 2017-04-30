@@ -33,6 +33,12 @@ public class GridComponent extends JComponent
 
 	private void buildButtons()
 	{
+		//make image
+		ImageIcon icon = new ImageIcon("src/images/button.png");
+		Image img = icon.getImage();
+		Image bombimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
+		icon = new ImageIcon(bombimg);
+		
 		//loop through the 2D array
 		for(int i = 0; i < ROWS; i++)
 		{
@@ -42,7 +48,10 @@ public class GridComponent extends JComponent
 				squares[i][j].putClientProperty("index1", i);	//add property of row location
 				squares[i][j].putClientProperty("index2", j);	//add property of column location
 				squares[i][j].setPreferredSize(new Dimension(40, 40)); //set the size of each button to be a square
-				squares[i][j].setBackground(Color.lightGray);	//set the buttons to gray
+				//squares[i][j].setBackground(Color.lightGray);	//set the buttons to gray
+				
+				//set button image to all buttons
+				squares[i][j].setIcon(icon);
 						
 				//TODO generate mouse listener
 				squares[i][j].addMouseListener(new MouseListener() 
@@ -85,6 +94,7 @@ public class GridComponent extends JComponent
 				i++;
 			}
 		}
+		
 		
 		//now that all bombs are in place, set the numbers around them
 		//check every sqaure, if it's blank, check the cells around it 
@@ -144,37 +154,51 @@ public class GridComponent extends JComponent
 						if(squares[i][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
 					}
 					
+					ImageIcon icon = new ImageIcon("src/images/zero.png");
 					ButtonType type = ButtonType.BLANK;
 					switch (numBombs)
 					{
 						case 1:
+							icon = new ImageIcon("src/images/one.png");
 							type = ButtonType.ONE;
 							break;
 						case 2:
+							icon = new ImageIcon("src/images/two.png");
 							type = ButtonType.TWO;
 							break;
 						case 3: 
+							icon = new ImageIcon("src/images/three.png");
 							type = ButtonType.THREE;
 							break;
 						case 4: 
+							icon = new ImageIcon("src/images/four.png");
 							type = ButtonType.FOUR;
 							break;
 						case 5:
+							icon = new ImageIcon("src/images/five.png");
 							type = ButtonType.FIVE;
 							break;
 						case 6:
+							icon = new ImageIcon("src/images/six.png");
 							type = ButtonType.SIX;
 							break;
 						case 7:
+							icon = new ImageIcon("src/images/seven.png");
 							type = ButtonType.SEVEN;
 							break;
 						case 8:
+							icon = new ImageIcon("src/images/eight.png");
 							type = ButtonType.EIGHT;
 							break;
 						default:
+							icon = new ImageIcon("src/images/one.png");
 							type = ButtonType.BLANK;		
 					}
 					squares[i][j].setButtonType(type);
+					Image img = icon.getImage();
+					Image bombimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
+					icon = new ImageIcon(bombimg);
+					squares[i][j].setImg(icon);
 				}
 			}
 		}
@@ -196,6 +220,7 @@ public class GridComponent extends JComponent
 	{
 		System.out.println(button.getYindex());
 		System.out.println(button.getButtonType());
+		button.setIcon(button.getImg());
 	}
 	
 	private void rightMouseClick(Cell button)
@@ -206,10 +231,19 @@ public class GridComponent extends JComponent
 		}
 		else
 		{
-			JLabel flagIcon = new JLabel();
+			//JLabel flagIcon = new JLabel();
 			//add number of bombs and bomb image to the component
-			button.setIcon(new ImageIcon("src/images/flag.png"));
+			//button.setIcon(new ImageIcon("src/images/flag.png"));
 			//need to disable left button click.
+			
+			
+			
+			
+			ImageIcon icon = new ImageIcon("src/images/button-flag.png");
+			Image img = icon.getImage();
+			Image bombimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
+			icon = new ImageIcon(bombimg);
+			button.setIcon(icon);
 		}		
 	}
 

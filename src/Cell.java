@@ -1,5 +1,6 @@
 import java.awt.Image;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 import Enums.ButtonType;
@@ -12,7 +13,7 @@ public class Cell extends JButton
 	
 	//what the button has behind it
 	private ButtonType type;
-	private Image img;
+	private ImageIcon img;
 	
 	public Cell(int x, int y)
 	{
@@ -39,6 +40,16 @@ public class Cell extends JButton
 	public void setButtonType(ButtonType type)
 	{
 		this.type = type;
+	}
+	
+	public ImageIcon getImg()
+	{
+		return img;
+	}
+	
+	public void setImg(ImageIcon img)
+	{
+		this.img = img;
 	}
 
 }
