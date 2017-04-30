@@ -10,7 +10,7 @@ public class BelowComponent extends JComponent
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	
 	public BelowComponent(int bombs)
 	{
 		setLayout(new FlowLayout(FlowLayout.TRAILING));

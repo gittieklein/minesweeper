@@ -17,7 +17,7 @@ public class GridComponent extends JComponent
 	private Cell squares[][];	//the grid of squares - they're buttons so you could click them
 	private final int ROWS;
 	private final int COLS;
-	private final int BOMBS;
+	private int BOMBS;
 	private ImageIcon[] images;
 	
 	
@@ -29,8 +29,15 @@ public class GridComponent extends JComponent
 		squares = new Cell[ROWS][COLS];
 		setLayout(new GridLayout(ROWS,COLS));
 		
+		setImages();
+		buildButtons();
+		setBombs();
+	}
+
+	private void setImages()
+	{
 		//create array of images
-		images = new ImageIcon[13];
+		images = new ImageIcon[14];
 		images[0] = new ImageIcon("src/images/zero.png");
 		images[1] = new ImageIcon("src/images/one.png");
 		images[2] = new ImageIcon("src/images/two.png");
@@ -44,16 +51,14 @@ public class GridComponent extends JComponent
 		images[10] = new ImageIcon("src/images/xmine.png");
 		images[11] = new ImageIcon("src/images/button.png");
 		images[12] = new ImageIcon("src/images/button-flag.png");
+		images[13] = new ImageIcon("src/images/flag.png");
 		
 		Image imgTemp;
 		for(int i = 0; i < images.length; i++)
 		{
-			imgTemp = images[i].getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
+			imgTemp = images[i].getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 			images[i] = new ImageIcon(imgTemp);
 		}
-		
-		buildButtons();
-		setBombs();
 	}
 
 	private void buildButtons()
@@ -253,7 +258,7 @@ public class GridComponent extends JComponent
 			//button.setIcon(new ImageIcon("src/images/flag.png"));
 			//need to disable left button click.
 			
-			button.setIcon(images[12]);
+			button.setIcon(images[13]);
 		}		
 	}
 
