@@ -1,5 +1,3 @@
-
-
 import java.awt.BorderLayout;
 import java.awt.Container;
 
@@ -8,9 +6,12 @@ import javax.swing.*;
 public class MinesweeperJFrame extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-
-	public MinesweeperJFrame(int rows, int cols, int bombs) 
+	private int bombs;
+	
+	public MinesweeperJFrame(int rows, int cols, int b) 
 	{
+		this.bombs = b;
+		
 		setTitle("Minesweeper");	
 		setSize(cols*50 + 40, rows*50 + 40);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//window closes when click x
@@ -23,9 +24,5 @@ public class MinesweeperJFrame extends JFrame
 		container.add(new BelowComponent(bombs), BorderLayout.SOUTH);	//add number of bombs remaining	
 	}
 	
-//	public static void main(String[] args)
-//	{
-//		MinesweeperJFrame ms = new MinesweeperJFrame(10, 10, 5);
-//	}
-
+	
 }

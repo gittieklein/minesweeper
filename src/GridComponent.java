@@ -239,17 +239,17 @@ public class GridComponent extends JComponent
 	 * if flag - blank, increase number of bombs
 	 */
 	private void leftMouseClick(Cell button)
-	{
-		System.out.println(button.getYindex());
-		System.out.println(button.getButtonType());
-		button.setIcon(button.getImg());
+	{	
+		//if the button has a flag, ignore left click
+		if(!images[13].equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
+			button.setIcon(button.getImg());
 	}
 	
 	private void rightMouseClick(Cell button)
 	{
-		if(button.getModel().isPressed())
+		if(images[13].equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
 		{
-		 //this doesnt work	button.setIcon(null);
+			button.setIcon(null);
 		}
 		else
 		{
