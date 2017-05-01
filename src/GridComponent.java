@@ -242,24 +242,37 @@ public class GridComponent extends JComponent
 	{	
 		//if the button has a flag, ignore left click
 		if(!images[13].equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
+			{
+			//disable the button once it is flipped over.
+			button.setEnabled(false);
+			//set the image of the button
 			button.setIcon(button.getImg());
+			//also set the disabled image so it is not grayed out.
+			button.setDisabledIcon(button.getImg());
+			
+			
+			}
 	}
 	
 	private void rightMouseClick(Cell button)
 	{
-		if(images[13].equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
+		//only allow a button to be clicked if it was not disabled already on left click.
+		if(button.isEnabled())
 		{
-			button.setIcon(null);
+			if(images[13].equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
+			{
+				button.setIcon(null);
+			}
+			else
+			{
+				//JLabel flagIcon = new JLabel();
+				//add number of bombs and bomb image to the component
+				//button.setIcon(new ImageIcon("src/images/flag.png"));
+				//need to disable left button click.
+				
+				button.setIcon(images[13]);
+			}		
 		}
-		else
-		{
-			//JLabel flagIcon = new JLabel();
-			//add number of bombs and bomb image to the component
-			//button.setIcon(new ImageIcon("src/images/flag.png"));
-			//need to disable left button click.
-			
-			button.setIcon(images[13]);
-		}		
 	}
 
 }
