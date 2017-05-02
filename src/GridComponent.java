@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 import java.util.Random;
 
 import javax.swing.*;
@@ -17,17 +18,19 @@ public class GridComponent extends JComponent
 	private Cell squares[][];	//the grid of squares - they're buttons so you could click them
 	private final int ROWS;
 	private final int COLS;
-	private int BOMBS;
-	private ImageIcon[] images;
+	private int bombs;
+	private HashMap<String, ImageIcon> images;
 	
 	
 	public GridComponent(int r, int c, int bomb)
 	{
 		ROWS = r;
 		COLS = c;
-		BOMBS = bomb;
+		bombs = bomb;
 		squares = new Cell[ROWS][COLS];
 		setLayout(new GridLayout(ROWS,COLS));
+		
+		images = new HashMap<String, ImageIcon>();
 		
 		setImages();
 		buildButtons();
@@ -37,27 +40,27 @@ public class GridComponent extends JComponent
 	private void setImages()
 	{
 		//create array of images
-		images = new ImageIcon[14];
-		images[0] = new ImageIcon("src/images/zero.png");
-		images[1] = new ImageIcon("src/images/one.png");
-		images[2] = new ImageIcon("src/images/two.png");
-		images[3] = new ImageIcon("src/images/three.png");
-		images[4] = new ImageIcon("src/images/four.png");
-		images[5] = new ImageIcon("src/images/five.png");
-		images[6] = new ImageIcon("src/images/six.png");
-		images[7] = new ImageIcon("src/images/seven.png");
-		images[8] = new ImageIcon("src/images/eight.png");
-		images[9] = new ImageIcon("src/images/mineboard.png");
-		images[10] = new ImageIcon("src/images/xmine.png");
-		images[11] = new ImageIcon("src/images/button.png");
-		images[12] = new ImageIcon("src/images/button-flag.png");
-		images[13] = new ImageIcon("src/images/flag.png");
+		images.put("zero", new ImageIcon("src/images/zero.png"));
+		images.put("one", new ImageIcon("src/images/one.png"));
+		images.put("two", new ImageIcon("src/images/two.png"));
+		images.put("three", new ImageIcon("src/images/three.png"));
+		images.put("four", new ImageIcon("src/images/four.png"));
+		images.put("five", new ImageIcon("src/images/five.png"));
+		images.put("six", new ImageIcon("src/images/six.png"));
+		images.put("seven", new ImageIcon("src/images/seven.png"));
+		images.put("eight", new ImageIcon("src/images/eight.png"));
+		images.put("mine", new ImageIcon("src/images/mineboard.png"));
+		images.put("xmine", new ImageIcon("src/images/xmine.png"));
+		images.put("button", new ImageIcon("src/images/button.png"));
+		images.put("button-flag", new ImageIcon("src/images/button-flag.png"));
+		images.put("flag", new ImageIcon("src/images/flag.png"));
 		
 		Image imgTemp;
-		for(int i = 0; i < images.length; i++)
+		for(String key: images.keySet())
 		{
-			imgTemp = images[i].getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-			images[i] = new ImageIcon(imgTemp);
+			imgTemp = images.get(key).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+			images.put(key,  new ImageIcon(imgTemp));
+			
 		}
 	}
 
@@ -108,14 +111,14 @@ public class GridComponent extends JComponent
 	{
 		Random rand = new Random();
 		int x, y;
-		for(int i = 0; i < BOMBS;)
+		for(int i = 0; i < bombs;)
 		{
 			x = rand.nextInt(ROWS);
 			y = rand.nextInt(COLS);
 			if(squares[x][y].getButtonType() == ButtonType.BLANK)
 			{
 				squares[x][y].setButtonType(ButtonType.BOMB);
-				squares[x][y].setImg(images[9]);
+				squares[x][y].setImg(images.get("mine"));
 				i++;
 			}
 		}
@@ -184,39 +187,39 @@ public class GridComponent extends JComponent
 					switch (numBombs)
 					{
 						case 1:
-							icon = images[1];
+							icon = images.get("one");
 							type = ButtonType.ONE;
 							break;
 						case 2:
-							icon = images[2];
+							icon = images.get("two");
 							type = ButtonType.TWO;
 							break;
 						case 3: 
-							icon = images[3];
+							icon = images.get("three");
 							type = ButtonType.THREE;
 							break;
 						case 4: 
-							icon = images[4];
+							icon = images.get("four");
 							type = ButtonType.FOUR;
 							break;
 						case 5:
-							icon = images[5];
+							icon = images.get("five");
 							type = ButtonType.FIVE;
 							break;
 						case 6:
-							icon = images[6];
+							icon = images.get("six");
 							type = ButtonType.SIX;
 							break;
 						case 7:
-							icon = images[7];
+							icon = images.get("seven");
 							type = ButtonType.SEVEN;
 							break;
 						case 8:
-							icon = images[8];
+							icon = images.get("eight");
 							type = ButtonType.EIGHT;
 							break;
 						default:
-							icon = images[0];
+							icon = images.get("zero");
 							type = ButtonType.BLANK;		
 					}
 					squares[i][j].setButtonType(type);
@@ -241,7 +244,7 @@ public class GridComponent extends JComponent
 	private void leftMouseClick(Cell button)
 	{	
 		//if the button has a flag, ignore left click
-		if(!images[13].equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
+		if(!images.get("flag").equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
 			{
 			//disable the button once it is flipped over.
 			button.setEnabled(false);
@@ -259,20 +262,20 @@ public class GridComponent extends JComponent
 		//only allow a button to be clicked if it was not disabled already on left click.
 		if(button.isEnabled())
 		{
-			if(images[13].equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
+			if(images.get("flag").equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
 			{
 				button.setIcon(null);
-				BelowComponent.bomb++;	//not working now
+				BelowComponent.editBombs(++bombs);
 			}
-			else
+			else if(bombs > 0)	
 			{
 				//JLabel flagIcon = new JLabel();
 				//add number of bombs and bomb image to the component
 				//button.setIcon(new ImageIcon("src/images/flag.png"));
 				//need to disable left button click.
 				
-				button.setIcon(images[13]);
-				BelowComponent.bomb--;	//not working now
+				button.setIcon(images.get("flag"));
+				BelowComponent.editBombs(--bombs);
 			}		
 		}
 	}

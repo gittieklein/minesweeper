@@ -6,20 +6,16 @@ import javax.swing.*;
 
 public class BelowComponent extends JComponent
 {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-	protected static int bomb;
+	private static JLabel bombLabel;
 	
 	public BelowComponent(int bombs)
-	{
-		this.bomb = bombs;
-		
+	{	
 		setLayout(new FlowLayout(FlowLayout.TRAILING));
 		
 		//scale the image so you could set the size
-		JLabel bombLabel = new JLabel(bomb + " ");
+		bombLabel = new JLabel(bombs + " ");
 		JLabel bombIcon = new JLabel();
 		ImageIcon icon = new ImageIcon("src/images/mine.png");
 		Image img = icon.getImage();
@@ -33,6 +29,12 @@ public class BelowComponent extends JComponent
 		this.add(bombLabel);
 		this.add(bombIcon);
 	}
+	
+	public static void editBombs(int bombs)
+	{
+		bombLabel.setText(bombs + " ");
+	}
+	
 }
 
 
