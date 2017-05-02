@@ -10,13 +10,16 @@ public class BelowComponent extends JComponent
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	protected static int bomb;
 	
 	public BelowComponent(int bombs)
 	{
+		this.bomb = bombs;
+		
 		setLayout(new FlowLayout(FlowLayout.TRAILING));
 		
 		//scale the image so you could set the size
-		JLabel bombLabel = new JLabel(bombs + " ");
+		JLabel bombLabel = new JLabel(bomb + " ");
 		JLabel bombIcon = new JLabel();
 		ImageIcon icon = new ImageIcon("src/images/mine.png");
 		Image img = icon.getImage();

@@ -262,6 +262,7 @@ public class GridComponent extends JComponent
 			if(images[13].equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
 			{
 				button.setIcon(null);
+				BelowComponent.bomb++;	//not working now
 			}
 			else
 			{
@@ -271,6 +272,7 @@ public class GridComponent extends JComponent
 				//need to disable left button click.
 				
 				button.setIcon(images[13]);
+				BelowComponent.bomb--;	//not working now
 			}		
 		}
 	}

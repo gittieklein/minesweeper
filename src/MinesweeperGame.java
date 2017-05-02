@@ -15,7 +15,7 @@ public class MinesweeperGame
 	{
 		int rows = 16;
 		int cols = 30;
-		int bombs = 130;
+		int bombs = 99;
 		MinesweeperJFrame frame = new MinesweeperJFrame(rows, cols, bombs);
 		frame.setJMenuBar(createMenu());
 		frame.setVisible(true);
