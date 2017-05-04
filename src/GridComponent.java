@@ -281,7 +281,7 @@ public class GridComponent extends JComponent
 		}
 	}
 	
-	private void flipButtons(Cell firstButton){
+	⁠⁠⁠private void flipButtons(Cell firstButton){
 		Stack<Cell> buttons = new Stack<Cell>();
 		Cell currentButton;
 		
@@ -289,62 +289,63 @@ public class GridComponent extends JComponent
 		int i,j;
 		while(!buttons.isEmpty())
 		{
-			//get
+		
 			currentButton = buttons.pop();
 			i = currentButton.getXindex();
 			j = currentButton.getYindex();
 			
-			//count the bombs around it in all directions
+			//push unturned buttons around it in all directions
 			if(i > 0)
 			{
-				//1 cell up
-				if(squares[-1][j].getButtonType() == ButtonType.BOMB)
-				
-				if(j > 0)
-				{
-					//1 cell up to the left
-					if(squares[i-1][j-1].getButtonType() == ButtonType.BOMB) 
-				}
+				leftMouseClick(squares[i-1][j]);
+				//1 cell up is blank
+				if(squares[i-1][j].getButtonType() == ButtonType.BLANK)		buttons.push(squares[i-1][j]);
+	
+					if(j > 0)
+						
+					leftMouseClick(squares[i-1][j-1]);{
+						//1 cell up to the left
+						if(squares[i-1][j-1].getButtonType() == ButtonTypeBLANKB)buttons.push(squares[i-1][j]);
+					}
 				
 				if(j < COLS - 1)
-				{
+				
+					leftMouseClick(squares[i-1][j+1]);{
 					//1 cell up to the right
-					if(squares[i-1][j+1].getButtonType() == ButtonType.BOMB) 
+					if(squares[i-1][j+1].getButtonType() == ButtonTypeBLANKB)buttons.push(squares[i-1][j]); 
 				}
 			}
 			
 			if(j > 0)
 			{
 				//1 cell to the left
-				if(squares[i][j-1].getButtonType() == ButtonType.BOMB) numBombs++;
+				if(squares[i][j-1].getButtonType() == ButtonTypeBLANKB)+;
 				
 				if(i < ROWS - 1)
 				{
 					//1 cell down to the left
-					if(squares[i+1][j-1].getButtonType() == ButtonType.BOMB) numBombs++;
+					if(squares[i+1][j-1].getButtonType() == ButtonTypeBLANKB)+;
 				}
 			}
 			
 			if(i < ROWS - 1)
 			{
 				//1 cell down
-				if(squares[i+1][j].getButtonType() == ButtonType.BOMB) numBombs++;
+				if(squares[i+1][j].getButtonType() == ButtonTypeBLANKB)+;
 				
 				if(j < COLS - 1)
 				{
 					//1 cell down to the right
-					if(squares[i+1][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
+					if(squares[i+1][j+1].getButtonType() == ButtonTypeBLANKB+;
 				}
 			}
 			
 			//1 cell to the right
 			if(j < COLS - 1)
 			{
-				if(squares[i][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
+				if(squares[i][j+1].getButtonType() == ButtonType.BOMB+;
 			}
-		}
-		
-		
+		}	
 	}
 
 }
