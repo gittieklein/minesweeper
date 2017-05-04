@@ -91,7 +91,7 @@ public class GridComponent extends JComponent
 						Cell button = (Cell) e.getSource();
 						
 						//checks if the button was clicked with right or left and calls appropriate method
-						if(SwingUtilities.isLeftMouseButton(e)) leftMouseClick(button);
+						if(SwingUtilities.isLeftMouseButton(e)) flipButtons(button);
 						if(SwingUtilities.isRightMouseButton(e)) rightMouseClick(button);	
 					}
 
@@ -281,7 +281,7 @@ public class GridComponent extends JComponent
 		}
 	}
 	
-	⁠⁠⁠private void flipButtons(Cell firstButton){
+ private void flipButtons(Cell firstButton){
 		Stack<Cell> buttons = new Stack<Cell>();
 		Cell currentButton;
 		
@@ -299,51 +299,51 @@ public class GridComponent extends JComponent
 			{
 				leftMouseClick(squares[i-1][j]);
 				//1 cell up is blank
-				if(squares[i-1][j].getButtonType() == ButtonType.BLANK)		buttons.push(squares[i-1][j]);
+				if(squares[i-1][j].getButtonType() == ButtonType.BLANK)	buttons.push(squares[i-1][j]);
 	
 					if(j > 0)
 						
 					leftMouseClick(squares[i-1][j-1]);{
 						//1 cell up to the left
-						if(squares[i-1][j-1].getButtonType() == ButtonTypeBLANKB)buttons.push(squares[i-1][j]);
+						if(squares[i-1][j-1].getButtonType() == ButtonType.BLANK)buttons.push(squares[i-1][j]);
 					}
 				
 				if(j < COLS - 1)
 				
 					leftMouseClick(squares[i-1][j+1]);{
 					//1 cell up to the right
-					if(squares[i-1][j+1].getButtonType() == ButtonTypeBLANKB)buttons.push(squares[i-1][j]); 
+					if(squares[i-1][j+1].getButtonType() == ButtonType.BLANK)buttons.push(squares[i-1][j]); 
 				}
 			}
 			
 			if(j > 0)
 			{
 				//1 cell to the left
-				if(squares[i][j-1].getButtonType() == ButtonTypeBLANKB)+;
+				if(squares[i][j-1].getButtonType() == ButtonType.BLANK)buttons.push(squares[i][j-1]);
 				
 				if(i < ROWS - 1)
 				{
 					//1 cell down to the left
-					if(squares[i+1][j-1].getButtonType() == ButtonTypeBLANKB)+;
+					if(squares[i+1][j-1].getButtonType() == ButtonType.BLANK) buttons.push(squares[i+1][j-1]);
 				}
 			}
 			
 			if(i < ROWS - 1)
 			{
 				//1 cell down
-				if(squares[i+1][j].getButtonType() == ButtonTypeBLANKB)+;
+				if(squares[i+1][j].getButtonType() == ButtonType.BLANK)buttons.push(squares[i+1][j]);
 				
 				if(j < COLS - 1)
 				{
 					//1 cell down to the right
-					if(squares[i+1][j+1].getButtonType() == ButtonTypeBLANKB+;
+					if(squares[i+1][j+1].getButtonType() == ButtonType.BLANK)buttons.push(squares[i+1][j+1]);
 				}
 			}
 			
 			//1 cell to the right
 			if(j < COLS - 1)
 			{
-				if(squares[i][j+1].getButtonType() == ButtonType.BOMB+;
+				if(squares[i][j+1].getButtonType() == ButtonType.BLANK)buttons.push(squares[i][j+1]);
 			}
 		}	
 	}
