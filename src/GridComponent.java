@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Stack;
 
 import javax.swing.*;
 
@@ -278,6 +279,72 @@ public class GridComponent extends JComponent
 				BelowComponent.editBombs(--bombs);
 			}		
 		}
+	}
+	
+	private void flipButtons(Cell firstButton){
+		Stack<Cell> buttons = new Stack<Cell>();
+		Cell currentButton;
+		
+		buttons.push(firstButton);
+		int i,j;
+		while(!buttons.isEmpty())
+		{
+			//get
+			currentButton = buttons.pop();
+			i = currentButton.getXindex();
+			j = currentButton.getYindex();
+			
+			//count the bombs around it in all directions
+			if(i > 0)
+			{
+				//1 cell up
+				if(squares[-1][j].getButtonType() == ButtonType.BOMB)
+				
+				if(j > 0)
+				{
+					//1 cell up to the left
+					if(squares[i-1][j-1].getButtonType() == ButtonType.BOMB) 
+				}
+				
+				if(j < COLS - 1)
+				{
+					//1 cell up to the right
+					if(squares[i-1][j+1].getButtonType() == ButtonType.BOMB) 
+				}
+			}
+			
+			if(j > 0)
+			{
+				//1 cell to the left
+				if(squares[i][j-1].getButtonType() == ButtonType.BOMB) numBombs++;
+				
+				if(i < ROWS - 1)
+				{
+					//1 cell down to the left
+					if(squares[i+1][j-1].getButtonType() == ButtonType.BOMB) numBombs++;
+				}
+			}
+			
+			if(i < ROWS - 1)
+			{
+				//1 cell down
+				if(squares[i+1][j].getButtonType() == ButtonType.BOMB) numBombs++;
+				
+				if(j < COLS - 1)
+				{
+					//1 cell down to the right
+					if(squares[i+1][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
+				}
+			}
+			
+			//1 cell to the right
+			if(j < COLS - 1)
+			{
+				if(squares[i][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
+			}
+		}
+		
+		
 	}
 
 }
