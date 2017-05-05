@@ -36,6 +36,7 @@ public class GridComponent extends JComponent
 		setImages();
 		buildButtons();
 		setBombs();
+		setNumbers();
 	}
 
 	private void setImages()
@@ -61,7 +62,6 @@ public class GridComponent extends JComponent
 		{
 			imgTemp = images.get(key).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
 			images.put(key,  new ImageIcon(imgTemp));
-			
 		}
 	}
 
@@ -91,7 +91,7 @@ public class GridComponent extends JComponent
 						Cell button = (Cell) e.getSource();
 						
 						//checks if the button was clicked with right or left and calls appropriate method
-						if(SwingUtilities.isLeftMouseButton(e)) flipButtons(button);
+						if(SwingUtilities.isLeftMouseButton(e)) leftMouseClick(button);
 						if(SwingUtilities.isRightMouseButton(e)) rightMouseClick(button);	
 					}
 
@@ -123,8 +123,10 @@ public class GridComponent extends JComponent
 				i++;
 			}
 		}
-		
-		
+	}
+
+	private void setNumbers()
+	{
 		//now that all bombs are in place, set the numbers around them
 		//check every sqaure, if it's blank, check the cells around it 
 		for(int i = 0; i < ROWS; i++)
@@ -135,101 +137,87 @@ public class GridComponent extends JComponent
 				if(squares[i][j].getButtonType() == ButtonType.BLANK)
 				{
 					//count the bombs around it in all directions
-					if(i > 0)
-					{
-						//1 cell up
-						if(squares[i-1][j].getButtonType() == ButtonType.BOMB) numBombs++;
-						
-						if(j > 0)
-						{
-							//1 cell up to the left
-							if(squares[i-1][j-1].getButtonType() == ButtonType.BOMB) numBombs++;
-						}
-						
-						if(j < COLS - 1)
-						{
-							//1 cell up to the right
-							if(squares[i-1][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
-						}
-					}
 					
-					if(j > 0)
-					{
-						//1 cell to the left
-						if(squares[i][j-1].getButtonType() == ButtonType.BOMB) numBombs++;
-						
-						if(i < ROWS - 1)
-						{
-							//1 cell down to the left
-							if(squares[i+1][j-1].getButtonType() == ButtonType.BOMB) numBombs++;
-						}
-					}
+					//1 cell up
+					if(getCell(i-1, j) != null) 
+						if(getCell(i-1, j).getButtonType() == ButtonType.BOMB) numBombs++;
 					
-					if(i < ROWS - 1)
-					{
-						//1 cell down
-						if(squares[i+1][j].getButtonType() == ButtonType.BOMB) numBombs++;
-						
-						if(j < COLS - 1)
-						{
-							//1 cell down to the right
-							if(squares[i+1][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
-						}
-					}
+					//1 cell up to the left
+					if(getCell(i-1, j-1) != null) 
+						if(getCell(i-1, j-1).getButtonType() == ButtonType.BOMB) numBombs++;
 					
+					//1 cell up to the right
+					if(getCell(i-1, j+1) != null) 
+						if(getCell(i-1, j+1).getButtonType() == ButtonType.BOMB) numBombs++;
+						
+					//1 cell to the left
+					if(getCell(i, j-1) != null) 
+						if(getCell(i, j-1).getButtonType() == ButtonType.BOMB) numBombs++;
+					
+					//1 cell down to the left
+					if(getCell(i+1, j-1) != null) 
+						if(getCell(i+1, j-1).getButtonType() == ButtonType.BOMB) numBombs++;
+					
+					//1 cell down
+					if(getCell(i+1, j) != null) 
+						if(getCell(i+1, j).getButtonType() == ButtonType.BOMB) numBombs++;
+					
+					//1 cell down to the right
+					if(getCell(i+1, j+1) != null) 
+						if(getCell(i+1, j+1).getButtonType() == ButtonType.BOMB) numBombs++;
+						
 					//1 cell to the right
-					if(j < COLS - 1)
-					{
-						if(squares[i][j+1].getButtonType() == ButtonType.BOMB) numBombs++;
-					}
-					
-					ButtonType type = ButtonType.BLANK;
-					ImageIcon icon;
-					switch (numBombs)
-					{
-						case 1:
-							icon = images.get("one");
-							type = ButtonType.ONE;
-							break;
-						case 2:
-							icon = images.get("two");
-							type = ButtonType.TWO;
-							break;
-						case 3: 
-							icon = images.get("three");
-							type = ButtonType.THREE;
-							break;
-						case 4: 
-							icon = images.get("four");
-							type = ButtonType.FOUR;
-							break;
-						case 5:
-							icon = images.get("five");
-							type = ButtonType.FIVE;
-							break;
-						case 6:
-							icon = images.get("six");
-							type = ButtonType.SIX;
-							break;
-						case 7:
-							icon = images.get("seven");
-							type = ButtonType.SEVEN;
-							break;
-						case 8:
-							icon = images.get("eight");
-							type = ButtonType.EIGHT;
-							break;
-						default:
-							icon = images.get("zero");
-							type = ButtonType.BLANK;		
-					}
-					squares[i][j].setButtonType(type);
-					squares[i][j].setImg(icon);
+					if(getCell(i, j+1) != null) 
+						if(getCell(i, j+1).getButtonType() == ButtonType.BOMB) numBombs++;
 				}
+					
+				ButtonType type = ButtonType.BLANK;
+				ImageIcon icon;
+				switch (numBombs)
+				{
+					case 1:
+						icon = images.get("one");
+						type = ButtonType.ONE;
+						break;
+					case 2:
+						icon = images.get("two");
+						type = ButtonType.TWO;
+						break;
+					case 3: 
+						icon = images.get("three");
+						type = ButtonType.THREE;
+						break;
+					case 4: 
+						icon = images.get("four");
+						type = ButtonType.FOUR;
+						break;
+					case 5:
+						icon = images.get("five");
+						type = ButtonType.FIVE;
+						break;
+					case 6:
+						icon = images.get("six");
+						type = ButtonType.SIX;
+						break;
+					case 7:
+						icon = images.get("seven");
+						type = ButtonType.SEVEN;
+						break;
+					case 8:
+						icon = images.get("eight");
+						type = ButtonType.EIGHT;
+						break;
+					default:
+						icon = images.get("zero");
+						type = ButtonType.BLANK;		
+				}
+				squares[i][j].setButtonType(type);
+				squares[i][j].setImg(icon);
 			}
 		}
 	}
-	
+
+
 	/*
 	 * left click:
 	 * if bomb - flip over all bombs, if there's a flag that's not a bomb show bomb with X, end the game
@@ -246,7 +234,7 @@ public class GridComponent extends JComponent
 	{	
 		//if the button has a flag, ignore left click
 		if(!images.get("flag").equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
-			{
+		{
 			//disable the button once it is flipped over.
 			button.setEnabled(false);
 			//set the image of the button
@@ -254,8 +242,10 @@ public class GridComponent extends JComponent
 			//also set the disabled image so it is not grayed out.
 			button.setDisabledIcon(button.getImg());
 			
-			
-			}
+			Cell cell = checkBlank(button.getXindex(), button.getYindex());
+			if(cell != null)
+				flipButtons(cell);
+		}
 	}
 	
 	private void rightMouseClick(Cell button)
@@ -281,71 +271,112 @@ public class GridComponent extends JComponent
 		}
 	}
 	
- private void flipButtons(Cell firstButton){
-		Stack<Cell> buttons = new Stack<Cell>();
-		Cell currentButton;
+	private Cell checkBlank(int i, int j)
+	{
+		//check if there is a blank around the cell clicked - if there is, turn them over as well
 		
-		buttons.push(firstButton);
+		//1 cell up
+		if(getCell(i-1, j) != null) 
+			if(getCell(i-1, j).getButtonType() == ButtonType.BLANK) return getCell(i-1, j);
+		
+		//1 cell up to the left
+		if(getCell(i-1, j-1) != null) 
+			if(getCell(i-1, j-1).getButtonType() == ButtonType.BLANK) return getCell(i-1, j-1);
+		
+		//1 cell up to the right
+		if(getCell(i-1, j+1) != null) 
+			if(getCell(i-1, j+1).getButtonType() == ButtonType.BLANK) return getCell(i-1, j+1);
+			
+		//1 cell to the left
+		if(getCell(i, j-1) != null) 
+			if(getCell(i, j-1).getButtonType() == ButtonType.BLANK) return getCell(i, j-1);
+		
+		//1 cell down to the left
+		if(getCell(i+1, j-1) != null) 
+			if(getCell(i+1, j-1).getButtonType() == ButtonType.BLANK) return getCell(i+1, j-1);
+		
+		//1 cell down
+		if(getCell(i+1, j) != null) 
+			if(getCell(i+1, j).getButtonType() == ButtonType.BLANK) return getCell(i+1, j);
+		
+		//1 cell down to the right
+		if(getCell(i+1, j+1) != null) 
+			if(getCell(i+1, j+1).getButtonType() == ButtonType.BLANK) return getCell(i+1, j+1);
+			
+		//1 cell to the right
+		if(getCell(i, j+1) != null) 
+			if(getCell(i, j+1).getButtonType() == ButtonType.BLANK) return getCell(i, j+1);
+		
+		return null;	//there is no blank square around it
+	}	
+	
+	private void flipButtons(Cell currentButton)
+	{
+		Stack<Cell> buttons = new Stack<Cell>();
+		Cell neighbor;
+		
+		buttons.push(currentButton);
 		int i,j;
 		while(!buttons.isEmpty())
-		{
-		
+		{	
 			currentButton = buttons.pop();
 			i = currentButton.getXindex();
 			j = currentButton.getYindex();
 			
-			//push unturned buttons around it in all directions
-			if(i > 0)
-			{
-				leftMouseClick(squares[i-1][j]);
-				//1 cell up is blank
-				if(squares[i-1][j].getButtonType() == ButtonType.BLANK)	buttons.push(squares[i-1][j]);
-	
-					if(j > 0)
-						
-					leftMouseClick(squares[i-1][j-1]);{
-						//1 cell up to the left
-						if(squares[i-1][j-1].getButtonType() == ButtonType.BLANK)buttons.push(squares[i-1][j]);
-					}
+			//1 cell up
+			neighbor = getCell(i-1, j);
+			checkNeighbor(buttons, neighbor, i, j);
 				
-				if(j < COLS - 1)
-				
-					leftMouseClick(squares[i-1][j+1]);{
-					//1 cell up to the right
-					if(squares[i-1][j+1].getButtonType() == ButtonType.BLANK)buttons.push(squares[i-1][j]); 
-				}
-			}
+			//1 cell up to the left
+			neighbor = getCell(i-1, j-1);
+			checkNeighbor(buttons, neighbor, i, j);
 			
-			if(j > 0)
-			{
-				//1 cell to the left
-				if(squares[i][j-1].getButtonType() == ButtonType.BLANK)buttons.push(squares[i][j-1]);
+			//1 cell up to the right
+			neighbor = getCell(i-1, j+1);
+			checkNeighbor(buttons, neighbor, i, j);
 				
-				if(i < ROWS - 1)
-				{
-					//1 cell down to the left
-					if(squares[i+1][j-1].getButtonType() == ButtonType.BLANK) buttons.push(squares[i+1][j-1]);
-				}
-			}
+			//1 cell to the left
+			neighbor = getCell(i, j-1);
+			checkNeighbor(buttons, neighbor, i, j);
 			
-			if(i < ROWS - 1)
-			{
-				//1 cell down
-				if(squares[i+1][j].getButtonType() == ButtonType.BLANK)buttons.push(squares[i+1][j]);
-				
-				if(j < COLS - 1)
-				{
-					//1 cell down to the right
-					if(squares[i+1][j+1].getButtonType() == ButtonType.BLANK)buttons.push(squares[i+1][j+1]);
-				}
-			}
+			//1 cell down to the left
+			neighbor = getCell(i+1, j-1);
+			checkNeighbor(buttons, neighbor, i, j);
+			
+			//1 cell down
+			neighbor = getCell(i+1, j);
+			checkNeighbor(buttons, neighbor, i, j);
+			
+			//1 cell down to the right
+			neighbor = getCell(i+1, j+1);
+			checkNeighbor(buttons, neighbor, i, j);
 			
 			//1 cell to the right
-			if(j < COLS - 1)
-			{
-				if(squares[i][j+1].getButtonType() == ButtonType.BLANK)buttons.push(squares[i][j+1]);
-			}
-		}	
+			neighbor = getCell(i, j+1);
+			checkNeighbor(buttons, neighbor, i, j);
+		}
+	}
+
+	private void checkNeighbor(Stack<Cell> buttons, Cell neighbor, int i, int j)
+	{
+		if(neighbor != null && !images.get("flag").equals(neighbor.getIcon())) 
+		{
+			//if it is not a flag, then flip it over
+			neighbor.setEnabled(false);
+			neighbor.setIcon(squares[i-1][j].getImg());
+			neighbor.setDisabledIcon(squares[i-1][j].getImg());
+			//if the image is blank, push it onto the stack
+			if(neighbor.getButtonType() == ButtonType.BLANK) 
+				buttons.push(neighbor);
+		}
+	}
+	
+	private Cell getCell(int x, int y)
+	{
+		if(x >= 0 && x < ROWS && y >= 0 && y < COLS)
+			return squares[x][y];
+		//return null if the cell is not in the grid
+		return null;
 	}
 
 }
