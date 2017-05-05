@@ -15,6 +15,19 @@ public class Cell extends JButton
 	private ButtonType type;
 	private ImageIcon img;
 	
+	//know if the button was pressed - meaning the number is showing
+	private boolean isPressed;
+	
+	public boolean isPressed()
+	{
+		return isPressed;
+	}
+
+	public void pressed()
+	{
+		this.isPressed = true;
+	}
+
 	public Cell(int x, int y)
 	{
 		xindex = x;

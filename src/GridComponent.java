@@ -241,6 +241,7 @@ public class GridComponent extends JComponent
 			button.setIcon(button.getImg());
 			//also set the disabled image so it is not grayed out.
 			button.setDisabledIcon(button.getImg());
+			button.pressed();
 			
 			Cell cell = checkBlank(button.getXindex(), button.getYindex());
 			if(cell != null)
@@ -361,13 +362,17 @@ public class GridComponent extends JComponent
 	{
 		if(neighbor != null && !images.get("flag").equals(neighbor.getIcon())) 
 		{
-			//if it is not a flag, then flip it over
-			neighbor.setEnabled(false);
-			neighbor.setIcon(squares[i-1][j].getImg());
-			neighbor.setDisabledIcon(squares[i-1][j].getImg());
-			//if the image is blank, push it onto the stack
-			if(neighbor.getButtonType() == ButtonType.BLANK) 
-				buttons.push(neighbor);
+			if(!neighbor.isPressed())
+			{
+				//if it is not a flag, then flip it over
+				neighbor.setEnabled(false);
+				neighbor.setIcon(squares[i-1][j].getImg());
+				neighbor.setDisabledIcon(squares[i-1][j].getImg());
+				neighbor.pressed();
+				//if the image is blank, push it onto the stack
+				if(neighbor.getButtonType() == ButtonType.BLANK) 
+					buttons.push(neighbor);
+			}
 		}
 	}
 	
