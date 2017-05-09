@@ -127,7 +127,7 @@ public class GridComponent extends JComponent
 
 	private void setNumbers()
 	{
-		ButtonType type = ButtonType.BLANK;
+		ButtonType type = ButtonType.BLANK ;
 		ImageIcon icon = null;
 		
 		//now that all bombs are in place, set the numbers around them
@@ -137,7 +137,7 @@ public class GridComponent extends JComponent
 			for(int j = 0; j < COLS; j++)
 			{
 				int numBombs = 0;
-				if(squares[i][j].getButtonType() == ButtonType.BLANK)
+				if(squares[i][j].getButtonType() != ButtonType.BOMB)
 				{
 					//count the bombs around it in all directions
 					
@@ -190,18 +190,14 @@ public class GridComponent extends JComponent
 						}
 				}
 				else{
-					type = ButtonType.BOMB;
-					icon = images.get("mine");
+					numBombs = -1;
 				}
 				
 				switch (numBombs)
 				{
-					case 0: 
-						if(type != ButtonType.BOMB)
-						{
-							icon = images.get("zero");
-							type = ButtonType.BLANK;
-						}
+					case -1: 
+						type = ButtonType.BOMB;
+						icon = images.get("mine");
 						break;
 					case 1:
 						icon = images.get("one");
@@ -235,6 +231,9 @@ public class GridComponent extends JComponent
 						icon = images.get("eight");
 						type = ButtonType.EIGHT;
 						break;
+					default:
+					icon = images.get("zero");
+					type = ButtonType.BLANK;
 							
 				}
 				squares[i][j].setButtonType(type);
@@ -269,9 +268,9 @@ public class GridComponent extends JComponent
 			button.setDisabledIcon(button.getImg());
 			button.pressed();
 
-			Cell cell = checkBlank(button.getXindex(), button.getYindex());
-			if(cell != null)
-				flipButtons(cell);
+//			Cell cell = checkBlank(button.getXindex(), button.getYindex());
+//			if(cell != null)
+//				flipButtons(cell);
 		}
 	}
 	
