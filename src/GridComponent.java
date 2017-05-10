@@ -257,20 +257,50 @@ public class GridComponent extends JComponent
 	 */
 	private void leftMouseClick(Cell button)
 	{	
-		//if the button has a flag, ignore left click
-		if(!images.get("flag").equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
+		if(button != null)
 		{
-			//disable the button once it is flipped over.
-			button.setEnabled(false);
-			//set the image of the button
-			button.setIcon(button.getImg());
-			//also set the disabled image so it is not grayed out.
-			button.setDisabledIcon(button.getImg());
-			button.pressed();
-
-//			Cell cell = checkBlank(button.getXindex(), button.getYindex());
-//			if(cell != null)
-//				flipButtons(cell);
+			//if the button has a flag, ignore left click
+			if(!images.get("flag").equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
+			{
+				//disable the button once it is flipped over.
+				button.setEnabled(false);
+				//set the image of the button
+				button.setIcon(button.getImg());
+				//also set the disabled image so it is not grayed out.
+				button.setDisabledIcon(button.getImg());
+				button.pressed();
+	
+				if(button.getButtonType() == ButtonType.BLANK)
+				{
+					int i = button.getXindex();
+					int j = button.getYindex();
+					
+					//left
+					leftMouseClick(getCell(i-1, j));
+					
+					//left, down
+					leftMouseClick(getCell(i-1, j-1));
+					
+					//left, up
+					leftMouseClick(getCell(i-1, j+1));
+					
+					//down
+					leftMouseClick(getCell(i, j-1));
+					
+					//right, down
+					leftMouseClick(getCell(i+1, j-1));
+					
+					//right
+					leftMouseClick(getCell(i+1, j));
+					
+					//right, up
+					leftMouseClick(getCell(i+1, j+1));
+					
+					//up
+					leftMouseClick(getCell(i, j+1));
+					
+				}
+	    	}
 		}
 	}
 	
@@ -297,125 +327,10 @@ public class GridComponent extends JComponent
 		}
 	}
 	
-	private Cell checkBlank(int i, int j)
-	{
-		//check if there is a blank around the cell clicked - if there is, turn them over as well
-		
-		//1 cell up
-		if(getCell(i-1, j) != null) 
-			{
-				if(getCell(i-1, j).getButtonType() == ButtonType.BLANK) return getCell(i-1, j);
-			}
-		
-		//1 cell up to the left
-		if(getCell(i-1, j-1) != null) 
-			{
-			if(getCell(i-1, j-1).getButtonType() == ButtonType.BLANK) return getCell(i-1, j-1);
-			}
-		
-		//1 cell up to the right
-		if(getCell(i-1, j+1) != null) 
-			{
-			if(getCell(i-1, j+1).getButtonType() == ButtonType.BLANK) return getCell(i-1, j+1);
-			}
-			
-		//1 cell to the left
-		if(getCell(i, j-1) != null) 
-			{
-			if(getCell(i, j-1).getButtonType() == ButtonType.BLANK) return getCell(i, j-1);
-			}
-		
-		//1 cell down to the left
-		if(getCell(i+1, j-1) != null) 
-			{
-			if(getCell(i+1, j-1).getButtonType() == ButtonType.BLANK) return getCell(i+1, j-1);
-			}
-		
-		//1 cell down
-		if(getCell(i+1, j) != null) 
-			{
-			if(getCell(i+1, j).getButtonType() == ButtonType.BLANK) return getCell(i+1, j);
-			}
-		
-		//1 cell down to the right
-		if(getCell(i+1, j+1) != null) 
-			{
-			if(getCell(i+1, j+1).getButtonType() == ButtonType.BLANK) return getCell(i+1, j+1);
-			}
-			
-		//1 cell to the right
-		if(getCell(i, j+1) != null) 
-			{
-			if(getCell(i, j+1).getButtonType() == ButtonType.BLANK) return getCell(i, j+1);
-			}
-		
-		return null;	//there is no blank square around it
-	}	
 	
-	private void flipButtons(Cell currentButton)
-	{
-		Stack<Cell> buttons = new Stack<Cell>();
-		Cell neighbor;
-		
-		buttons.push(currentButton);
-		int i,j;
-		while(!buttons.isEmpty())
-		{	
-			currentButton = buttons.pop();
-			i = currentButton.getXindex();
-			j = currentButton.getYindex();
-			
-			//1 cell up
-			neighbor = getCell(i-1, j);
-			checkNeighbor(buttons, neighbor, i, j);
-				
-			//1 cell up to the left
-			neighbor = getCell(i-1, j-1);
-			checkNeighbor(buttons, neighbor, i, j);
-			
-			//1 cell up to the right
-			neighbor = getCell(i-1, j+1);
-			checkNeighbor(buttons, neighbor, i, j);
-				
-			//1 cell to the left
-			neighbor = getCell(i, j-1);
-			checkNeighbor(buttons, neighbor, i, j);
-			
-			//1 cell down to the left
-			neighbor = getCell(i+1, j-1);
-			checkNeighbor(buttons, neighbor, i, j);
-			
-			//1 cell down
-			neighbor = getCell(i+1, j);
-			checkNeighbor(buttons, neighbor, i, j);
-			
-			//1 cell down to the right
-			neighbor = getCell(i+1, j+1);
-			checkNeighbor(buttons, neighbor, i, j);
-			
-			//1 cell to the right
-			neighbor = getCell(i, j+1);
-			checkNeighbor(buttons, neighbor, i, j);
-		}
-	}
+	
+	
 
-	private void checkNeighbor(Stack<Cell> buttons, Cell neighbor, int i, int j)
-	{
-		if(neighbor != null && !images.get("flag").equals(neighbor.getIcon())) 
-		{
-			if(!neighbor.isPressed())
-			{
-				//if it is not a flag, then flip it over
-				neighbor.setEnabled(false);
-				neighbor.setIcon(squares[i-1][j].getImg());
-				neighbor.setDisabledIcon(squares[i-1][j].getImg());
-				neighbor.pressed();
-				//if the image is blank, push it onto the stack
-				if(neighbor.getButtonType() == ButtonType.BLANK) 
-					buttons.push(neighbor);
-			}
-		}
-	}
 	
 	private Cell getCell(int x, int y)
 	{
