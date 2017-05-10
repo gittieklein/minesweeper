@@ -142,51 +142,51 @@ public class GridComponent extends JComponent
 					//count the bombs around it in all directions
 					
 					//1 cell up
-					if(getCell(i-1, j) != null) 
+					if(getActiveCell(i-1, j) != null) 
 						{
-						if(getCell(i-1, j).getButtonType() == ButtonType.BOMB) numBombs++;
+						if(getActiveCell(i-1, j).getButtonType() == ButtonType.BOMB) numBombs++;
 						}
 					
 					//1 cell up to the left
-					if(getCell(i-1, j-1) != null) 
+					if(getActiveCell(i-1, j-1) != null) 
 						{
-						if(getCell(i-1, j-1).getButtonType() == ButtonType.BOMB) numBombs++;
+						if(getActiveCell(i-1, j-1).getButtonType() == ButtonType.BOMB) numBombs++;
 						}
 					
 					//1 cell up to the right
-					if(getCell(i-1, j+1) != null) 
+					if(getActiveCell(i-1, j+1) != null) 
 						{
-						if(getCell(i-1, j+1).getButtonType() == ButtonType.BOMB) numBombs++;
+						if(getActiveCell(i-1, j+1).getButtonType() == ButtonType.BOMB) numBombs++;
 						}
 						
 					//1 cell to the left
-					if(getCell(i, j-1) != null) 
+					if(getActiveCell(i, j-1) != null) 
 						{
-						if(getCell(i, j-1).getButtonType() == ButtonType.BOMB) numBombs++;
+						if(getActiveCell(i, j-1).getButtonType() == ButtonType.BOMB) numBombs++;
 						}
 					
 					//1 cell down to the left
-					if(getCell(i+1, j-1) != null) 
+					if(getActiveCell(i+1, j-1) != null) 
 						{
-						if(getCell(i+1, j-1).getButtonType() == ButtonType.BOMB) numBombs++;
+						if(getActiveCell(i+1, j-1).getButtonType() == ButtonType.BOMB) numBombs++;
 						}
 					
 					//1 cell down
-					if(getCell(i+1, j) != null) 
+					if(getActiveCell(i+1, j) != null) 
 						{
-						if(getCell(i+1, j).getButtonType() == ButtonType.BOMB) numBombs++;
+						if(getActiveCell(i+1, j).getButtonType() == ButtonType.BOMB) numBombs++;
 						}
 					
 					//1 cell down to the right
-					if(getCell(i+1, j+1) != null) 
+					if(getActiveCell(i+1, j+1) != null) 
 						{
-						if(getCell(i+1, j+1).getButtonType() == ButtonType.BOMB) numBombs++;
+						if(getActiveCell(i+1, j+1).getButtonType() == ButtonType.BOMB) numBombs++;
 						}
 						
 					//1 cell to the right
-					if(getCell(i, j+1) != null) 
+					if(getActiveCell(i, j+1) != null) 
 						{
-						if(getCell(i, j+1).getButtonType() == ButtonType.BOMB) numBombs++;
+						if(getActiveCell(i, j+1).getButtonType() == ButtonType.BOMB) numBombs++;
 						}
 				}
 				else{
@@ -257,51 +257,59 @@ public class GridComponent extends JComponent
 	 */
 	private void leftMouseClick(Cell button)
 	{	
-		if(button != null)
-		{
+		
 			//if the button has a flag, ignore left click
 			if(!images.get("flag").equals(button.getIcon()))	//have to compare flag to button so don't get null pointer if button icon is null
 			{
-				//disable the button once it is flipped over.
-				button.setEnabled(false);
-				//set the image of the button
-				button.setIcon(button.getImg());
-				//also set the disabled image so it is not grayed out.
-				button.setDisabledIcon(button.getImg());
-				button.pressed();
+				flipButton(button);
 	
 				if(button.getButtonType() == ButtonType.BLANK)
 				{
-					int i = button.getXindex();
-					int j = button.getYindex();
 					
-					//left
-					leftMouseClick(getCell(i-1, j));
 					
-					//left, down
-					leftMouseClick(getCell(i-1, j-1));
+					Stack<Cell> buttonStack= new Stack<Cell>();
+					Cell currentButton;
 					
-					//left, up
-					leftMouseClick(getCell(i-1, j+1));
+					buttonStack.push(button);
 					
-					//down
-					leftMouseClick(getCell(i, j-1));
-					
-					//right, down
-					leftMouseClick(getCell(i+1, j-1));
-					
-					//right
-					leftMouseClick(getCell(i+1, j));
-					
-					//right, up
-					leftMouseClick(getCell(i+1, j+1));
-					
-					//up
-					leftMouseClick(getCell(i, j+1));
-					
+					while(!buttonStack.isEmpty())
+						{
+						
+						
+						 currentButton = buttonStack.pop();
+						 flipButton(currentButton);
+						 int i = currentButton.getXindex();
+						 int j = currentButton.getYindex();
+						
+						 if(currentButton != null && currentButton.getButtonType() == ButtonType.BLANK)
+						 {
+								 //left
+							buttonStack.push(getActiveCell(i-1, j));
+							
+							//left, down
+							buttonStack.push(getActiveCell(i-1, j-1));
+							
+							//left, up
+							buttonStack.push(getActiveCell(i-1, j+1));
+							
+							//down
+							buttonStack.push(getActiveCell(i, j-1));
+							
+							//right, down
+							buttonStack.push(getActiveCell(i+1, j-1));
+							
+							//right
+							buttonStack.push(getActiveCell(i+1, j));
+							
+							//right, up
+							buttonStack.push(getActiveCell(i+1, j+1));
+							
+							//up
+							buttonStack.push(getActiveCell(i, j+1));
+						 }
+					}	
 				}
 	    	}
-		}
 	}
 	
 	private void rightMouseClick(Cell button)
@@ -329,12 +337,21 @@ public class GridComponent extends JComponent
 	
 	
 	
-	
+	private void flipButton(Cell button)
+	{
+		//disable the button once it is flipped over.
+		button.setEnabled(false);
+		//set the image of the button
+		button.setIcon(button.getImg());
+		//also set the disabled image so it is not grayed out.
+		button.setDisabledIcon(button.getImg());
+		button.pressed();
+	}
 
 	
-	private Cell getCell(int x, int y)
+	private Cell getActiveCell(int x, int y)
 	{
-		if(x >= 0 && x < ROWS && y >= 0 && y < COLS)
+		if(x >= 0 && x < ROWS && y >= 0 && y < COLS && squares[x][y].isEnabled())
 			return squares[x][y];
 		//return null if the cell is not in the grid
 		return null;
