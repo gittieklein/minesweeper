@@ -1,10 +1,6 @@
-import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.KeyStroke;
 import javax.swing.event.MenuEvent;
 import javax.swing.event.MenuListener;
 
@@ -13,10 +9,9 @@ public class MinesweeperGame
 
 	public static void main(String args[]) 
 	{
-		int rows = 16;
-		int cols = 30;
-		int mines = 99;
-		MinesweeperJFrame frame = new MinesweeperJFrame(rows, cols, mines);
+		//create a game data object - the same object will be used through out so that all classes have access to the same info
+		GameData gameData = GameData.getInstance(16, 30, 99);
+		MinesweeperJFrame frame = new MinesweeperJFrame();
 		frame.setJMenuBar(createMenu());
 		frame.setVisible(true);
 	}

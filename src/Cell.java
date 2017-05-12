@@ -1,5 +1,3 @@
-import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
@@ -7,6 +5,8 @@ import Enums.ButtonType;
 
 public class Cell extends JButton
 {
+	private static final long serialVersionUID = 1L;
+	
 	//the index of the button in the array
 	private int xindex;
 	private int yindex;

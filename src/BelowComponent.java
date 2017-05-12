@@ -1,7 +1,4 @@
-
-
 import java.awt.*;
-
 import javax.swing.*;
 
 public class BelowComponent extends JComponent
@@ -10,12 +7,14 @@ public class BelowComponent extends JComponent
 	private static final long serialVersionUID = 1L;
 	private static JLabel mineLabel;
 	
-	public BelowComponent(int mines)
+	public BelowComponent()
 	{	
 		setLayout(new FlowLayout(FlowLayout.TRAILING));
 		
+		GameData gameData = GameData.getInstance();
+		
 		//scale the image so you could set the size
-		mineLabel = new JLabel(mines + " ");
+		mineLabel = new JLabel(gameData.getTotalMines() + " ");
 		JLabel mineIcon = new JLabel();
 		ImageIcon icon = new ImageIcon("src/images/mine.png");
 		Image img = icon.getImage();

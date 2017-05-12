@@ -1,36 +1,25 @@
-
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Stack;
-
 import javax.swing.*;
-
 import Enums.ButtonType;
 
 public class GridComponent extends JComponent
 {
 	private static final long serialVersionUID = 1L;
-	private Cell squares[][]; // the grid of squares - they're buttons so you
-								// could click them
+	private Cell squares[][]; // the grid of squares - they're buttons so you could click them
 	private int countButtons;
-	private final int ROWS;
-	private final int COLS;
-	private int mines;
 	private HashMap<String, ImageIcon> images;
+	private GameData gameData = GameData.getInstance();
 
-	public GridComponent(int r, int c, int mine)
+	public GridComponent()
 	{
 		countButtons = 0;
-		ROWS = r;
-		COLS = c;
-		mines = mine;
-		squares = new Cell[ROWS][COLS];
-		setLayout(new GridLayout(ROWS, COLS));
+		squares = new Cell[gameData.getRows()][gameData.getColumns()];
+		setLayout(new GridLayout(gameData.getRows(), gameData.getColumns()));
 
 		images = new HashMap<String, ImageIcon>();
 
@@ -52,7 +41,7 @@ public class GridComponent extends JComponent
 		images.put("six", new ImageIcon("src/images/six.png"));
 		images.put("seven", new ImageIcon("src/images/seven.png"));
 		images.put("eight", new ImageIcon("src/images/eight.png"));
-		images.put("mine", new ImageIcon("src/images/us.png"));
+		images.put("mine", new ImageIcon("src/images/mineboard.png"));
 		images.put("xmine", new ImageIcon("src/images/xmine.png"));
 		images.put("button", new ImageIcon("src/images/button.png"));
 		images.put("button-flag", new ImageIcon("src/images/button-flag.png"));
@@ -69,9 +58,9 @@ public class GridComponent extends JComponent
 	private void buildButtons()
 	{
 		// loop through the 2D array
-		for (int i = 0; i < ROWS; i++)
+		for (int i = 0; i < gameData.getRows(); i++)
 		{
-			for (int j = 0; j < COLS; j++)
+			for (int j = 0; j < gameData.getColumns(); j++)
 			{
 				squares[i][j] = new Cell(i, j); // create a new button
 				squares[i][j].putClientProperty("index1", i); // add property of row location
@@ -128,10 +117,10 @@ public class GridComponent extends JComponent
 	{
 		Random rand = new Random();
 		int x, y;
-		for (int i = 0; i < mines;)
+		for (int i = 0; i < gameData.getTotalMines();)
 		{
-			x = rand.nextInt(ROWS);
-			y = rand.nextInt(COLS);
+			x = rand.nextInt(gameData.getRows());
+			y = rand.nextInt(gameData.getColumns());
 			if (squares[x][y].getButtonType() == ButtonType.BLANK)
 			{
 				squares[x][y].setButtonType(ButtonType.MINE);
@@ -148,9 +137,9 @@ public class GridComponent extends JComponent
 
 		// now that all mines are in place, set the numbers around them
 		// check every square, if it's blank, check the cells around it
-		for (int i = 0; i < ROWS; i++)
+		for (int i = 0; i < gameData.getRows(); i++)
 		{
-			for (int j = 0; j < COLS; j++)
+			for (int j = 0; j < gameData.getColumns(); j++)
 			{
 				int numMines = 0;
 				if (squares[i][j].getButtonType() != ButtonType.MINE)
@@ -281,15 +270,8 @@ public class GridComponent extends JComponent
 			flipButton(button);
 		}
 		// if the button has a flag, ignore left click
-		else if (!images.get("flag").equals(button.getIcon())) // have to
-																// compare flag
-																// to button so
-																// don't get
-																// null pointer
-																// if button
-																// icon is null
+		else if (!images.get("flag").equals(button.getIcon())) 
 		{
-
 			if (button.getButtonType() == ButtonType.BLANK)
 			{
 				Stack<Cell> buttonStack = new Stack<Cell>();
@@ -301,7 +283,7 @@ public class GridComponent extends JComponent
 				{
 					currentButton = buttonStack.pop();
 
-					if (currentButton != null)
+					if (currentButton != null && currentButton.isEnabled())
 					{
 						flipButton(currentButton);
 						int i = currentButton.getXindex();
@@ -337,7 +319,6 @@ public class GridComponent extends JComponent
 					}
 				}
 			}
-
 			else
 			{
 				flipButton(button);
@@ -347,30 +328,18 @@ public class GridComponent extends JComponent
 
 	private void rightMouseClick(Cell button)
 	{
-		// only allow a button to be clicked if it was not disabled already on
-		// left click.
+		// only allow a button to be clicked if it was not disabled already on left click.
 		if (button.isEnabled())
 		{
-			if (images.get("flag").equals(button.getIcon())) // have to compare
-																// flag to
-																// button so
-																// don't get
-																// null pointer
-																// if button
-																// icon is null
+			if (images.get("flag").equals(button.getIcon())) // have to compare flag to button so don't get  null pointer if button icon is null
 			{
 				button.setIcon(null);
-				BelowComponent.editMines(++mines);
+				BelowComponent.editMines(gameData.addRemainingMines(1));
 			}
-			else if (mines > 0)
+			else if (gameData.getRemainingMines() > 0)
 			{
-				// JLabel flagIcon = new JLabel();
-				// add number of mines and mine image to the component
-				// button.setIcon(new ImageIcon("src/images/flag.png"));
-				// need to disable left button click.
-
 				button.setIcon(images.get("flag"));
-				BelowComponent.editMines(--mines);
+				BelowComponent.editMines(gameData.addRemainingMines(-1));
 			}
 		}
 	}
@@ -378,7 +347,7 @@ public class GridComponent extends JComponent
 	private void flipButton(Cell button)
 	{
 		countButtons++;
-		// disable the button once it is flipped over.
+		// disable the button once it is flipped over
 		button.setEnabled(false);
 		// set the image of the button
 		button.setIcon(button.getImg());
@@ -386,15 +355,16 @@ public class GridComponent extends JComponent
 		button.setDisabledIcon(button.getImg());
 				
 		System.out.println(countButtons);
-		if(countButtons == (ROWS * COLS) - mines)
+		if(countButtons == (gameData.getRows() * gameData.getColumns()) - gameData.getTotalMines())
 		{
 			System.out.println("Game won");
 		}
+		System.out.println("flip button " + countButtons);
 	}
 
 	private Cell getActiveCell(int x, int y)
 	{
-		if (x >= 0 && x < ROWS && y >= 0 && y < COLS && squares[x][y].isEnabled())
+		if (x >= 0 && x < gameData.getRows() && y >= 0 && y < gameData.getColumns() && squares[x][y].isEnabled())
 			return squares[x][y];
 		// return null if the cell is not in the grid
 		return null;
