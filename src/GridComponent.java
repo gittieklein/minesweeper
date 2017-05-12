@@ -17,6 +17,7 @@ public class GridComponent extends JComponent
 	private static final long serialVersionUID = 1L;
 	private Cell squares[][]; // the grid of squares - they're buttons so you
 								// could click them
+	private int countButtons;
 	private final int ROWS;
 	private final int COLS;
 	private int bombs;
@@ -24,6 +25,7 @@ public class GridComponent extends JComponent
 
 	public GridComponent(int r, int c, int bomb)
 	{
+		countButtons = 0;
 		ROWS = r;
 		COLS = c;
 		bombs = bomb;
@@ -375,13 +377,19 @@ public class GridComponent extends JComponent
 
 	private void flipButton(Cell button)
 	{
+		countButtons++;
 		// disable the button once it is flipped over.
 		button.setEnabled(false);
 		// set the image of the button
 		button.setIcon(button.getImg());
 		// also set the disabled image so it is not grayed out.
 		button.setDisabledIcon(button.getImg());
-		button.pressed();
+				
+		System.out.println(countButtons);
+		if(countButtons == (ROWS * COLS) - bombs)
+		{
+			System.out.println("Game won");
+		}
 	}
 
 	private Cell getActiveCell(int x, int y)
