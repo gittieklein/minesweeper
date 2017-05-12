@@ -8,31 +8,31 @@ public class BelowComponent extends JComponent
 {
 
 	private static final long serialVersionUID = 1L;
-	private static JLabel bombLabel;
+	private static JLabel mineLabel;
 	
-	public BelowComponent(int bombs)
+	public BelowComponent(int mines)
 	{	
 		setLayout(new FlowLayout(FlowLayout.TRAILING));
 		
 		//scale the image so you could set the size
-		bombLabel = new JLabel(bombs + " ");
-		JLabel bombIcon = new JLabel();
+		mineLabel = new JLabel(mines + " ");
+		JLabel mineIcon = new JLabel();
 		ImageIcon icon = new ImageIcon("src/images/mine.png");
 		Image img = icon.getImage();
-		Image bombimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
-		icon = new ImageIcon(bombimg);
-		bombIcon.setIcon(icon);
+		Image mineimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
+		icon = new ImageIcon(mineimg);
+		mineIcon.setIcon(icon);
 	
-		bombLabel.setFont(new Font("Calibri", Font.PLAIN, 32));	//set font and size of text
+		mineLabel.setFont(new Font("Calibri", Font.PLAIN, 32));	//set font and size of text
 
-		//add number of bombs and bomb image to the component
-		this.add(bombLabel);
-		this.add(bombIcon);
+		//add number of mines and mine image to the component
+		this.add(mineLabel);
+		this.add(mineIcon);
 	}
 	
-	public static void editBombs(int bombs)
+	public static void editMines(int mines)
 	{
-		bombLabel.setText(bombs + " ");
+		mineLabel.setText(mines + " ");
 	}
 	
 }

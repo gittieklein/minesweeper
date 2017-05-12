@@ -20,15 +20,15 @@ public class GridComponent extends JComponent
 	private int countButtons;
 	private final int ROWS;
 	private final int COLS;
-	private int bombs;
+	private int mines;
 	private HashMap<String, ImageIcon> images;
 
-	public GridComponent(int r, int c, int bomb)
+	public GridComponent(int r, int c, int mine)
 	{
 		countButtons = 0;
 		ROWS = r;
 		COLS = c;
-		bombs = bomb;
+		mines = mine;
 		squares = new Cell[ROWS][COLS];
 		setLayout(new GridLayout(ROWS, COLS));
 
@@ -36,7 +36,7 @@ public class GridComponent extends JComponent
 
 		setImages();
 		buildButtons();
-		setBombs();
+		setMines();
 		setNumbers();
 	}
 
@@ -124,17 +124,17 @@ public class GridComponent extends JComponent
 		}
 	}
 
-	private void setBombs()
+	private void setMines()
 	{
 		Random rand = new Random();
 		int x, y;
-		for (int i = 0; i < bombs;)
+		for (int i = 0; i < mines;)
 		{
 			x = rand.nextInt(ROWS);
 			y = rand.nextInt(COLS);
 			if (squares[x][y].getButtonType() == ButtonType.BLANK)
 			{
-				squares[x][y].setButtonType(ButtonType.BOMB);
+				squares[x][y].setButtonType(ButtonType.MINE);
 				squares[x][y].setImg(images.get("mine"));
 				i++;
 			}
@@ -146,82 +146,82 @@ public class GridComponent extends JComponent
 		ButtonType type = ButtonType.BLANK;
 		ImageIcon icon = null;
 
-		// now that all bombs are in place, set the numbers around them
+		// now that all mines are in place, set the numbers around them
 		// check every square, if it's blank, check the cells around it
 		for (int i = 0; i < ROWS; i++)
 		{
 			for (int j = 0; j < COLS; j++)
 			{
-				int numBombs = 0;
-				if (squares[i][j].getButtonType() != ButtonType.BOMB)
+				int numMines = 0;
+				if (squares[i][j].getButtonType() != ButtonType.MINE)
 				{
-					// count the bombs around it in all directions
+					// count the mines around it in all directions
 
 					// 1 cell up
 					if (getActiveCell(i - 1, j) != null)
 					{
-						if (getActiveCell(i - 1, j).getButtonType() == ButtonType.BOMB)
-							numBombs++;
+						if (getActiveCell(i - 1, j).getButtonType() == ButtonType.MINE)
+							numMines++;
 					}
 
 					// 1 cell up to the left
 					if (getActiveCell(i - 1, j - 1) != null)
 					{
-						if (getActiveCell(i - 1, j - 1).getButtonType() == ButtonType.BOMB)
-							numBombs++;
+						if (getActiveCell(i - 1, j - 1).getButtonType() == ButtonType.MINE)
+							numMines++;
 					}
 
 					// 1 cell up to the right
 					if (getActiveCell(i - 1, j + 1) != null)
 					{
-						if (getActiveCell(i - 1, j + 1).getButtonType() == ButtonType.BOMB)
-							numBombs++;
+						if (getActiveCell(i - 1, j + 1).getButtonType() == ButtonType.MINE)
+							numMines++;
 					}
 
 					// 1 cell to the left
 					if (getActiveCell(i, j - 1) != null)
 					{
-						if (getActiveCell(i, j - 1).getButtonType() == ButtonType.BOMB)
-							numBombs++;
+						if (getActiveCell(i, j - 1).getButtonType() == ButtonType.MINE)
+							numMines++;
 					}
 
 					// 1 cell down to the left
 					if (getActiveCell(i + 1, j - 1) != null)
 					{
-						if (getActiveCell(i + 1, j - 1).getButtonType() == ButtonType.BOMB)
-							numBombs++;
+						if (getActiveCell(i + 1, j - 1).getButtonType() == ButtonType.MINE)
+							numMines++;
 					}
 
 					// 1 cell down
 					if (getActiveCell(i + 1, j) != null)
 					{
-						if (getActiveCell(i + 1, j).getButtonType() == ButtonType.BOMB)
-							numBombs++;
+						if (getActiveCell(i + 1, j).getButtonType() == ButtonType.MINE)
+							numMines++;
 					}
 
 					// 1 cell down to the right
 					if (getActiveCell(i + 1, j + 1) != null)
 					{
-						if (getActiveCell(i + 1, j + 1).getButtonType() == ButtonType.BOMB)
-							numBombs++;
+						if (getActiveCell(i + 1, j + 1).getButtonType() == ButtonType.MINE)
+							numMines++;
 					}
 
 					// 1 cell to the right
 					if (getActiveCell(i, j + 1) != null)
 					{
-						if (getActiveCell(i, j + 1).getButtonType() == ButtonType.BOMB)
-							numBombs++;
+						if (getActiveCell(i, j + 1).getButtonType() == ButtonType.MINE)
+							numMines++;
 					}
 				}
 				else
 				{
-					numBombs = -1;
+					numMines = -1;
 				}
 
-				switch (numBombs)
+				switch (numMines)
 				{
 					case -1:
-						type = ButtonType.BOMB;
+						type = ButtonType.MINE;
 						icon = images.get("mine");
 						break;
 					case 1:
@@ -268,15 +268,15 @@ public class GridComponent extends JComponent
 	}
 
 	/*
-	 * left click: if bomb - flip over all bombs, if there's a flag that's not a bomb show bomb with X, end the game if not bomb - flip over number, plus all adjacent zeros up until including the next number if it's a flag - it can't be clicked if
+	 * left click: if mine - flip over all mines, if there's a flag that's not a mine show mine with X, end the game if not mine - flip over number, plus all adjacent zeros up until including the next number if it's a flag - it can't be clicked if
 	 * all numbers are turned over - win
 	 * 
 	 * 
-	 * right click: if blank button - flag, decrease number of bombs if flag - blank, increase number of bombs
+	 * right click: if blank button - flag, decrease number of mines if flag - blank, increase number of mines
 	 */
 	private void leftMouseClick(Cell button)
 	{
-		if (button.getButtonType() == ButtonType.BOMB && !images.get("flag").equals(button.getIcon()))
+		if (button.getButtonType() == ButtonType.MINE && !images.get("flag").equals(button.getIcon()))
 		{
 			flipButton(button);
 		}
@@ -360,17 +360,17 @@ public class GridComponent extends JComponent
 																// icon is null
 			{
 				button.setIcon(null);
-				BelowComponent.editBombs(++bombs);
+				BelowComponent.editMines(++mines);
 			}
-			else if (bombs > 0)
+			else if (mines > 0)
 			{
 				// JLabel flagIcon = new JLabel();
-				// add number of bombs and bomb image to the component
+				// add number of mines and mine image to the component
 				// button.setIcon(new ImageIcon("src/images/flag.png"));
 				// need to disable left button click.
 
 				button.setIcon(images.get("flag"));
-				BelowComponent.editBombs(--bombs);
+				BelowComponent.editMines(--mines);
 			}
 		}
 	}
@@ -386,7 +386,7 @@ public class GridComponent extends JComponent
 		button.setDisabledIcon(button.getImg());
 				
 		System.out.println(countButtons);
-		if(countButtons == (ROWS * COLS) - bombs)
+		if(countButtons == (ROWS * COLS) - mines)
 		{
 			System.out.println("Game won");
 		}

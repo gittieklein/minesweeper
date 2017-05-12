@@ -6,11 +6,11 @@ import javax.swing.*;
 public class MinesweeperJFrame extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-	private int bombs;
+	private int mines;
 	
 	public MinesweeperJFrame(int rows, int cols, int b) 
 	{
-		this.bombs = b;
+		this.mines = b;
 		
 		setTitle("Minesweeper");	
 		setSize(cols*50 + 40, rows*50 + 40);
@@ -20,8 +20,8 @@ public class MinesweeperJFrame extends JFrame
 		Container container = getContentPane();	//create container
 		((JComponent) container).setBorder(BorderFactory.createEmptyBorder(40, 20, 0, 20));
 		container.setLayout(new BorderLayout());
-		container.add(new GridComponent(rows,cols,bombs), BorderLayout.CENTER);	//add grid
-		container.add(new BelowComponent(bombs), BorderLayout.SOUTH);	//add number of bombs remaining	
+		container.add(new GridComponent(rows,cols,mines), BorderLayout.CENTER);	//add grid
+		container.add(new BelowComponent(mines), BorderLayout.SOUTH);	//add number of mines remaining	
 	}
 	
 	
