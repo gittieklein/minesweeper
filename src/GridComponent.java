@@ -14,19 +14,20 @@ public class GridComponent extends JComponent
 	private int countButtons;
 	private HashMap<String, ImageIcon> images;
 	private GameData gameData = GameData.getInstance();
+	private boolean isFirst;
 
 	public GridComponent()
 	{
 		countButtons = 0;
 		squares = new Cell[gameData.getRows()][gameData.getColumns()];
 		setLayout(new GridLayout(gameData.getRows(), gameData.getColumns()));
-
+		isFirst = true;
 		images = new HashMap<String, ImageIcon>();
 
 		setImages();
 		buildButtons();
-		setMines();
-		setNumbers();
+//		setMines();
+//		setNumbers();
 	}
 
 	private void setImages()
@@ -113,7 +114,7 @@ public class GridComponent extends JComponent
 		}
 	}
 
-	private void setMines()
+	private void setMines(Cell firstButton)
 	{
 		Random rand = new Random();
 		int x, y;
@@ -121,7 +122,7 @@ public class GridComponent extends JComponent
 		{
 			x = rand.nextInt(gameData.getRows());
 			y = rand.nextInt(gameData.getColumns());
-			if (squares[x][y].getButtonType() == ButtonType.BLANK)
+			if (squares[x][y].getButtonType() == ButtonType.BLANK && !squares[x][y].equals(firstButton))
 			{
 				squares[x][y].setButtonType(ButtonType.MINE);
 				squares[x][y].setImg(images.get("mine"));
@@ -265,6 +266,13 @@ public class GridComponent extends JComponent
 	 */
 	private void leftMouseClick(Cell button)
 	{
+		if(isFirst)
+		{
+			isFirst = false;
+			
+			setMines(button);
+			setNumbers();
+		}
 		if (button.getButtonType() == ButtonType.MINE && !images.get("flag").equals(button.getIcon()))
 		{
 			flipButton(button);
