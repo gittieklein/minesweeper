@@ -268,6 +268,7 @@ public class GridComponent extends JComponent
 		if (button.getButtonType() == ButtonType.MINE && !images.get("flag").equals(button.getIcon()))
 		{
 			flipButton(button);
+			GameOver();
 		}
 		// if the button has a flag, ignore left click
 		else if (!images.get("flag").equals(button.getIcon())) 
@@ -325,6 +326,28 @@ public class GridComponent extends JComponent
 			}
 		}
 	}
+	
+	private void GameOver() 
+	{
+		///NED WAS HERE
+		
+		for (int i = 0; i < gameData.getRows(); i++)
+		{
+			for (int j = 0; j < gameData.getColumns(); j++)
+			{
+				if(squares[i][j].getButtonType() == ButtonType.MINE)
+				{
+					squares[i][j].setEnabled(false);
+					
+					squares[i][j].setIcon(squares[i][j].getImg());
+					
+					squares[i][j].setDisabledIcon(squares[i][j].getImg());
+				}
+			}
+		}
+		
+	}
+
 
 	private void rightMouseClick(Cell button)
 	{
