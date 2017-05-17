@@ -2,9 +2,9 @@
 public class GameData
 {
 	private static GameData singelton = null;
-	private final int ROWS;
-	private final int COLS;
-	private final int TOTAL_MINES;
+	private int ROWS;
+	private int COLS;
+	private int TOTAL_MINES;
 	private int remaining_mines;
 	
 	/**
@@ -72,6 +72,20 @@ public class GameData
 	{
 		remaining_mines += m;
 		return remaining_mines;
+	}
+	
+	/**
+	 * this method should start a new game
+	 * @param row
+	 * @param col
+	 * @param mine
+	 */
+	public void changeLevel(int row, int col, int mine)
+	{
+		ROWS = row;
+		COLS = col;
+		TOTAL_MINES = mine;
+		remaining_mines = mine;
 	}
 	
 }
