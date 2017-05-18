@@ -12,7 +12,7 @@ public class MinesweeperGame
 	public static void main(String args[]) 
 	{
 		//create a game data object - the same object will be used through out so that all classes have access to the same info
-		GameData gameData = GameData.getInstance(16, 30, 99);
+		GameData gameData = GameData.getInstance(9, 9, 10);
 		MinesweeperJFrame frame = new MinesweeperJFrame();
 		frame.setJMenuBar(createMenu());
 		frame.setVisible(true);
