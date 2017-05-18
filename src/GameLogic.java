@@ -19,7 +19,7 @@ public class GameLogic
 	 * 
 	 * right click: if blank button - flag, decrease number of mines if flag - blank, increase number of mines
 	 */
-	public void leftMouseClick(Cell button)
+	/*public void leftMouseClick(Cell button)
 	{
 		if(isFirst)
 		{
@@ -155,6 +155,6 @@ public class GameLogic
 		// return null if the cell is not in the grid
 		return null;
 	}
-
+*/
 
 }
