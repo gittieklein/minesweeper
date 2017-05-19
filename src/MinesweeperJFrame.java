@@ -13,7 +13,7 @@ public class MinesweeperJFrame extends JFrame
 		GameData gameData = GameData.getInstance();
 		
 		setTitle("Minesweeper");	
-		setSize(1330, 840);
+		setSize(1330, 826);
 		
 		//window closes when click x
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
@@ -30,7 +30,13 @@ public class MinesweeperJFrame extends JFrame
 		
 		//create container
 		Container container = getContentPane();	
-		((JComponent) container).setBorder(BorderFactory.createEmptyBorder(40, 20, 0, 20));
+		
+		//set the boarder for dif amounts based on the amount of buttons
+		int side, bottom;
+		bottom = 688 - (gameData.getRows() * 43);
+		side = 1330 - (gameData.getColumns() * 43);
+		
+		((JComponent) container).setBorder(BorderFactory.createEmptyBorder(40, side/2, bottom, side/2));
 		container.setLayout(new BorderLayout());
 		
 		container.add(new GridComponent(), BorderLayout.CENTER);	//add grid
