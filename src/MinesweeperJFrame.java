@@ -45,7 +45,7 @@ public class MinesweeperJFrame extends JFrame
 			Clip clip = AudioSystem.getClip();
 			// Open audio clip and load samples from the audio input stream.
 			clip.open(audioIn);
-			clip.start();
+			clip.loop(Integer.MAX_VALUE);
 		}
 		catch (UnsupportedAudioFileException e)
 		{
