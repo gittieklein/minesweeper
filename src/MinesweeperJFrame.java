@@ -25,7 +25,7 @@ public class MinesweeperJFrame extends JFrame
 		setLocationRelativeTo(null);	
 		
 		//set icon image
-		ImageIcon image = new ImageIcon("src/images/mine.png");
+		ImageIcon image = new ImageIcon("src/images/icon.png");
 		setIconImage(image.getImage());
 		
 		//create container
