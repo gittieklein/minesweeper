@@ -57,8 +57,6 @@ public class GridComponent extends JComponent
 		images.put("eight", new ImageIcon("src/images/eight.png"));
 		images.put("mine", new ImageIcon("src/images/mineboard.png"));
 		images.put("xmine", new ImageIcon("src/images/xmine.png"));
-		images.put("button", new ImageIcon("src/images/button.png"));
-		images.put("button-flag", new ImageIcon("src/images/button-flag.png"));
 		images.put("flag", new ImageIcon("src/images/flag.png"));
 		images.put("hit-mine", new ImageIcon("src/images/hit_bomb.png"));
 
