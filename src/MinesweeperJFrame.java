@@ -11,7 +11,7 @@ public class MinesweeperJFrame extends JFrame
 		GameData gameData = GameData.getInstance();
 		
 		setTitle("Minesweeper");	
-		setSize(gameData.getColumns()*50 + 40, gameData.getRows()*50 + 40);
+		setSize(30*50 + 40, 16*50 + 40);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//window closes when click x
 		setResizable(false);	//the user can't resize the screen - ensures the buttons stay squares
 		setLocationRelativeTo(null);	//centers the window on the screen

@@ -51,7 +51,7 @@ public class GridComponent extends JComponent
 		Image imgTemp;
 		for (String key : images.keySet())
 		{
-			imgTemp = images.get(key).getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+			imgTemp = images.get(key).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
 			images.put(key, new ImageIcon(imgTemp));
 		}
 	}
@@ -66,7 +66,7 @@ public class GridComponent extends JComponent
 				squares[i][j] = new Cell(i, j); // create a new button
 				squares[i][j].putClientProperty("index1", i); // add property of row location
 				squares[i][j].putClientProperty("index2", j); // add property of column location
-				squares[i][j].setPreferredSize(new Dimension(40, 40)); // set the size of each button to be a square
+				//squares[i][j].setPreferredSize(new Dimension(40, 40)); // set the size of each button to be a square
 				// squares[i][j].setBackground(Color.lightGray); //set the
 				// buttons to gray
 
