@@ -295,7 +295,9 @@ public class GridComponent extends JComponent
 
 					if (currentButton != null && currentButton.isEnabled())
 					{
-						flipButton(currentButton);
+						//only flip the button if it is not a flag
+						if(!images.get("flag").equals(currentButton.getIcon()))
+							flipButton(currentButton);
 						int i = currentButton.getXindex();
 						int j = currentButton.getYindex();
 
