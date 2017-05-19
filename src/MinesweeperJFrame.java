@@ -1,5 +1,4 @@
-import java.awt.BorderLayout;
-import java.awt.Container;
+import java.awt.*;
 import javax.swing.*;
 
 public class MinesweeperJFrame extends JFrame
@@ -11,13 +10,26 @@ public class MinesweeperJFrame extends JFrame
 		GameData gameData = GameData.getInstance();
 		
 		setTitle("Minesweeper");	
-		setSize(30*50 + 40, 16*50 + 40);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//window closes when click x
-		setResizable(false);	//the user can't resize the screen - ensures the buttons stay squares
-		setLocationRelativeTo(null);	//centers the window on the screen
-		Container container = getContentPane();	//create container
+		setSize(1330, 840);
+		
+		//window closes when click x
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		//the user can't resize the screen - ensures the buttons stay squares
+		setResizable(false);
+		
+		//centers the window on the screen
+		setLocationRelativeTo(null);	
+		
+		//set icon image
+		ImageIcon image = new ImageIcon("src/images/mine.png");
+		setIconImage(image.getImage());
+		
+		//create container
+		Container container = getContentPane();	
 		((JComponent) container).setBorder(BorderFactory.createEmptyBorder(40, 20, 0, 20));
 		container.setLayout(new BorderLayout());
+		
 		container.add(new GridComponent(), BorderLayout.CENTER);	//add grid
 		container.add(new BelowComponent(), BorderLayout.SOUTH);	//add number of mines remaining	
 	}

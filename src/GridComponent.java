@@ -51,7 +51,14 @@ public class GridComponent extends JComponent
 		Image imgTemp;
 		for (String key : images.keySet())
 		{
-			imgTemp = images.get(key).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+			if(images.get(key).equals(images.get("flag")))
+			{
+				imgTemp = images.get(key).getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+			}
+			else
+			{
+				imgTemp = images.get(key).getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+			}
 			images.put(key, new ImageIcon(imgTemp));
 		}
 	}
