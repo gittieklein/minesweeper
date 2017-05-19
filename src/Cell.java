@@ -1,5 +1,7 @@
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
+import java.awt.event.MouseListener;
+
+import javax.swing.*;
+import java.awt.*;
 
 import Enums.ButtonType;
 
@@ -18,11 +20,26 @@ public class Cell extends JButton
 	
 	public Cell(int x, int y)
 	{
+		//change color of cell - gradient color
+        setContentAreaFilled(false);
+        
 		xindex = x;
 		yindex = y;
 		type = ButtonType.BLANK;	//all squares should be initialized to blank
 	}
 
+	//set color of cell to gradient color
+	@Override
+	protected void paintComponent(Graphics g)
+	{
+		final Graphics2D g2 = (Graphics2D) g.create();
+		g2.setPaint(new GradientPaint(new Point(0, 0), Color.WHITE, new Point(0, getHeight()), Color.LIGHT_GRAY));
+		g2.fillRect(0, 0, getWidth(), getHeight());
+		g2.dispose();
+
+		super.paintComponent(g);
+	}	
+	
 	public int getXindex()
 	{
 		return xindex;
