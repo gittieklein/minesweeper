@@ -1,9 +1,17 @@
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Stack;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import Enums.ButtonType;
 
@@ -244,6 +252,29 @@ public class GridComponent extends JComponent
 		}
 		if (button.getButtonType() == ButtonType.MINE && !images.get("flag").equals(button.getIcon()))
 		{
+			try
+			{
+				// Open an audio input stream.
+				File soundFile = new File("src/sound/mine.au"); // you could also get the sound file with an URL
+				AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+				// Get a sound clip resource.
+				Clip clip = AudioSystem.getClip();
+				// Open audio clip and load samples from the audio input stream.
+				clip.open(audioIn);
+				clip.start();
+			}
+			catch (UnsupportedAudioFileException e)
+			{
+				e.printStackTrace();
+			}
+			catch (IOException e)
+			{
+				e.printStackTrace();
+			}
+			catch (LineUnavailableException e)
+			{
+				e.printStackTrace();
+			}
 			button.setImg(images.get("hit-mine"));
 			flipButton(button);
 			GameOver();
