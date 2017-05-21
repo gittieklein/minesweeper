@@ -86,18 +86,17 @@ public class MinesweeperJFrame extends JFrame
 	
 	public static void reset()
 	{
-		container.remove(grid);
+		//reset the grid
 		grid.reset();
-		//below = new BelowComponent();
 		gameData = GameData.getInstance();
-		
-		//container.removeAll();
-		gameData.changeLevel(gameData.getRows(), gameData.getColumns(), gameData.getTotalMines());
+			
+		//reset the borders
 		bottom = 688 - (gameData.getRows() * 43);
 		side = 1330 - (gameData.getColumns() * 43);
 		((JComponent) container).setBorder(BorderFactory.createEmptyBorder(40, side/2, bottom, side/2));
-		container.add(grid, BorderLayout.CENTER);	//add grid
-		//container.add(below, BorderLayout.SOUTH);	//add number of mines remaining	
+		
+		//reset the remaining mines
+		BelowComponent.editMines(gameData.getTotalMines());
 	}
 	
 	/**

@@ -406,23 +406,7 @@ public class GridComponent extends JComponent
 	}
 	
 	public void reset()
-	{
-//		countButtons = 0;
-//		setLayout(new GridLayout(gameData.getRows(), gameData.getColumns()));
-//		
-//		
-//		for (int i = 0; i < squares.length; i++)
-//		{
-//			for (int j = 0; j < squares[i].length; j++)
-//			{
-//				this.remove(squares[i][j]);
-//			}
-//		}
-//		
-//		squares = new Cell[gameData.getRows()][gameData.getColumns()];
-//		isFirst = true;
-//		buildButtons();
-		
+	{	
 		if(gameData.getRows() == squares.length && gameData.getColumns() == squares[0].length)
 		{
 			countButtons = 0;
@@ -441,6 +425,24 @@ public class GridComponent extends JComponent
 			
 			isFirst = true;
 		}
-	}
+		else
+		{
+			countButtons = 0;
+			setLayout(new GridLayout(gameData.getRows(), gameData.getColumns()));
+			
+			
+			for (int i = 0; i < squares.length; i++)
+			{
+				for (int j = 0; j < squares[i].length; j++)
+				{
+					this.remove(squares[i][j]);
+				}
+			}
+			
+			squares = new Cell[gameData.getRows()][gameData.getColumns()];
+			isFirst = true;
+			buildButtons();
+		}
+	}	
 
 }
