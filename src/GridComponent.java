@@ -241,96 +241,99 @@ public class GridComponent extends JComponent
 	 */
 	private void leftMouseClick(Cell button)
 	{
-		if(isFirst)
+		if(button.isEnabled())
 		{
-			isFirst = false;
-			
-			setMines(button);
-			setNumbers();
-		}
-		if (button.getButtonType() == ButtonType.MINE && !images.get("flag").equals(button.getIcon()))
-		{
-			try
+			if(isFirst)
 			{
-				// Open an audio input stream.
-				File soundFile = new File("src/sound/mine.au"); // you could also get the sound file with an URL
-				AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-				// Get a sound clip resource.
-				Clip clip = AudioSystem.getClip();
-				// Open audio clip and load samples from the audio input stream.
-				clip.open(audioIn);
-				clip.start();
+				isFirst = false;
+				
+				setMines(button);
+				setNumbers();
 			}
-			catch (UnsupportedAudioFileException e)
+			if (button.getButtonType() == ButtonType.MINE && !images.get("flag").equals(button.getIcon()))
 			{
-				e.printStackTrace();
-			}
-			catch (IOException e)
-			{
-				e.printStackTrace();
-			}
-			catch (LineUnavailableException e)
-			{
-				e.printStackTrace();
-			}
-			button.setImg(images.get("hit-mine"));
-			flipButton(button);
-			GameOver();
-		}
-		// if the button has a flag, ignore left click
-		else if (!images.get("flag").equals(button.getIcon())) 
-		{
-			if (button.getButtonType() == ButtonType.BLANK)
-			{
-				Stack<Cell> buttonStack = new Stack<Cell>();
-				Cell currentButton;
-
-				buttonStack.push(button);
-
-				while (!buttonStack.isEmpty())
+				try
 				{
-					currentButton = buttonStack.pop();
-
-					if (currentButton != null && currentButton.isEnabled())
+					// Open an audio input stream.
+					File soundFile = new File("src/sound/mine.au"); // you could also get the sound file with an URL
+					AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+					// Get a sound clip resource.
+					Clip clip = AudioSystem.getClip();
+					// Open audio clip and load samples from the audio input stream.
+					clip.open(audioIn);
+					clip.start();
+				}
+				catch (UnsupportedAudioFileException e)
+				{
+					e.printStackTrace();
+				}
+				catch (IOException e)
+				{
+					e.printStackTrace();
+				}
+				catch (LineUnavailableException e)
+				{
+					e.printStackTrace();
+				}
+				button.setImg(images.get("hit-mine"));
+				//flipButton(button);
+				GameOver();
+			}
+			// if the button has a flag, ignore left click
+			else if (!images.get("flag").equals(button.getIcon())) 
+			{
+				if (button.getButtonType() == ButtonType.BLANK)
+				{
+					Stack<Cell> buttonStack = new Stack<Cell>();
+					Cell currentButton;
+	
+					buttonStack.push(button);
+	
+					while (!buttonStack.isEmpty())
 					{
-						//only flip the button if it is not a flag
-						if(!images.get("flag").equals(currentButton.getIcon()))
-							flipButton(currentButton);
-						int i = currentButton.getXindex();
-						int j = currentButton.getYindex();
-
-						if (currentButton.getButtonType() == ButtonType.BLANK)
+						currentButton = buttonStack.pop();
+	
+						if (currentButton != null && currentButton.isEnabled())
 						{
-							// left
-							buttonStack.push(getActiveCell(i - 1, j));
-
-							// left, up
-							buttonStack.push(getActiveCell(i - 1, j - 1));
-
-							// left, down
-							buttonStack.push(getActiveCell(i - 1, j + 1));
-
-							// up
-							buttonStack.push(getActiveCell(i, j - 1));
-
-							// right, up
-							buttonStack.push(getActiveCell(i + 1, j - 1));
-
-							// right
-							buttonStack.push(getActiveCell(i + 1, j));
-
-							// right, down
-							buttonStack.push(getActiveCell(i + 1, j + 1));
-
-							// down
-							buttonStack.push(getActiveCell(i, j + 1));
+							//only flip the button if it is not a flag
+							if(!images.get("flag").equals(currentButton.getIcon()))
+								flipButton(currentButton);
+							int i = currentButton.getXindex();
+							int j = currentButton.getYindex();
+	
+							if (currentButton.getButtonType() == ButtonType.BLANK)
+							{
+								// left
+								buttonStack.push(getActiveCell(i - 1, j));
+	
+								// left, up
+								buttonStack.push(getActiveCell(i - 1, j - 1));
+	
+								// left, down
+								buttonStack.push(getActiveCell(i - 1, j + 1));
+	
+								// up
+								buttonStack.push(getActiveCell(i, j - 1));
+	
+								// right, up
+								buttonStack.push(getActiveCell(i + 1, j - 1));
+	
+								// right
+								buttonStack.push(getActiveCell(i + 1, j));
+	
+								// right, down
+								buttonStack.push(getActiveCell(i + 1, j + 1));
+	
+								// down
+								buttonStack.push(getActiveCell(i, j + 1));
+							}
 						}
 					}
 				}
-			}
-			else
-			{
-				flipButton(button);
+				else
+				{
+					flipButton(button);
+				}
 			}
 		}
 	}
@@ -343,10 +346,8 @@ public class GridComponent extends JComponent
 			{
 				if(squares[i][j].getButtonType() == ButtonType.MINE)
 				{
-					squares[i][j].setEnabled(false);
-					
-					squares[i][j].setIcon(squares[i][j].getImg());
-					
+					squares[i][j].setEnabled(false);					
+					squares[i][j].setIcon(squares[i][j].getImg());					
 					squares[i][j].setDisabledIcon(squares[i][j].getImg());
 				}
 			}
@@ -397,6 +398,44 @@ public class GridComponent extends JComponent
 			return squares[x][y];
 		// return null if the cell is not in the grid
 		return null;
+	}
+	
+	public void reset()
+	{
+//		countButtons = 0;
+//		setLayout(new GridLayout(gameData.getRows(), gameData.getColumns()));
+//		
+//		
+//		for (int i = 0; i < squares.length; i++)
+//		{
+//			for (int j = 0; j < squares[i].length; j++)
+//			{
+//				this.remove(squares[i][j]);
+//			}
+//		}
+//		
+//		squares = new Cell[gameData.getRows()][gameData.getColumns()];
+//		isFirst = true;
+//		buildButtons();
+		
+		if(gameData.getRows() == squares.length && gameData.getColumns() == squares[0].length)
+		{
+			countButtons = 0;
+			setLayout(new GridLayout(gameData.getRows(), gameData.getColumns()));
+			
+			//go through the buttons and reset the images and button types
+			for (int i = 0; i < squares.length; i++)
+			{
+				for (int j = 0; j < squares[i].length; j++)
+				{
+					squares[i][j].setButtonType(ButtonType.BLANK);
+					squares[i][j].setIcon(null);
+					squares[i][j].setEnabled(true);
+				}
+			}
+			
+			isFirst = true;
+		}
 	}
 
 }
