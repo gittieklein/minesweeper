@@ -344,12 +344,17 @@ public class GridComponent extends JComponent
 		{
 			for (int j = 0; j < gameData.getColumns(); j++)
 			{
+				squares[i][j].setEnabled(false);
+				squares[i][j].setDisabledIcon(squares[i][j].getImg());
+				
 				if(squares[i][j].getButtonType() == ButtonType.MINE)
 				{
-					squares[i][j].setEnabled(false);					
 					squares[i][j].setIcon(squares[i][j].getImg());					
-					squares[i][j].setDisabledIcon(squares[i][j].getImg());
 				}
+				//if(squares[i][j].getButtonType() == ButtonType.FL)
+				//{
+					
+				//}
 			}
 		}
 		
