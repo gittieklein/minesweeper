@@ -149,7 +149,7 @@ public class MinesweeperJFrame extends JFrame
 		
 		//add sound options
 		ImageIcon image = new ImageIcon("src/images/sound.png");
-		ImageIcon soundImage = new ImageIcon(image.getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH));
+		ImageIcon soundImage = new ImageIcon(image.getImage().getScaledInstance(90, 60, Image.SCALE_SMOOTH));
 		
 		sound = new JMenuItem("Sound Options");
 		sound.addActionListener(new ActionListener()
@@ -158,7 +158,7 @@ public class MinesweeperJFrame extends JFrame
 			public void actionPerformed(ActionEvent arg0)
 			{
 				Object[] options = {"yes", "no"};
-				Object clicked = JOptionPane.showInputDialog(null, "Play background music?", "Sound Options", 
+				Object clicked = JOptionPane.showInputDialog(null, "Play background music?                    ", "Sound Options", 
 						JOptionPane.QUESTION_MESSAGE, soundImage, options, null);
 				if(clicked != null)
 				{
