@@ -378,6 +378,13 @@ public class GridComponent extends JComponent
 					
 				}
 				
+				else if(images.get("flag").equals(squares[i][j].getIcon()) && squares[i][j].getButtonType() == ButtonType.MINE )
+				{
+					squares[i][j].setDisabledIcon(images.get("flag"));
+					squares[i][j].setIcon(images.get("flag"));
+					
+				}
+				
 				else if(squares[i][j].getButtonType() == ButtonType.MINE)
 				{
 					squares[i][j].setDisabledIcon(squares[i][j].getImg());
