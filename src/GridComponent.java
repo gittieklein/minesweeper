@@ -371,14 +371,16 @@ public class GridComponent extends JComponent
 				squares[i][j].setEnabled(false);
 				squares[i][j].setDisabledIcon(squares[i][j].getImg());
 				
-				if(squares[i][j].getButtonType() == ButtonType.MINE)
-				{
-					squares[i][j].setIcon(squares[i][j].getImg());					
-				}
-				else if(squares[i][j].getImg()==images.get("flag") && squares[i][j].getButtonType() != ButtonType.MINE )
+				if(squares[i][j].getImg()==images.get("flag") && squares[i][j].getButtonType() != ButtonType.MINE )
 				{
 					squares[i][j].setImg(images.get("xmine"));
 				}
+				
+				else if(squares[i][j].getButtonType() == ButtonType.MINE)
+				{
+					squares[i][j].setIcon(squares[i][j].getImg());					
+				}
+				
 			}
 		}
 		ImageIcon image = new ImageIcon("src/images/gameOver.png");
