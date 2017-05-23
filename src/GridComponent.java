@@ -375,10 +375,10 @@ public class GridComponent extends JComponent
 				{
 					squares[i][j].setIcon(squares[i][j].getImg());					
 				}
-				//if(squares[i][j].getButtonType() == ButtonType.FL)
-				//{
-					
-				//}
+				else if(squares[i][j].getImg()==images.get("flag") && squares[i][j].getButtonType() != ButtonType.MINE )
+				{
+					squares[i][j].setImg(images.get("xmine"));
+				}
 			}
 		}
 		ImageIcon image = new ImageIcon("src/images/gameOver.png");
