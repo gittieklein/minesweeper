@@ -17,6 +17,8 @@ public class MinesweeperJFrame extends JFrame
 	private static int side;
 	private static GridComponent grid;
 	private static BelowComponent below;
+	private static AudioInputStream audioIn;
+	private static Clip clip;
 	
 	
 	public static void main(String[] args)
@@ -63,9 +65,9 @@ public class MinesweeperJFrame extends JFrame
 		{
 			// Open an audio input stream.
 			File soundFile = new File("src/sound/background.au"); // you could also get the sound file with an URL
-			AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+			audioIn = AudioSystem.getAudioInputStream(soundFile);
 			// Get a sound clip resource.
-			Clip clip = AudioSystem.getClip();
+			clip = AudioSystem.getClip();
 			// Open audio clip and load samples from the audio input stream.
 			clip.open(audioIn);
 			clip.loop(Integer.MAX_VALUE);
@@ -107,28 +109,27 @@ public class MinesweeperJFrame extends JFrame
 	{
 		//Where the GUI is created:
 		JMenuBar menuBar;
-		JMenu menuNew, menuExit, selectLevel;
-
+		JMenuItem menuNew, menuExit, sound;
+		JMenu menu, selectLevel;
+		
 		//Create the menu bar.
 		menuBar = new JMenuBar();
 
+		//create menu item
+		menu = new JMenu("Menu");
+		
 		//New Game for menu
-		menuNew = new JMenu("New Game");
-		menuNew.setMnemonic(KeyEvent.VK_N); //ALT-N will start a new game
+		menuNew = new JMenuItem("New Game");
 		
 		//listener to start a new game when new game is clicked
-		menuNew.addMenuListener(new MenuListener()
+		menuNew.addActionListener(new ActionListener()
 		{
-			//methods needed for the interface that are not needed here
-			public void menuCanceled(MenuEvent arg0){}
-			public void menuDeselected(MenuEvent arg0){}
-
-			public void menuSelected(MenuEvent arg0)
+			public void actionPerformed(ActionEvent e)
 			{
-				reset();		
+				reset();
 			}
 		});
-		menuBar.add(menuNew);
+		menu.add(menuNew);
 	
 		selectLevel = new JMenu("Select Level");
 		JMenuItem beginner, intermediate, advanced;
@@ -144,25 +145,51 @@ public class MinesweeperJFrame extends JFrame
 		intermediate.addActionListener(listener);
 		advanced.addActionListener(listener);
 		
-		menuBar.add(selectLevel);
+		menu.add(selectLevel);
+		
+		//add sound options
+		ImageIcon image = new ImageIcon("src/images/sound.png");
+		ImageIcon soundImage = new ImageIcon(image.getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH));
+		
+		sound = new JMenuItem("Sound Options");
+		sound.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				Object[] options = {"yes", "no"};
+				Object clicked = JOptionPane.showInputDialog(null, "Play background music?", "Sound Options", 
+						JOptionPane.QUESTION_MESSAGE, soundImage, options, null);
+				if(clicked != null)
+				{
+					if(clicked.equals("yes"))
+					{
+						clip.start();
+						clip.loop(Integer.MAX_VALUE);
+					}
+					else
+					{
+						clip.stop();
+					}					
+				}
+			}
+		});	
+		menu.add(sound);
 		
 		//Exit game for menu
-		menuExit = new JMenu("Exit");
-		menuExit.setMnemonic(KeyEvent.VK_X); //ALT-X will close game
+		menuExit = new JMenuItem("Exit");
 		
 		//listener to close the game when exit is clicked
-		menuExit.addMenuListener(new MenuListener()
+		menuExit.addActionListener(new ActionListener()
 		{
-			//methods needed for the interface that are not needed here
-			public void menuCanceled(MenuEvent arg0){}
-			public void menuDeselected(MenuEvent arg0){}
-			public void menuSelected(MenuEvent arg0)
+			public void actionPerformed(ActionEvent e)
 			{
 				System.exit(0);	
 			}
 		});	
+		menu.add(menuExit);
 		
-		menuBar.add(menuExit);
+		menuBar.add(menu);
 		
 		return menuBar;
 	}

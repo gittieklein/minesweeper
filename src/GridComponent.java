@@ -338,12 +338,15 @@ public class GridComponent extends JComponent
 		}
 		
 		if(isFinished()){
+			ImageIcon image = new ImageIcon("src/images/win.png");
+			ImageIcon win = new ImageIcon(image.getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH));
 			
-		  int clicked =	JOptionPane.showOptionDialog(null, "Congratulations you won!", "Game won", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
-		  if(clicked == 0)
-		  {
-			  reset();
-		  }
+			 int clicked =	JOptionPane.showOptionDialog(null, "Congratulations you won!", "Game won", 
+				  JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, win, null, null);
+			 if(clicked == 0)
+			 {
+				 MinesweeperJFrame.reset();
+			 }
 		}
 	}
 	
