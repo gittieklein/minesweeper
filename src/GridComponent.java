@@ -395,9 +395,10 @@ public class GridComponent extends JComponent
 		}
 		ImageIcon image = new ImageIcon("src/images/gameOver.png");
 		ImageIcon Lose = new ImageIcon(image.getImage().getScaledInstance(300, 100, Image.SCALE_SMOOTH));
+			
 		
 		 int clicked =	JOptionPane.showOptionDialog(null, null, "Game Over", 
-			  JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, Lose, null, null);
+				 JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, Lose, null, null);
 		 if(clicked == 0)
 		 {
 			 MinesweeperJFrame.reset();
