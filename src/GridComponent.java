@@ -1,4 +1,6 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -13,11 +15,13 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
+
 import Enums.ButtonType;
 
 public class GridComponent extends JComponent
 {
 	private static final long serialVersionUID = 1L;
+	
 	
 	// the grid of squares - they're buttons so you could click them
 	private Cell squares[][]; 
@@ -38,10 +42,12 @@ public class GridComponent extends JComponent
 		isFirst = true;
 		images = new HashMap<String, ImageIcon>();
 
+
 		//add all the images to the hashmap which will be referenced all over
 		setImages();
 		buildButtons();
 	}
+	
 
 	private void setImages()
 	{
@@ -246,6 +252,7 @@ public class GridComponent extends JComponent
 			if(isFirst)
 			{
 				isFirst = false;
+				BelowComponent.startTimer();
 				
 				setMines(button);
 				setNumbers();
