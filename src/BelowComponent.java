@@ -28,7 +28,7 @@ public class BelowComponent extends JComponent
 		ticon = new ImageIcon(timeimg);
 		timeIcon.setIcon(ticon);
 		
-		timerLabel = new JLabel();
+		timerLabel = new JLabel("000");
 		timerLabel.setFont(new Font("Calibri", Font.PLAIN, 32));
 		 
 		this.add(timeIcon);
@@ -59,11 +59,12 @@ public class BelowComponent extends JComponent
 			    public void actionPerformed(ActionEvent evt){
 			    	 
 			    if(elapsedSeconds < 999)
-		          { 
+		          {
+			    	
 			    	elapsedSeconds++;
-			        timerLabel.setText(elapsedSeconds + " ");	       
+			        timerLabel.setText(String.format( "%03d",elapsedSeconds )+ " ");	       
 			        	
-			        }
+			      }
 			    
 			    }
 
@@ -74,7 +75,7 @@ public class BelowComponent extends JComponent
 		
 	}
 	
-	public void stopTimer(){
+	public static void stopTimer(){
 		timer.stop();
 	}
 	public static void editMines(int mines)

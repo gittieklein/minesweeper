@@ -1,6 +1,4 @@
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -283,8 +281,11 @@ public class GridComponent extends JComponent
 					e.printStackTrace();
 				}
 				button.setImg(images.get("hit-mine"));
+				
+				BelowComponent.stopTimer();
+				
 				//flipButton(button);
-				GameOver();
+				gameOver();
 			}
 			// if the button has a flag, ignore left click
 			else if (!images.get("flag").equals(button.getIcon())) 
@@ -362,7 +363,7 @@ public class GridComponent extends JComponent
 	    return  countButtons == (gameData.getRows() * gameData.getColumns() - gameData.getTotalMines());
 	}
 	
-	private void GameOver() 
+	private void gameOver() 
 	{
 		for (int i = 0; i < gameData.getRows(); i++)
 		{
