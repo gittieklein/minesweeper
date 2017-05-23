@@ -19,9 +19,22 @@ public class BelowComponent extends JComponent
 		setLayout(new FlowLayout(FlowLayout.TRAILING));
 		
 		GameData gameData = GameData.getInstance();
+	
+		//set up timer and timer image
+		JLabel timeIcon = new JLabel();
+		ImageIcon ticon = new ImageIcon("src/images/timer.png");
+		Image timg = ticon.getImage();
+		Image timeimg = timg.getScaledInstance(43, 43, Image.SCALE_SMOOTH);
+		ticon = new ImageIcon(timeimg);
+		timeIcon.setIcon(ticon);
 		
-
-		//scale the image so you could set the size
+		timerLabel = new JLabel();
+		timerLabel.setFont(new Font("Calibri", Font.PLAIN, 32));
+		 
+		this.add(timeIcon);
+		this.add(timerLabel);
+		
+		//set up mines and mine image
 		mineLabel = new JLabel(gameData.getTotalMines() + " ");
 		JLabel mineIcon = new JLabel();
 		ImageIcon icon = new ImageIcon("src/images/mine.png");
@@ -36,27 +49,10 @@ public class BelowComponent extends JComponent
 		//add number of mines and mine image to the component
 		this.add(mineLabel);
 		this.add(mineIcon);
-		
-
-		JLabel timeIcon = new JLabel();
-		ImageIcon ticon = new ImageIcon("src/images/timer.png");
-		Image timg = ticon.getImage();
-		Image timeimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
-		ticon = new ImageIcon(timeimg);
-		timeIcon.setIcon(ticon);
-		 timerLabel = new JLabel();
-		 timerLabel.setFont(new Font("Calibri", Font.PLAIN, 32));
-		 
-		
-		 this.add(timerLabel);
-		 
 	}
 	
 	public static void startTimer()
-	{
-		
-		
-		 
+	{	 
 		 class TimerListener implements ActionListener{
 			    int elapsedSeconds = 0;
 
