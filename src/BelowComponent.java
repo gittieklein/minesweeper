@@ -11,6 +11,8 @@ public class BelowComponent extends JComponent
 	private static final long serialVersionUID = 1L;
 	private static JLabel mineLabel;
 	private static JLabel timerLabel;
+	private static Timer timer;
+	
 	
 	public BelowComponent()
 	{	
@@ -66,9 +68,13 @@ public class BelowComponent extends JComponent
 
 			}
 		 
-		 Timer timer = new Timer(1000, new TimerListener());
+		 timer = new Timer(1000, new TimerListener());
 		 timer.start();
 		
+	}
+	
+	public void stopTimer(){
+		timer.stop();
 	}
 	public static void editMines(int mines)
 	{
