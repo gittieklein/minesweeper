@@ -369,15 +369,18 @@ public class GridComponent extends JComponent
 			for (int j = 0; j < gameData.getColumns(); j++)
 			{
 				squares[i][j].setEnabled(false);
-				squares[i][j].setDisabledIcon(squares[i][j].getImg());
 				
-				if(squares[i][j].getImg()==images.get("flag") && squares[i][j].getButtonType() != ButtonType.MINE )
+				
+				if(images.get("flag").equals(squares[i][j].getIcon()) && squares[i][j].getButtonType() != ButtonType.MINE )
 				{
-					squares[i][j].setImg(images.get("xmine"));
+					squares[i][j].setDisabledIcon(images.get("xmine"));
+					squares[i][j].setIcon(images.get("xmine"));
+					
 				}
 				
 				else if(squares[i][j].getButtonType() == ButtonType.MINE)
 				{
+					squares[i][j].setDisabledIcon(squares[i][j].getImg());
 					squares[i][j].setIcon(squares[i][j].getImg());					
 				}
 				
