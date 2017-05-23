@@ -381,6 +381,11 @@ public class GridComponent extends JComponent
 				//}
 			}
 		}
+		int end=JOptionPane.showOptionDialog(null, "GAME OVER!!!", "Game Over", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+		if(end == 0)
+		  {
+			  reset();
+		  }
 		
 	}
 
