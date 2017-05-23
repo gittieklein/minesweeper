@@ -132,24 +132,54 @@ public class MinesweeperJFrame extends JFrame
 		menu.add(menuNew);
 	
 		selectLevel = new JMenu("Select Level");
-		JMenuItem beginner, intermediate, advanced;
+		JMenuItem beginner, intermediate, advanced, custom;
 		beginner = new JMenuItem("Beginner");
 		intermediate = new JMenuItem("Intermediate");
 		advanced = new JMenuItem("Advanced");
+		custom = new JMenuItem("Custom");
 		selectLevel.add(beginner);
 		selectLevel.add(intermediate);
 		selectLevel.add(advanced);
+		selectLevel.add(custom);
 		
 		LevelActionListener listener = new MinesweeperJFrame.LevelActionListener();
 		beginner.addActionListener(listener);
 		intermediate.addActionListener(listener);
 		advanced.addActionListener(listener);
+		custom.addActionListener(new ActionListener()
+		{
+			@Override
+			public void actionPerformed(ActionEvent arg0)
+			{
+				SpinnerModel rows = new SpinnerNumberModel(16, 8, 100, 1);           
+				JSpinner rowspinner = new JSpinner(rows);
+				SpinnerModel columns = new SpinnerNumberModel(16, 8, 100, 1);           
+				JSpinner columnspinner = new JSpinner(columns);
+				Object[] message = {
+					    "Rows:", rowspinner,
+					    "Columns:", columnspinner
+					};
+				Object clicked = JOptionPane.showConfirmDialog(null, message, "Custom Level", JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, null);
+				if(clicked != null)
+				{
+					if(clicked.equals("yes"))
+					{
+						clip.start();
+						clip.loop(Integer.MAX_VALUE);
+					}
+					else
+					{
+						clip.stop();
+					}					
+				}
+			}
+		});	
 		
 		menu.add(selectLevel);
 		
 		//add sound options
 		ImageIcon image = new ImageIcon("src/images/sound.png");
-		ImageIcon soundImage = new ImageIcon(image.getImage().getScaledInstance(90, 60, Image.SCALE_SMOOTH));
+		ImageIcon soundImage = new ImageIcon(image.getImage().getScaledInstance(80, 50, Image.SCALE_SMOOTH));
 		
 		sound = new JMenuItem("Sound Options");
 		sound.addActionListener(new ActionListener()
