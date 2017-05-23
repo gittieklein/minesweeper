@@ -63,6 +63,10 @@ public class GameData
 		return TOTAL_MINES;
 	}
 	
+	public void resetRemainingMines()
+	{
+		this.remaining_mines = TOTAL_MINES;
+	}
 	/**
 	 * increases or decreases remaining mines and returns the new number
 	 * @param m 1 or -1 (add or remove)

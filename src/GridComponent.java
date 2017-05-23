@@ -336,6 +336,20 @@ public class GridComponent extends JComponent
 				}
 			}
 		}
+		
+		if(isFinished()){
+			
+		  int clicked =	JOptionPane.showOptionDialog(null, "Congratulations you won!", "Game won", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, null, null);
+		  if(clicked == 0)
+		  {
+			  reset();
+		  }
+		}
+	}
+	
+	private boolean isFinished()
+	{
+	    return  countButtons == (gameData.getRows() * gameData.getColumns() - gameData.getTotalMines());
 	}
 	
 	private void GameOver() 
@@ -374,6 +388,7 @@ public class GridComponent extends JComponent
 			else if (gameData.getRemainingMines() > 0)
 			{
 				button.setIcon(images.get("flag"));
+				System.out.println("remaining mines "+gameData.getRemainingMines());
 				BelowComponent.editMines(gameData.addRemainingMines(-1));
 			}
 		}
@@ -424,6 +439,9 @@ public class GridComponent extends JComponent
 			}
 			
 			isFirst = true;
+			
+			//reset the number of mines used.
+			gameData.resetRemainingMines();
 		}
 		else
 		{
