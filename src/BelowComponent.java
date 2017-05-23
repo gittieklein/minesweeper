@@ -16,7 +16,7 @@ public class BelowComponent extends JComponent
 	
 	public BelowComponent()
 	{	
-		setLayout(new FlowLayout(FlowLayout.TRAILING));
+		setLayout(null);
 		
 		GameData gameData = GameData.getInstance();
 	
