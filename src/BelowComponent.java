@@ -37,8 +37,13 @@ public class BelowComponent extends JComponent
 		this.add(mineLabel);
 		this.add(mineIcon);
 		
-	
-		 
+
+		JLabel timeIcon = new JLabel();
+		ImageIcon ticon = new ImageIcon("src/images/timer.png");
+		Image timg = ticon.getImage();
+		Image timeimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
+		ticon = new ImageIcon(timeimg);
+		timeIcon.setIcon(ticon);
 		 timerLabel = new JLabel();
 		 timerLabel.setFont(new Font("Calibri", Font.PLAIN, 32));
 		 
