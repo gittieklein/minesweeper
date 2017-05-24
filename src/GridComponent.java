@@ -360,7 +360,7 @@ public class GridComponent extends JComponent
 			ImageIcon win = new ImageIcon(image.getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH));
 
 			int clicked = JOptionPane.showOptionDialog(null, "Congratulations you won!", "Game won",
-					JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, win, null, null);
+					JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, win, new String[]{"New Game", "Cancel"}, null);
 			if (clicked == 0)
 			{
 				MinesweeperJFrame.reset();
@@ -411,7 +411,7 @@ public class GridComponent extends JComponent
 		ImageIcon Lose = new ImageIcon(image.getImage().getScaledInstance(300, 100, Image.SCALE_SMOOTH));
 
 		int clicked = JOptionPane.showOptionDialog(null, null, "Game Over", JOptionPane.CANCEL_OPTION,
-				JOptionPane.INFORMATION_MESSAGE, Lose, null, null);
+				JOptionPane.INFORMATION_MESSAGE, Lose, new String[]{"New Game", "Cancel"}, null);
 		if (clicked == 0)
 		{
 			MinesweeperJFrame.reset();
