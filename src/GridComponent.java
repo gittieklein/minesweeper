@@ -353,6 +353,9 @@ public class GridComponent extends JComponent
 
 		if (isFinished())
 		{
+			BelowComponent.stopTimer();
+
+			
 			ImageIcon image = new ImageIcon("src/images/win.png");
 			ImageIcon win = new ImageIcon(image.getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH));
 
@@ -361,6 +364,8 @@ public class GridComponent extends JComponent
 			if (clicked == 0)
 			{
 				MinesweeperJFrame.reset();
+				
+				
 			}
 		}
 	}

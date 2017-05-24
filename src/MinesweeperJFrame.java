@@ -228,6 +228,10 @@ public class MinesweeperJFrame extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
+			//stop the timer if it is running from a different level.
+			BelowComponent.stopTimer();
+		
+			
 			JMenuItem menuItem = (JMenuItem) e.getSource();
 			String level = menuItem.getText();
 
