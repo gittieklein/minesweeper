@@ -1,9 +1,7 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 
 public class BelowComponent extends JComponent
 {
@@ -12,29 +10,33 @@ public class BelowComponent extends JComponent
 	private static JLabel mineLabel;
 	private static JLabel timerLabel;
 	private static Timer timer;
-	
-	
+
 	public BelowComponent()
-	{	
+	{
 		setLayout(new FlowLayout(FlowLayout.CENTER));
-		
+
 		GameData gameData = GameData.getInstance();
-	
-		//set up timer and timer image
+
+		// set up timer and timer image
 		JLabel timeIcon = new JLabel();
 		ImageIcon ticon = new ImageIcon("src/images/timer.png");
 		Image timg = ticon.getImage();
 		Image timeimg = timg.getScaledInstance(43, 43, Image.SCALE_SMOOTH);
 		ticon = new ImageIcon(timeimg);
 		timeIcon.setIcon(ticon);
-		
+
 		timerLabel = new JLabel("000");
 		timerLabel.setFont(new Font("Calibri", Font.PLAIN, 32));
-		 
+
 		this.add(timeIcon);
 		this.add(timerLabel);
-		
-		//set up mines and mine image
+
+		int amount = (gameData.getColumns() * 43) / 9;
+		Label label = new Label(String.format("%" + (amount) + "s", ""));
+
+		this.add(label);
+
+		// set up mines and mine image
 		mineLabel = new JLabel(gameData.getTotalMines() + " ");
 		JLabel mineIcon = new JLabel();
 		ImageIcon icon = new ImageIcon("src/images/mine.png");
@@ -42,49 +44,41 @@ public class BelowComponent extends JComponent
 		Image mineimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(mineimg);
 		mineIcon.setIcon(icon);
-	
-		mineLabel.setFont(new Font("Calibri", Font.PLAIN, 32));	//set font and size of text
-		
-		
-		//add number of mines and mine image to the component
+
+		mineLabel.setFont(new Font("Calibri", Font.PLAIN, 32)); // set font and size of text
+
+		// add number of mines and mine image to the component
 		this.add(mineLabel);
 		this.add(mineIcon);
 	}
-	
+
 	public static void startTimer()
-	{	 
-		 class TimerListener implements ActionListener{
-			    int elapsedSeconds = 0;
+	{
+		class TimerListener implements ActionListener
+		{
+			int elapsedSeconds = 0;
 
-			    public void actionPerformed(ActionEvent evt){
-			    	 
-			    if(elapsedSeconds < 999)
-		          {
-			    	
-			    	elapsedSeconds++;
-			        timerLabel.setText(String.format( "%03d",elapsedSeconds )+ " ");	       
-			        	
-			      }
-			    
-			    }
-
+			public void actionPerformed(ActionEvent evt)
+			{
+				if (elapsedSeconds < 999)
+				{
+					elapsedSeconds++;
+					timerLabel.setText(String.format("%03d", elapsedSeconds) + " ");
+				}
 			}
-		 
-		 timer = new Timer(1000, new TimerListener());
-		 timer.start();
-		
+		}
+
+		timer = new Timer(1000, new TimerListener());
+		timer.start();
 	}
-	
-	public static void stopTimer(){
+
+	public static void stopTimer()
+	{
 		timer.stop();
 	}
+
 	public static void editMines(int mines)
 	{
 		mineLabel.setText(mines + " ");
 	}
-	
-	
-	
 }
-
-
