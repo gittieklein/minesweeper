@@ -7,11 +7,10 @@ import javax.swing.event.*;
 
 //import MinesweeperGame.LevelActionListener;
 
-
 public class MinesweeperJFrame extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-	private static GameData gameData = GameData.getInstance(9,9,10);
+	private static GameData gameData = GameData.getInstance(9, 9, 10);
 	private static Container container;
 	private static int bottom;
 	private static int side;
@@ -19,48 +18,47 @@ public class MinesweeperJFrame extends JFrame
 	private static BelowComponent below;
 	private static AudioInputStream audioIn;
 	private static Clip clip;
-	
-	
+
 	public static void main(String[] args)
-	{		
+	{
 		grid = new GridComponent();
 		below = new BelowComponent();
 		MinesweeperJFrame frame = new MinesweeperJFrame();
 		frame.setJMenuBar(createMenu());
 		frame.setVisible(true);
 	}
-	
-	public MinesweeperJFrame() 
-	{		
-		setTitle("Minesweeper");	
+
+	public MinesweeperJFrame()
+	{
+		setTitle("Minesweeper");
 		setSize(1330, 826);
-		
-		//window closes when click x
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
-		
-		//the user can't resize the screen - ensures the buttons stay squares
+
+		// window closes when click x
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		// the user can't resize the screen - ensures the buttons stay squares
 		setResizable(false);
-		
-		//centers the window on the screen
-		setLocationRelativeTo(null);	
-		
-		//set icon image
+
+		// centers the window on the screen
+		setLocationRelativeTo(null);
+
+		// set icon image
 		ImageIcon image = new ImageIcon("src/images/icon.png");
 		setIconImage(image.getImage());
-		
-		//create container
-		container = getContentPane();	
-		
-		//set the boarder for dif amounts based on the amount of buttons
+
+		// create container
+		container = getContentPane();
+
+		// set the boarder for dif amounts based on the amount of buttons
 		bottom = 688 - (gameData.getRows() * 43);
 		side = 1330 - (gameData.getColumns() * 43);
-		
-		((JComponent) container).setBorder(BorderFactory.createEmptyBorder(40, side/2, bottom, side/2));
+
+		((JComponent) container).setBorder(BorderFactory.createEmptyBorder(40, side / 2, bottom, side / 2));
 		container.setLayout(new BorderLayout());
-		
-		container.add(grid, BorderLayout.CENTER);	//add grid
-		container.add(below, BorderLayout.SOUTH);	//add number of mines remaining	
-		
+
+		container.add(grid, BorderLayout.CENTER); // add grid
+		container.add(below, BorderLayout.SOUTH); // add number of mines remaining
+
 		try
 		{
 			// Open an audio input stream.
@@ -83,46 +81,46 @@ public class MinesweeperJFrame extends JFrame
 		catch (LineUnavailableException e)
 		{
 			e.printStackTrace();
-		}		
-	}	
-	
+		}
+	}
+
 	public static void reset()
 	{
-		//reset the grid
+		// reset the grid
 		grid.reset();
 		gameData = GameData.getInstance();
-			
-		//reset the borders
+
+		// reset the borders
 		bottom = 688 - (gameData.getRows() * 43);
 		side = 1330 - (gameData.getColumns() * 43);
-		((JComponent) container).setBorder(BorderFactory.createEmptyBorder(40, side/2, bottom, side/2));
-		
-		//reset the remaining mines
-		below.clearTimer();
+		((JComponent) container).setBorder(BorderFactory.createEmptyBorder(40, side / 2, bottom, side / 2));
+
+		// reset the remaining mines
+		below.reset();
 		BelowComponent.editMines(gameData.getTotalMines());
 	}
-	
+
 	/**
 	 * create a menu bar to be added to the frame
 	 * @return the menu bar
 	 */
 	private static JMenuBar createMenu()
 	{
-		//Where the GUI is created:
+		// Where the GUI is created:
 		JMenuBar menuBar;
 		JMenuItem menuNew, menuExit, sound;
 		JMenu menu, selectLevel;
-		
-		//Create the menu bar.
+
+		// Create the menu bar.
 		menuBar = new JMenuBar();
 
-		//create menu item
+		// create menu item
 		menu = new JMenu("Menu");
-		
-		//New Game for menu
+
+		// New Game for menu
 		menuNew = new JMenuItem("New Game");
-		
-		//listener to start a new game when new game is clicked
+
+		// listener to start a new game when new game is clicked
 		menuNew.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
@@ -131,7 +129,7 @@ public class MinesweeperJFrame extends JFrame
 			}
 		});
 		menu.add(menuNew);
-	
+
 		selectLevel = new JMenu("Select Level");
 		JMenuItem beginner, intermediate, advanced, custom;
 		beginner = new JMenuItem("Beginner");
@@ -142,7 +140,7 @@ public class MinesweeperJFrame extends JFrame
 		selectLevel.add(intermediate);
 		selectLevel.add(advanced);
 		selectLevel.add(custom);
-		
+
 		LevelActionListener listener = new MinesweeperJFrame.LevelActionListener();
 		beginner.addActionListener(listener);
 		intermediate.addActionListener(listener);
@@ -152,18 +150,16 @@ public class MinesweeperJFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				SpinnerModel rows = new SpinnerNumberModel(16, 8, 100, 1);           
+				SpinnerModel rows = new SpinnerNumberModel(16, 8, 100, 1);
 				JSpinner rowspinner = new JSpinner(rows);
-				SpinnerModel columns = new SpinnerNumberModel(16, 8, 100, 1);           
+				SpinnerModel columns = new SpinnerNumberModel(16, 8, 100, 1);
 				JSpinner columnspinner = new JSpinner(columns);
-				Object[] message = {
-					    "Rows:", rowspinner,
-					    "Columns:", columnspinner
-					};
-				Object clicked = JOptionPane.showConfirmDialog(null, message, "Custom Level", JOptionPane.PLAIN_MESSAGE, JOptionPane.PLAIN_MESSAGE, null);
-				if(clicked != null)
+				Object[] message = { "Rows:", rowspinner, "Columns:", columnspinner };
+				Object clicked = JOptionPane.showConfirmDialog(null, message, "Custom Level", JOptionPane.PLAIN_MESSAGE,
+						JOptionPane.PLAIN_MESSAGE, null);
+				if (clicked != null)
 				{
-					if(clicked.equals("yes"))
+					if (clicked.equals("yes"))
 					{
 						clip.start();
 						clip.loop(Integer.MAX_VALUE);
@@ -171,29 +167,29 @@ public class MinesweeperJFrame extends JFrame
 					else
 					{
 						clip.stop();
-					}					
+					}
 				}
 			}
-		});	
-		
+		});
+
 		menu.add(selectLevel);
-		
-		//add sound options
+
+		// add sound options
 		ImageIcon image = new ImageIcon("src/images/sound.png");
 		ImageIcon soundImage = new ImageIcon(image.getImage().getScaledInstance(80, 50, Image.SCALE_SMOOTH));
-		
+
 		sound = new JMenuItem("Sound Options");
 		sound.addActionListener(new ActionListener()
 		{
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				Object[] options = {"yes", "no"};
-				Object clicked = JOptionPane.showInputDialog(null, "Play background music?                    ", "Sound Options", 
-						JOptionPane.QUESTION_MESSAGE, soundImage, options, null);
-				if(clicked != null)
+				Object[] options = { "yes", "no" };
+				Object clicked = JOptionPane.showInputDialog(null, "Play background music?                    ",
+						"Sound Options", JOptionPane.QUESTION_MESSAGE, soundImage, options, null);
+				if (clicked != null)
 				{
-					if(clicked.equals("yes"))
+					if (clicked.equals("yes"))
 					{
 						clip.start();
 						clip.loop(Integer.MAX_VALUE);
@@ -201,27 +197,27 @@ public class MinesweeperJFrame extends JFrame
 					else
 					{
 						clip.stop();
-					}					
+					}
 				}
 			}
-		});	
+		});
 		menu.add(sound);
-		
-		//Exit game for menu
+
+		// Exit game for menu
 		menuExit = new JMenuItem("Exit");
-		
-		//listener to close the game when exit is clicked
+
+		// listener to close the game when exit is clicked
 		menuExit.addActionListener(new ActionListener()
 		{
 			public void actionPerformed(ActionEvent e)
 			{
-				System.exit(0);	
+				System.exit(0);
 			}
-		});	
+		});
 		menu.add(menuExit);
-		
+
 		menuBar.add(menu);
-		
+
 		return menuBar;
 	}
 
@@ -232,27 +228,27 @@ public class MinesweeperJFrame extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			 JMenuItem menuItem = (JMenuItem)e.getSource();
-		     String level = menuItem.getText();		
-		     
-		     if(level.equals("Beginner"))
-		     {
-		    	 GameData gameData = GameData.getInstance();
-		    	 gameData.changeLevel(9, 9, 10);
-		    	 reset();
-		     }
-		     else if(level.equals("Intermediate"))
-		     {
-		    	 GameData gameData = GameData.getInstance();
-		    	 gameData.changeLevel(16, 16, 40);
-		    	 reset();
-		     }
-		     else
-		     {
-		    	 GameData gameData = GameData.getInstance();
-		    	 gameData.changeLevel(16, 30, 99);
-		    	 reset();
-		     }		    	 
+			JMenuItem menuItem = (JMenuItem) e.getSource();
+			String level = menuItem.getText();
+
+			if (level.equals("Beginner"))
+			{
+				GameData gameData = GameData.getInstance();
+				gameData.changeLevel(9, 9, 10);
+				reset();
+			}
+			else if (level.equals("Intermediate"))
+			{
+				GameData gameData = GameData.getInstance();
+				gameData.changeLevel(16, 16, 40);
+				reset();
+			}
+			else
+			{
+				GameData gameData = GameData.getInstance();
+				gameData.changeLevel(16, 30, 99);
+				reset();
+			}
 		}
 	}
 }

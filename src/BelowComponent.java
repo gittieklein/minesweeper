@@ -10,12 +10,13 @@ public class BelowComponent extends JComponent
 	private static JLabel mineLabel;
 	private static JLabel timerLabel;
 	private static Timer timer;
+	private int amount;
+	private Label space;
+	private GameData gameData = GameData.getInstance();
 
 	public BelowComponent()
 	{
 		setLayout(new FlowLayout(FlowLayout.CENTER));
-
-		GameData gameData = GameData.getInstance();
 
 		// set up timer and timer image
 		JLabel timeIcon = new JLabel();
@@ -31,10 +32,10 @@ public class BelowComponent extends JComponent
 		this.add(timeIcon);
 		this.add(timerLabel);
 
-		int amount = (gameData.getColumns() * 43) / 9;
-		Label label = new Label(String.format("%" + (amount) + "s", ""));
+		amount = (gameData.getColumns() * 43) / 9;
+		space = new Label(String.format("%" + (amount) + "s", ""));
 
-		this.add(label);
+		this.add(space);
 
 		// set up mines and mine image
 		mineLabel = new JLabel(gameData.getTotalMines() + " ");
@@ -69,18 +70,20 @@ public class BelowComponent extends JComponent
 		}
 
 		timer = new Timer(1000, new TimerListener());
-		timer.start();
+		timer.start();		
 	}
-	public void clearTimer()
+
+	public void reset()
 	{
 		timerLabel.setText("000");
 
+		amount = (gameData.getColumns() * 43) / 9;
+		space.setText(String.format("%" + (amount) + "s", ""));
 	}
 
 	public static void stopTimer()
 	{
 		timer.stop();
-
 	}
 
 	public static void editMines(int mines)
