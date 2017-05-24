@@ -71,10 +71,16 @@ public class BelowComponent extends JComponent
 		timer = new Timer(1000, new TimerListener());
 		timer.start();
 	}
+	public void clearTimer()
+	{
+		timerLabel.setText("000");
+
+	}
 
 	public static void stopTimer()
 	{
 		timer.stop();
+
 	}
 
 	public static void editMines(int mines)

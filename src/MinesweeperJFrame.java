@@ -98,7 +98,7 @@ public class MinesweeperJFrame extends JFrame
 		((JComponent) container).setBorder(BorderFactory.createEmptyBorder(40, side/2, bottom, side/2));
 		
 		//reset the remaining mines
-		below.stopTimer();
+		below.clearTimer();
 		BelowComponent.editMines(gameData.getTotalMines());
 	}
 	
