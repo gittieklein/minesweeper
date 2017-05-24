@@ -150,24 +150,29 @@ public class MinesweeperJFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				SpinnerModel rows = new SpinnerNumberModel(16, 8, 100, 1);
+				SpinnerModel rows = new SpinnerNumberModel(16, 8, 16, 1);
 				JSpinner rowspinner = new JSpinner(rows);
-				SpinnerModel columns = new SpinnerNumberModel(16, 8, 100, 1);
+				SpinnerModel columns = new SpinnerNumberModel(16, 8, 30, 1);
 				JSpinner columnspinner = new JSpinner(columns);
-				Object[] message = { "Rows:", rowspinner, "Columns:", columnspinner };
+				SpinnerModel mines = new SpinnerNumberModel(10, 1, 200, 1);
+				JSpinner minespinner = new JSpinner(mines);
+				System.out.println((int)rowspinner.getValue()*(int)columnspinner.getValue()/3);
+				
+				
+				
+				Object[] message = { "Rows:", rowspinner, "Columns:", columnspinner, "Mines:", minespinner };
 				Object clicked = JOptionPane.showConfirmDialog(null, message, "Custom Level", JOptionPane.PLAIN_MESSAGE,
 						JOptionPane.PLAIN_MESSAGE, null);
 				if (clicked != null)
 				{
-					if (clicked.equals("yes"))
-					{
-						clip.start();
-						clip.loop(Integer.MAX_VALUE);
-					}
-					else
-					{
-						clip.stop();
-					}
+					//if the number of mines if too high - automatically set it to the highest it could be
+					if((int)mines.getValue() > ((int)rows.getValue() * (int)columns.getValue()) / 3)
+						mines.setValue((int)rows.getValue() * (int)columns.getValue() / 3);
+					
+					//change level
+					GameData gameData = GameData.getInstance();
+					gameData.changeLevel((int)rows.getValue(), (int)columns.getValue(), (int)mines.getValue());
+					reset();
 				}
 			}
 		});
