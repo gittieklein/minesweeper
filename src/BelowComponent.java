@@ -26,11 +26,11 @@ public class BelowComponent extends JComponent
 		ticon = new ImageIcon(timeimg);
 		timeIcon.setIcon(ticon);
 
-		timerLabel = new JLabel("000");
-		timerLabel.setFont(new Font("Calibri", Font.PLAIN, 32));
+		setTimerLabel(new JLabel("000"));
+		getTimerLabel().setFont(new Font("Calibri", Font.PLAIN, 32));
 
 		this.add(timeIcon);
-		this.add(timerLabel);
+		this.add(getTimerLabel());
 
 		amount = (gameData.getColumns() * 43) / 9;
 		space = new Label(String.format("%" + (amount) + "s", ""));
@@ -57,7 +57,7 @@ public class BelowComponent extends JComponent
 
 	public void reset()
 	{
-		timerLabel.setText("000");
+		//getTimerLabel().setText("000");
 
 		amount = (gameData.getColumns() * 43) / 9;
 		space.setText(String.format("%" + (amount) + "s", ""));
@@ -67,14 +67,15 @@ public class BelowComponent extends JComponent
 	{
 		timer.stop();
 	}
-
 	
 	public static void setTimerLabel(String text)
 	{
-		timerLabel.setText(text);
+		BelowComponent.timerLabel.setText(text);
 	}
+	
 	public static void editMines(int mines)
 	{
 		mineLabel.setText(mines + " ");
 	}
+
 }

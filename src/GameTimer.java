@@ -12,7 +12,7 @@ public class GameTimer implements ActionListener{
 				if (elapsedSeconds < 999)
 				{
 					elapsedSeconds++;
-					BelowComponent.timerLabel.setTimerLabel(String.format("%03d", elapsedSeconds) + " ");
+					BelowComponent.setTimerLabel(String.format("%03d", elapsedSeconds) + " ");
 				}
 			}
 		
