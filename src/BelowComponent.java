@@ -53,25 +53,7 @@ public class BelowComponent extends JComponent
 		this.add(mineIcon);
 	}
 
-	public static void startTimer()
-	{
-		class TimerListener implements ActionListener
-		{
-			int elapsedSeconds = 0;
-
-			public void actionPerformed(ActionEvent evt)
-			{
-				if (elapsedSeconds < 999)
-				{
-					elapsedSeconds++;
-					timerLabel.setText(String.format("%03d", elapsedSeconds) + " ");
-				}
-			}
-		}
-
-		timer = new Timer(1000, new TimerListener());
-		timer.start();		
-	}
+	
 
 	public void reset()
 	{
@@ -86,6 +68,11 @@ public class BelowComponent extends JComponent
 		timer.stop();
 	}
 
+	
+	public static void setTimerLabel(String text)
+	{
+		timerLabel.setText(text);
+	}
 	public static void editMines(int mines)
 	{
 		mineLabel.setText(mines + " ");
