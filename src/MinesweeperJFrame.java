@@ -98,6 +98,11 @@ public class MinesweeperJFrame extends JFrame
 		// reset the remaining mines
 		below.reset();
 		BelowComponent.editMines(gameData.getTotalMines());
+		
+		//reset the timer
+		GameTimer timer = GameTimer.getInstance();
+		timer.stopTimer();
+		timer.resetTimer();
 	}
 
 	/**
@@ -231,31 +236,23 @@ public class MinesweeperJFrame extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			//stop the timer if it is running from a different level.
-			BelowComponent.stopTimer();
-		
-			
 			JMenuItem menuItem = (JMenuItem) e.getSource();
 			String level = menuItem.getText();
 
+			GameData gameData = GameData.getInstance();
 			if (level.equals("Beginner"))
-			{
-				GameData gameData = GameData.getInstance();
+			{			
 				gameData.changeLevel(9, 9, 10);
-				reset();
 			}
 			else if (level.equals("Intermediate"))
 			{
-				GameData gameData = GameData.getInstance();
 				gameData.changeLevel(16, 16, 40);
-				reset();
 			}
 			else
 			{
-				GameData gameData = GameData.getInstance();
 				gameData.changeLevel(16, 30, 99);
-				reset();
 			}
+			reset();
 		}
 	}
 }

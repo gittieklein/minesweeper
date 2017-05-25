@@ -28,6 +28,8 @@ public class GridComponent extends JComponent
 	private HashMap<String, ImageIcon> images;
 	private GameData gameData = GameData.getInstance();
 
+	private GameTimer timer = GameTimer.getInstance();
+
 	// used so that the user can't click on a bomb their first turn
 	private boolean isFirst;
 
@@ -258,7 +260,7 @@ public class GridComponent extends JComponent
 			if (isFirst)
 			{
 				isFirst = false;
-				BelowComponent.startTimer();
+				timer.startTimer();
 
 				setMines(button);
 				setNumbers();
@@ -290,7 +292,7 @@ public class GridComponent extends JComponent
 				}
 				button.setImg(images.get("hit-mine"));
 
-				BelowComponent.stopTimer();
+				timer.stopTimer();
 				gameOver();
 			}
 			// if the button has a flag, ignore left click
@@ -353,19 +355,18 @@ public class GridComponent extends JComponent
 
 		if (isFinished())
 		{
-			BelowComponent.stopTimer();
+			timer.stopTimer();
 
-			
 			ImageIcon image = new ImageIcon("src/images/win.png");
 			ImageIcon win = new ImageIcon(image.getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH));
 
 			int clicked = JOptionPane.showOptionDialog(null, "Congratulations you won!", "Game won",
-					JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, win, new String[]{"New Game", "Cancel"}, null);
+					JOptionPane.CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, win,
+					new String[] { "New Game", "Cancel" }, null);
 			if (clicked == 0)
 			{
 				MinesweeperJFrame.reset();
-				
-				
+
 			}
 		}
 	}
@@ -374,10 +375,11 @@ public class GridComponent extends JComponent
 	{
 		return countButtons == (gameData.getRows() * gameData.getColumns() - gameData.getTotalMines());
 	}
-/**
- * This method flips over all the mines 
- * and shows a dialog box to either rest or cancle
- */
+
+	/**
+	 * This method flips over all the mines 
+	 * and shows a dialog box to either rest or cancle
+	 */
 	private void gameOver()
 	{
 		for (int i = 0; i < gameData.getRows(); i++)
@@ -414,7 +416,7 @@ public class GridComponent extends JComponent
 		ImageIcon Lose = new ImageIcon(image.getImage().getScaledInstance(300, 100, Image.SCALE_SMOOTH));
 
 		int clicked = JOptionPane.showOptionDialog(null, null, "Game Over", JOptionPane.CANCEL_OPTION,
-				JOptionPane.INFORMATION_MESSAGE, Lose, new String[]{"New Game", "Cancel"}, null);
+				JOptionPane.INFORMATION_MESSAGE, Lose, new String[] { "New Game", "Cancel" }, null);
 		if (clicked == 0)
 		{
 			MinesweeperJFrame.reset();
