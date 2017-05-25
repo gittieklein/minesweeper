@@ -150,20 +150,18 @@ public class MinesweeperJFrame extends JFrame
 			@Override
 			public void actionPerformed(ActionEvent arg0)
 			{
-				SpinnerModel rows = new SpinnerNumberModel(16, 8, 16, 1);
+				SpinnerModel rows = new SpinnerNumberModel(8, 8, 16, 1);
 				JSpinner rowspinner = new JSpinner(rows);
-				SpinnerModel columns = new SpinnerNumberModel(16, 8, 30, 1);
+				SpinnerModel columns = new SpinnerNumberModel(8, 8, 30, 1);
 				JSpinner columnspinner = new JSpinner(columns);
 				SpinnerModel mines = new SpinnerNumberModel(10, 1, 200, 1);
-				JSpinner minespinner = new JSpinner(mines);
-				System.out.println((int)rowspinner.getValue()*(int)columnspinner.getValue()/3);
-				
-				
+				JSpinner minespinner = new JSpinner(mines);				
 				
 				Object[] message = { "Rows:", rowspinner, "Columns:", columnspinner, "Mines:", minespinner };
-				Object clicked = JOptionPane.showConfirmDialog(null, message, "Custom Level", JOptionPane.PLAIN_MESSAGE,
+				int clicked = JOptionPane.showConfirmDialog(null, message, "Custom Level", JOptionPane.PLAIN_MESSAGE,
 						JOptionPane.PLAIN_MESSAGE, null);
-				if (clicked != null)
+				
+				if (clicked == 0)
 				{
 					//if the number of mines if too high - automatically set it to the highest it could be
 					if((int)mines.getValue() > ((int)rows.getValue() * (int)columns.getValue()) / 3)
