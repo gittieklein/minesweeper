@@ -374,7 +374,10 @@ public class GridComponent extends JComponent
 	{
 		return countButtons == (gameData.getRows() * gameData.getColumns() - gameData.getTotalMines());
 	}
-
+/**
+ * This method flips over all the mines 
+ * and shows a dialog box to either rest or cancle
+ */
 	private void gameOver()
 	{
 		for (int i = 0; i < gameData.getRows(); i++)
