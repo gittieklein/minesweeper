@@ -437,7 +437,6 @@ public class GridComponent extends JComponent
 			else if (gameData.getRemainingMines() > 0)
 			{
 				button.setIcon(images.get("flag"));
-				System.out.println("remaining mines " + gameData.getRemainingMines());
 				BelowComponent.editMines(gameData.addRemainingMines(-1));
 			}
 		}
@@ -453,12 +452,6 @@ public class GridComponent extends JComponent
 		// also set the disabled image so it is not grayed out.
 		button.setDisabledIcon(button.getImg());
 
-		System.out.println(countButtons);
-		if (countButtons == (gameData.getRows() * gameData.getColumns()) - gameData.getTotalMines())
-		{
-			System.out.println("Game won");
-		}
-		System.out.println("flip button " + countButtons);
 	}
 
 	private Cell getActiveCell(int x, int y)

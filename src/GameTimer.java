@@ -12,7 +12,7 @@ public class GameTimer
 	private GameTimer()
 	{
 		elapsedSeconds = 0;
-		timer = new Timer(0, new ActionListener()
+		timer = new Timer(1000, new ActionListener()
 		{
 			public void actionPerformed(ActionEvent evt)
 			{

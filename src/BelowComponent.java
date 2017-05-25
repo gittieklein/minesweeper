@@ -9,18 +9,15 @@ public class BelowComponent extends JComponent
 	private static final long serialVersionUID = 1L;
 	private static JLabel mineLabel;
 	private static JLabel timerLabel;
-	private GameTimer timer;
 	private int amount;
 	private Label space;
 	private GameData gameData = GameData.getInstance();
 
 	public BelowComponent()
 	{
-		timer.getInstance();
-
 		setLayout(new FlowLayout(FlowLayout.CENTER));
 
-		// set up timer and timer image
+		//timer image
 		JLabel timeIcon = new JLabel();
 		ImageIcon ticon = new ImageIcon("src/images/timer.png");
 		Image timg = ticon.getImage();
@@ -57,7 +54,6 @@ public class BelowComponent extends JComponent
 
 	public void reset()
 	{
-		//timerLabel.setText("000");
 		amount = (gameData.getColumns() * 43) / 9;
 		space.setText(String.format("%" + (amount) + "s", ""));
 	}
