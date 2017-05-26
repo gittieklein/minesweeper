@@ -1,48 +1,42 @@
 import java.awt.*;
-
 import javax.swing.*;
 
+public class GridComponent extends JComponent
+{
 
-public class GridComponent extends JComponent {
-	
 	private static final long serialVersionUID = 1L;
-	
 	private GameData gameData = GameData.getInstance();
-
 	private Minesweeper minesweeper;
 
-	public GridComponent() {
-		
+	public GridComponent()
+	{
 		minesweeper = new Minesweeper();
-		
-		//create a grid for each cell
+
+		// create a grid for each cell
 		setLayout(new GridLayout(gameData.getRows(), gameData.getColumns()));
-		
 
 		minesweeper.setImages();
-		
 		buildButtons();
 	}
 
-	private void buildButtons() {
-		
-		for (int i = 0; i < gameData.getRows(); i++) {
-			for (int j = 0; j < gameData.getColumns(); j++) {
-				
+	private void buildButtons()
+	{
+		for (int i = 0; i < gameData.getRows(); i++)
+		{
+			for (int j = 0; j < gameData.getColumns(); j++)
+			{
 				Cell currentBtn = minesweeper.buildButton(i, j);
-
 				this.add(currentBtn); // add the button to the grid layout
 			}
 		}
 	}
 
-	public void reset() {
-
+	public void reset()
+	{
 		setLayout(new GridLayout(gameData.getRows(), gameData.getColumns()));
-
 		boolean sameSize = minesweeper.reset();
 
-		if(!sameSize)
+		if (!sameSize)
 		{
 			for (int i = 0; i < minesweeper.getSquaresRows(); i++)
 			{
@@ -52,13 +46,9 @@ public class GridComponent extends JComponent {
 				}
 			}
 
-			minesweeper.resetSize();	
-			
+			minesweeper.resetSize();
 			buildButtons();
 		}
 	}
-			
-		
-	
 
 }

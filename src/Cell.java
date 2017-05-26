@@ -1,8 +1,5 @@
-import java.awt.event.MouseListener;
-
 import javax.swing.*;
 import java.awt.*;
-
 import Enums.ButtonType;
 
 public class Cell extends JButton

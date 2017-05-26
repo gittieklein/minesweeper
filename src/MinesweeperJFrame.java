@@ -3,9 +3,6 @@ import java.awt.event.*;
 import java.io.*;
 import javax.sound.sampled.*;
 import javax.swing.*;
-import javax.swing.event.*;
-
-//import MinesweeperGame.LevelActionListener;
 
 public class MinesweeperJFrame extends JFrame
 {
@@ -62,7 +59,7 @@ public class MinesweeperJFrame extends JFrame
 		try
 		{
 			// Open an audio input stream.
-			File soundFile = new File("src/sound/background.au"); // you could also get the sound file with an URL
+			File soundFile = new File("src/sound/background.au");
 			audioIn = AudioSystem.getAudioInputStream(soundFile);
 			// Get a sound clip resource.
 			clip = AudioSystem.getClip();
@@ -84,6 +81,10 @@ public class MinesweeperJFrame extends JFrame
 		}
 	}
 
+	/**
+	 * Reset the game
+	 * every class needs to be reset
+	 */
 	public static void reset()
 	{
 		// reset the grid
@@ -111,32 +112,23 @@ public class MinesweeperJFrame extends JFrame
 	 */
 	private static JMenuBar createMenu()
 	{
-		// Where the GUI is created:
 		JMenuBar menuBar;
-		JMenuItem menuNew, menuExit, sound;
+		JMenuItem menuNew, menuExit, sound, beginner, intermediate, advanced, custom;
 		JMenu menu, selectLevel;
 
-		// Create the menu bar.
 		menuBar = new JMenuBar();
-
-		// create menu item
 		menu = new JMenu("Menu");
 
-		// New Game for menu
+		//Create New Game option on the menu
 		menuNew = new JMenuItem("New Game");
-
-		// listener to start a new game when new game is clicked
 		menuNew.addActionListener(new ActionListener()
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				reset();
-			}
+			public void actionPerformed(ActionEvent e) { reset(); }
 		});
 		menu.add(menuNew);
 
-		selectLevel = new JMenu("Select Level");
-		JMenuItem beginner, intermediate, advanced, custom;
+		//Create Select Level options on the menu
+		selectLevel = new JMenu("Select Level");		
 		beginner = new JMenuItem("Beginner");
 		intermediate = new JMenuItem("Intermediate");
 		advanced = new JMenuItem("Advanced");
@@ -179,10 +171,9 @@ public class MinesweeperJFrame extends JFrame
 				}
 			}
 		});
-
 		menu.add(selectLevel);
 
-		// add sound options
+		// add sound options to menu
 		ImageIcon image = new ImageIcon("src/images/sound.png");
 		ImageIcon soundImage = new ImageIcon(image.getImage().getScaledInstance(80, 50, Image.SCALE_SMOOTH));
 
@@ -213,19 +204,13 @@ public class MinesweeperJFrame extends JFrame
 
 		// Exit game for menu
 		menuExit = new JMenuItem("Exit");
-
-		// listener to close the game when exit is clicked
 		menuExit.addActionListener(new ActionListener()
 		{
-			public void actionPerformed(ActionEvent e)
-			{
-				System.exit(0);
-			}
+			public void actionPerformed(ActionEvent e) { System.exit(0); }
 		});
 		menu.add(menuExit);
 
 		menuBar.add(menu);
-
 		return menuBar;
 	}
 

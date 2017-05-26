@@ -1,22 +1,9 @@
-import java.awt.GridLayout;
 import java.awt.Image;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Random;
-import java.util.Stack;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-
+import java.awt.event.*;
+import java.io.*;
+import java.util.*;
+import javax.sound.sampled.*;
+import javax.swing.*;
 import Enums.ButtonType;
 
 public class Minesweeper
