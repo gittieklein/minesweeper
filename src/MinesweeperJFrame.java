@@ -67,17 +67,11 @@ public class MinesweeperJFrame extends JFrame
 			clip.open(audioIn);
 			clip.loop(Integer.MAX_VALUE);
 		}
-		catch (UnsupportedAudioFileException e)
+		catch (Exception e)
 		{
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			e.printStackTrace();
-		}
-		catch (LineUnavailableException e)
-		{
-			e.printStackTrace();
+			JOptionPane.showOptionDialog(null, "There is an error with the sound. Please restart the game.", "Error",
+					JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+					null, null);
 		}
 	}
 
