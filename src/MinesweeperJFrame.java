@@ -7,7 +7,7 @@ import javax.swing.*;
 public class MinesweeperJFrame extends JFrame
 {
 	private static final long serialVersionUID = 1L;
-	private static GameData gameData = GameData.getInstance(9, 9, 10);
+	private static GameData gameData = GameData.getInstance();
 	private static Container container;
 	private static int bottom;
 	private static int side;

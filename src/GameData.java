@@ -10,19 +10,14 @@ public class GameData
 	 * Private constructor can only be called from inside the class
 	 * makes sure only one instance of game data
 	 */
-	private GameData(int r, int c, int m)
+	private GameData()
 	{
-		ROWS = r;
-		COLS = c;
-		TOTAL_MINES = remaining_mines = m;
+		ROWS = 9;
+		COLS = 9;
+		TOTAL_MINES = remaining_mines = 10;
 	}
 
 	public static GameData getInstance()
-	{
-		return singelton;
-	}
-
-	public static GameData getInstance(int r, int c, int m)
 	{
 		if (singelton == null)
 		{
@@ -31,7 +26,7 @@ public class GameData
 			{
 				if (singelton == null)
 				{
-					singelton = new GameData(r, c, m);
+					singelton = new GameData();
 				}
 			}
 		}
