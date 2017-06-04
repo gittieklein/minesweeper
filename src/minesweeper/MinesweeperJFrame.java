@@ -1,6 +1,10 @@
+package minesweeper;
+
+import minesweeper.BelowComponent;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.*;
+import java.net.URL;
 import javax.sound.sampled.*;
 import javax.swing.*;
 
@@ -21,7 +25,7 @@ public class MinesweeperJFrame extends JFrame
 		grid = new GridComponent();
 		below = new BelowComponent();
 		MinesweeperJFrame frame = new MinesweeperJFrame();
-		frame.setJMenuBar(createMenu());
+		
 		frame.setVisible(true);
 	}
 
@@ -40,7 +44,7 @@ public class MinesweeperJFrame extends JFrame
 		setLocationRelativeTo(null);
 
 		// set icon image
-		ImageIcon image = new ImageIcon("src/images/icon.png");
+		ImageIcon image = new ImageIcon(getClass().getResource("/minesweeper/images/icon.png"));
 		setIconImage(image.getImage());
 
 		// create container
@@ -59,7 +63,7 @@ public class MinesweeperJFrame extends JFrame
 		try
 		{
 			// Open an audio input stream.
-			File soundFile = new File("src/sound/background.au");
+			URL soundFile = getClass().getResource("/minesweeper/sound/background.au");
 			audioIn = AudioSystem.getAudioInputStream(soundFile);
 			// Get a sound clip resource.
 			clip = AudioSystem.getClip();
@@ -73,6 +77,8 @@ public class MinesweeperJFrame extends JFrame
 					JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
 					null, null);
 		}
+                
+                setJMenuBar(createMenu());
 	}
 
 	/**
@@ -104,7 +110,7 @@ public class MinesweeperJFrame extends JFrame
 	 * create a menu bar to be added to the frame
 	 * @return the menu bar
 	 */
-	private static JMenuBar createMenu()
+	private JMenuBar createMenu()
 	{
 		JMenuBar menuBar;
 		JMenuItem menuNew, menuExit, sound, beginner, intermediate, advanced, custom;
@@ -168,7 +174,7 @@ public class MinesweeperJFrame extends JFrame
 		menu.add(selectLevel);
 
 		// add sound options to menu
-		ImageIcon image = new ImageIcon("src/images/sound.png");
+		ImageIcon image = new ImageIcon(getClass().getResource("/minesweeper/images/sound.png"));
 		ImageIcon soundImage = new ImageIcon(image.getImage().getScaledInstance(80, 50, Image.SCALE_SMOOTH));
 
 		sound = new JMenuItem("Sound Options");

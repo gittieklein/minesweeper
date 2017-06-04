@@ -1,3 +1,5 @@
+package minesweeper;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -17,7 +19,7 @@ public class BelowComponent extends JComponent
 
 		//timer image
 		JLabel timeIcon = new JLabel();
-		ImageIcon ticon = new ImageIcon("src/images/timer.png");
+		ImageIcon ticon = new ImageIcon(getClass().getResource("/minesweeper/images/timer.png"));
 		Image timg = ticon.getImage();
 		Image timeimg = timg.getScaledInstance(43, 43, Image.SCALE_SMOOTH);
 		ticon = new ImageIcon(timeimg);
@@ -37,7 +39,7 @@ public class BelowComponent extends JComponent
 		// set up mines and mine image
 		mineLabel = new JLabel(gameData.getTotalMines() + " ");
 		JLabel mineIcon = new JLabel();
-		ImageIcon icon = new ImageIcon("src/images/mine.png");
+		ImageIcon icon = new ImageIcon(getClass().getResource("/minesweeper/images/mine.png"));
 		Image img = icon.getImage();
 		Image mineimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(mineimg);

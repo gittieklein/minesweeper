@@ -1,3 +1,6 @@
+package minesweeper;
+
+import minesweeper.Minesweeper;
 import java.awt.*;
 import javax.swing.*;
 

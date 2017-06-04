@@ -1,3 +1,5 @@
+package minesweeper;
+
 public class GameData
 {
 	private static GameData singelton = null;

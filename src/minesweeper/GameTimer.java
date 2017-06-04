@@ -1,3 +1,6 @@
+package minesweeper;
+
+import minesweeper.BelowComponent;
 import java.awt.event.*;
 import javax.swing.Timer;
 

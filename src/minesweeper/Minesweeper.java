@@ -1,3 +1,7 @@
+package minesweeper;
+
+import minesweeper.MinesweeperJFrame;
+import minesweeper.BelowComponent;
 import java.awt.Image;
 import java.awt.event.*;
 import java.io.*;
@@ -5,6 +9,7 @@ import java.util.*;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import Enums.ButtonType;
+import java.net.URL;
 
 public class Minesweeper
 {
@@ -39,19 +44,19 @@ public class Minesweeper
 	public void setImages()
 	{
 		// create array of images
-		images.put("zero", new ImageIcon("src/images/zero.png"));
-		images.put("one", new ImageIcon("src/images/one.png"));
-		images.put("two", new ImageIcon("src/images/two.png"));
-		images.put("three", new ImageIcon("src/images/three.png"));
-		images.put("four", new ImageIcon("src/images/four.png"));
-		images.put("five", new ImageIcon("src/images/five.png"));
-		images.put("six", new ImageIcon("src/images/six.png"));
-		images.put("seven", new ImageIcon("src/images/seven.png"));
-		images.put("eight", new ImageIcon("src/images/eight.png"));
-		images.put("mine", new ImageIcon("src/images/mineboard.png"));
-		images.put("xmine", new ImageIcon("src/images/xmine.png"));
-		images.put("flag", new ImageIcon("src/images/flag.png"));
-		images.put("hit-mine", new ImageIcon("src/images/hit_bomb.png"));
+		images.put("zero", new ImageIcon(getClass().getResource("/minesweeper/images/zero.png")));
+		images.put("one", new ImageIcon(getClass().getResource("/minesweeper/images/one.png")));
+		images.put("two", new ImageIcon(getClass().getResource("/minesweeper/images/two.png")));
+		images.put("three", new ImageIcon(getClass().getResource("/minesweeper/images/three.png")));
+		images.put("four", new ImageIcon(getClass().getResource("/minesweeper/images/four.png")));
+		images.put("five", new ImageIcon(getClass().getResource("/minesweeper/images/five.png")));
+		images.put("six", new ImageIcon(getClass().getResource("/minesweeper/images/six.png")));
+		images.put("seven", new ImageIcon(getClass().getResource("/minesweeper/images/seven.png")));
+		images.put("eight", new ImageIcon(getClass().getResource("/minesweeper/images/eight.png")));
+		images.put("mine", new ImageIcon(getClass().getResource("/minesweeper/images/mineboard.png")));
+		images.put("xmine", new ImageIcon(getClass().getResource("/minesweeper/images/xmine.png")));
+		images.put("flag", new ImageIcon(getClass().getResource("/minesweeper/images/flag.png")));
+		images.put("hit-mine", new ImageIcon(getClass().getResource("/minesweeper/images/hit_bomb.png")));
 
 		Image imgTemp;
 		for (String key : images.keySet())
@@ -250,8 +255,8 @@ public class Minesweeper
 			{
 				try
 				{
-					// Open an audio input stream.
-					File soundFile = new File("src/sound/mine.au"); 
+					// Open an audio input stream.     
+                                        URL soundFile = getClass().getResource("/minesweeper/sound/mine.au");
 					AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
 					// Get a sound clip resource.
 					Clip clip = AudioSystem.getClip();
@@ -339,7 +344,7 @@ public class Minesweeper
 		{
 			timer.stopTimer();
 
-			ImageIcon image = new ImageIcon("src/images/win.png");
+			ImageIcon image = new ImageIcon(getClass().getResource("/minesweeper/images/win.png"));
 			ImageIcon win = new ImageIcon(image.getImage().getScaledInstance(100, 70, Image.SCALE_SMOOTH));
 
 			int clicked = JOptionPane.showOptionDialog(null, "Congratulations you won!", "Game won",
@@ -399,7 +404,7 @@ public class Minesweeper
 
 			}
 		}
-		ImageIcon image = new ImageIcon("src/images/gameOver.png");
+		ImageIcon image = new ImageIcon(getClass().getResource("/minesweeper/images/gameOver.png"));
 		ImageIcon Lose = new ImageIcon(image.getImage().getScaledInstance(300, 100, Image.SCALE_SMOOTH));
 
 		int clicked = JOptionPane.showOptionDialog(null, null, "Game Over", JOptionPane.CANCEL_OPTION,
