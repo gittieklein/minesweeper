@@ -1,7 +1,7 @@
 package minesweeper;
 
 import minesweeper.MinesweeperJFrame;
-import minesweeper.BelowComponent;
+import minesweeper.BottomStrip;
 import java.awt.Image;
 import java.awt.event.*;
 import java.io.*;
@@ -424,12 +424,12 @@ public class Minesweeper
 			if (images.get("flag").equals(button.getIcon())) 
 			{
 				button.setIcon(null);
-				BelowComponent.editMines(gameData.addRemainingMines(1));
+				BottomStrip.editMines(gameData.addRemainingMines(1));
 			}
 			else if (gameData.getRemainingMines() > 0)
 			{
 				button.setIcon(images.get("flag"));
-				BelowComponent.editMines(gameData.addRemainingMines(-1));
+				BottomStrip.editMines(gameData.addRemainingMines(-1));
 			}
 		}
 	}

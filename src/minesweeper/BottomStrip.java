@@ -3,9 +3,12 @@ package minesweeper;
 import java.awt.*;
 import javax.swing.*;
 
-public class BelowComponent extends JComponent
+/**
+ * BottomStrip
+ * The strip at the bottom with the timer and the number of mines remaining
+ */
+public class BottomStrip extends JComponent
 {
-
 	private static final long serialVersionUID = 1L;
 	private static JLabel mineLabel;
 	private static JLabel timerLabel;
@@ -13,11 +16,11 @@ public class BelowComponent extends JComponent
 	private Label space;
 	private GameData gameData = GameData.getInstance();
 
-	public BelowComponent()
+	public BottomStrip()
 	{
 		setLayout(new FlowLayout(FlowLayout.CENTER));
 
-		//timer image
+		//set up the timer image
 		JLabel timeIcon = new JLabel();
 		ImageIcon ticon = new ImageIcon(getClass().getResource("/minesweeper/images/timer.png"));
 		Image timg = ticon.getImage();
@@ -25,15 +28,16 @@ public class BelowComponent extends JComponent
 		ticon = new ImageIcon(timeimg);
 		timeIcon.setIcon(ticon);
 
+		//the default value for the timer should be 000
 		timerLabel = new JLabel("000");
 		timerLabel.setFont(new Font("Calibri", Font.PLAIN, 32));
 
 		this.add(timeIcon);
 		this.add(timerLabel);
 
+		//space between timer and bombs remaining
 		amount = (gameData.getColumns() * 43) / 9;
 		space = new Label(String.format("%" + (amount) + "s", ""));
-
 		this.add(space);
 
 		// set up mines and mine image
@@ -44,25 +48,34 @@ public class BelowComponent extends JComponent
 		Image mineimg = img.getScaledInstance(47, 47, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(mineimg);
 		mineIcon.setIcon(icon);
+		mineLabel.setFont(new Font("Calibri", Font.PLAIN, 32)); 
 
-		mineLabel.setFont(new Font("Calibri", Font.PLAIN, 32)); // set font and size of text
-
-		// add number of mines and mine image to the component
 		this.add(mineLabel);
 		this.add(mineIcon);
 	}
 
+	/**
+	 * Reset the bottom strip when the game is reset
+	 */
 	public void reset()
 	{
 		amount = (gameData.getColumns() * 43) / 9;
 		space.setText(String.format("%" + (amount) + "s", ""));
 	}
 
-	public static void setTimerLabel(String text)
+	/**
+	 * Change the value of the timer label each time the timer changes
+	 * @param seconds the number of seconds that passed to set to the label
+	 */
+	public static void setTimerLabel(String seconds)
 	{
-		BelowComponent.timerLabel.setText(text);
+		BottomStrip.timerLabel.setText(seconds);
 	}
 
+	/**
+	 * Change the number of mines on the mines remaining label
+	 * @param mines remaining mines
+	 */
 	public static void editMines(int mines)
 	{
 		mineLabel.setText(mines + " ");

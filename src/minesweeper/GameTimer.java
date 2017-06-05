@@ -1,6 +1,6 @@
 package minesweeper;
 
-import minesweeper.BelowComponent;
+import minesweeper.BottomStrip;
 import java.awt.event.*;
 import javax.swing.Timer;
 
@@ -20,7 +20,7 @@ public class GameTimer
 				if (elapsedSeconds < 999)
 				{
 					elapsedSeconds++;
-					BelowComponent.setTimerLabel(String.format("%03d", elapsedSeconds) + " ");
+					BottomStrip.setTimerLabel(String.format("%03d", elapsedSeconds) + " ");
 				}
 			}
 		});
@@ -40,7 +40,7 @@ public class GameTimer
 	{
 		stopTimer();
 		//elapsedSeconds = 0;
-		BelowComponent.setTimerLabel("000");
+		BottomStrip.setTimerLabel("000");
 	}
 
 	public void startTimer()

@@ -1,6 +1,6 @@
 package minesweeper;
 
-import minesweeper.BelowComponent;
+import minesweeper.BottomStrip;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.URL;
@@ -15,14 +15,14 @@ public class MinesweeperJFrame extends JFrame
 	private static int bottom;
 	private static int side;
 	private static GridComponent grid;
-	private static BelowComponent below;
+	private static BottomStrip below;
 	private static AudioInputStream audioIn;
 	private static Clip clip;
 
 	public static void main(String[] args)
 	{
 		grid = new GridComponent();
-		below = new BelowComponent();
+		below = new BottomStrip();
 		MinesweeperJFrame frame = new MinesweeperJFrame();
 		
 		frame.setVisible(true);
@@ -100,7 +100,7 @@ public class MinesweeperJFrame extends JFrame
 
 		// reset the remaining mines
 		below.reset();
-		BelowComponent.editMines(gameData.getTotalMines());
+		BottomStrip.editMines(gameData.getTotalMines());
 		
 		//reset the timer
 		GameTimer timer = GameTimer.getInstance();
