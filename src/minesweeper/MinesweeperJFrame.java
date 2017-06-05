@@ -59,25 +59,28 @@ public class MinesweeperJFrame extends JFrame
 		container.add(grid, BorderLayout.CENTER); // add grid
 		container.add(below, BorderLayout.SOUTH); // add number of mines remaining
 
-		try
+		if(gameData.getSound())
 		{
-			// Open an audio input stream.
-			URL soundFile = getClass().getResource("/minesweeper/sound/background.au");
-			audioIn = AudioSystem.getAudioInputStream(soundFile);
-			// Get a sound clip resource.
-			clip = AudioSystem.getClip();
-			// Open audio clip and load samples from the audio input stream.
-			clip.open(audioIn);
-			clip.loop(Integer.MAX_VALUE);
-		}
-		catch (Exception e)
-		{
-			JOptionPane.showOptionDialog(null, "There is an error with the sound. Please restart the game.", "Error",
-					JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
-					null, null);
+			try
+			{
+				// Open an audio input stream.
+				URL soundFile = getClass().getResource("/minesweeper/sound/background.au");
+				audioIn = AudioSystem.getAudioInputStream(soundFile);
+				// Get a sound clip resource.
+				clip = AudioSystem.getClip();
+				// Open audio clip and load samples from the audio input stream.
+				clip.open(audioIn);
+				clip.loop(Integer.MAX_VALUE);
+			}
+			catch (Exception e)
+			{
+				JOptionPane.showOptionDialog(null, "There is an error with the sound. Please restart the game.", "Error",
+						JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+						null, null);
+			}
 		}
                 
-                setJMenuBar(createMenu());
+		setJMenuBar(createMenu());
 	}
 
 	/**
@@ -191,10 +194,12 @@ public class MinesweeperJFrame extends JFrame
 					{
 						clip.start();
 						clip.loop(Integer.MAX_VALUE);
+						gameData.setSound(true);
 					}
 					else
 					{
 						clip.stop();
+						gameData.setSound(false);
 					}
 				}
 			}

@@ -7,6 +7,7 @@ public class GameData
 	private int COLS;
 	private int TOTAL_MINES;
 	private int remaining_mines;
+	private boolean sound;
 
 	/**
 	 * Private constructor can only be called from inside the class
@@ -17,6 +18,7 @@ public class GameData
 		ROWS = 9;
 		COLS = 9;
 		TOTAL_MINES = remaining_mines = 10;
+		sound = true;
 	}
 
 	public static GameData getInstance()
@@ -86,6 +88,16 @@ public class GameData
 		COLS = col;
 		TOTAL_MINES = mine;
 		remaining_mines = mine;
+	}
+	
+	public boolean getSound()
+	{
+		return sound;
+	}
+	
+	public void setSound(boolean sound)
+	{
+		this.sound = sound;
 	}
 
 }

@@ -253,29 +253,26 @@ public class Minesweeper
 			}
 			if (button.getButtonType() == ButtonType.MINE && !images.get("flag").equals(button.getIcon()))
 			{
-				try
+				if(gameData.getSound())
 				{
-					// Open an audio input stream.     
-                                        URL soundFile = getClass().getResource("/minesweeper/sound/mine.au");
-					AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
-					// Get a sound clip resource.
-					Clip clip = AudioSystem.getClip();
-					// Open audio clip and load samples from the audio input
-					// stream.
-					clip.open(audioIn);
-					clip.start();
-				}
-				catch (UnsupportedAudioFileException e)
-				{
-					e.printStackTrace();
-				}
-				catch (IOException e)
-				{
-					e.printStackTrace();
-				}
-				catch (LineUnavailableException e)
-				{
-					e.printStackTrace();
+					try
+					{
+						// Open an audio input stream.     
+	                                        URL soundFile = getClass().getResource("/minesweeper/sound/mine.au");
+						AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
+						// Get a sound clip resource.
+						Clip clip = AudioSystem.getClip();
+						// Open audio clip and load samples from the audio input
+						// stream.
+						clip.open(audioIn);
+						clip.start();
+					}
+					catch (Exception e)
+					{
+						JOptionPane.showOptionDialog(null, "There is an error with the sound. Please restart the game.", "Error",
+								JOptionPane.CLOSED_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
+								null, null);
+					}
 				}
 				button.setImg(images.get("hit-mine"));
 
