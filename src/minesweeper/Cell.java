@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 import Enums.ButtonType;
 
+/**
+ * Cell
+ * The cells of the grid layout
+ * Extends JButton so that the cells can be clicked
+ */
 public class Cell extends JButton
 {
 	private static final long serialVersionUID = 1L;
@@ -16,7 +21,6 @@ public class Cell extends JButton
 	private ButtonType type;
 	private ImageIcon img;
 	
-	
 	public Cell(int x, int y)
 	{
 		//change color of cell - gradient color
@@ -27,7 +31,9 @@ public class Cell extends JButton
 		type = ButtonType.BLANK;	//all squares should be initialized to blank
 	}
 
-	//set color of cell to gradient color
+	/**
+	 * Set the color of the cell to a gradient color
+	 */
 	@Override
 	protected void paintComponent(Graphics g)
 	{
