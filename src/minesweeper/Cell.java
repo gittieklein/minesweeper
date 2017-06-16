@@ -45,6 +45,9 @@ public class Cell extends JButton
 		super.paintComponent(g);
 	}	
 	
+	/**
+	 * Getters and setters
+	 */
 	public int getXindex()
 	{
 		return xindex;

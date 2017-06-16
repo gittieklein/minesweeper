@@ -6,7 +6,6 @@ import javax.swing.*;
 
 public class GridComponent extends JComponent
 {
-
 	private static final long serialVersionUID = 1L;
 	private GameData gameData = GameData.getInstance();
 	private Minesweeper minesweeper;
@@ -22,6 +21,9 @@ public class GridComponent extends JComponent
 		buildButtons();
 	}
 
+	/**
+	 * creates a grid of buttons for the board
+	 */
 	private void buildButtons()
 	{
 		for (int i = 0; i < gameData.getRows(); i++)
@@ -34,9 +36,13 @@ public class GridComponent extends JComponent
 		}
 	}
 
+	/**
+	 * resets the grid on a new game
+	 */
 	public void reset()
 	{
 		setLayout(new GridLayout(gameData.getRows(), gameData.getColumns()));
+		//check if the size of the board is the same (same level)
 		boolean sameSize = minesweeper.reset();
 
 		if (!sameSize)

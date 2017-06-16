@@ -48,41 +48,11 @@ public class GameData
 	}
 
 	/**
-	 * getters and setters
+	 * clear reamaining for new game
 	 */
-	public int getColumns()
-	{
-		return COLS;
-	}
-
-	public int getRows()
-	{
-		return ROWS;
-	}
-
-	public int getRemainingMines()
-	{
-		return remaining_mines;
-	}
-
-	public int getTotalMines()
-	{
-		return TOTAL_MINES;
-	}
-
 	public void resetRemainingMines()
 	{
 		this.remaining_mines = TOTAL_MINES;
-	}
-
-	public boolean getSound()
-	{
-		return sound;
-	}
-	
-	public void setSound(boolean sound)
-	{
-		this.sound = sound;
 	}
 	
 	/**
@@ -108,5 +78,38 @@ public class GameData
 		COLS = col;
 		TOTAL_MINES = mine;
 		remaining_mines = mine;
+	}
+	
+	/**
+	 * getters and setters
+	 */
+	public int getColumns()
+	{
+		return COLS;
+	}
+
+	public int getRows()
+	{
+		return ROWS;
+	}
+
+	public int getRemainingMines()
+	{
+		return remaining_mines;
+	}
+
+	public int getTotalMines()
+	{
+		return TOTAL_MINES;
+	}
+	
+	public boolean getSound()
+	{
+		return sound;
+	}
+	
+	public void setSound(boolean sound)
+	{
+		this.sound = sound;
 	}
 }

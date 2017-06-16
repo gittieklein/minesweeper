@@ -34,7 +34,6 @@ public class Minesweeper
 		countButtons = 0;
 		isFirst = true;
 		timer = GameTimer.getInstance();
-
 	}
 
 	/**
@@ -118,8 +117,11 @@ public class Minesweeper
 		int x, y;
 		for (int i = 0; i < gameData.getTotalMines();)
 		{
+			//choose random coordinate
 			x = rand.nextInt(gameData.getRows());
 			y = rand.nextInt(gameData.getColumns());
+			
+			//check that the random coordinate is blank before setting it to a bomb
 			if (squares[x][y].getButtonType() == ButtonType.BLANK && !squares[x][y].equals(firstButton))
 			{
 				squares[x][y].setButtonType(ButtonType.MINE);
@@ -130,7 +132,7 @@ public class Minesweeper
 	}
 
 	/**
-	 * Method to count the number of bombs each cell is touching and set the image to that cell.
+	 * Count the number of bombs each cell is touching and set the image to that cell
 	 */
 	private void setNumbers()
 	{
@@ -188,8 +190,7 @@ public class Minesweeper
 					if (current != null && current.getButtonType() == ButtonType.MINE)
 						numMines++;
 
-					// set the button type and image of the cell based on the surrounding
-					// number of bombs
+					// set the button type and image of the cell based on the surrounding number of bombs
 					switch (numMines)
 					{
 						case 1:
@@ -237,13 +238,15 @@ public class Minesweeper
 	}
 
 	/**
-	 * Method to determine what should be done when a button is clicked with the left mouse button.
+	 * Determine what should be done when a button is clicked with the left mouse button
 	 * @param button The button that was clicked.
 	 */
 	public void leftMouseClick(Cell button)
 	{
+		//check the button wasn't already clicked
 		if (button.isEnabled())
 		{
+			//set the bombs and timer after the first click
 			if (isFirst)
 			{
 				isFirst = false;
@@ -251,6 +254,7 @@ public class Minesweeper
 				setMines(button);
 				setNumbers();
 			}
+			//if mine is clicked and not flagged
 			if (button.getButtonType() == ButtonType.MINE && !images.get("flag").equals(button.getIcon()))
 			{
 				if(gameData.getSound())
@@ -258,12 +262,11 @@ public class Minesweeper
 					try
 					{
 						// Open an audio input stream.     
-	                                        URL soundFile = getClass().getResource("/minesweeper/sound/mine.au");
+	                    URL soundFile = getClass().getResource("/minesweeper/sound/mine.au");
 						AudioInputStream audioIn = AudioSystem.getAudioInputStream(soundFile);
 						// Get a sound clip resource.
 						Clip clip = AudioSystem.getClip();
-						// Open audio clip and load samples from the audio input
-						// stream.
+						// Open audio clip and load samples from the audio input stream.
 						clip.open(audioIn);
 						clip.start();
 					}
@@ -283,6 +286,7 @@ public class Minesweeper
 			// if the button has a flag, ignore left click
 			else if (!images.get("flag").equals(button.getIcon()))
 			{
+				//if button is blank, flip over all surround blank buttons and cells directly around them
 				if (button.getButtonType() == ButtonType.BLANK)
 				{
 					Stack<Cell> buttonStack = new Stack<Cell>();
@@ -337,6 +341,7 @@ public class Minesweeper
 				}
 			}
 		}
+		//if all buttons other than mines are flipped over win the game
 		if (isFinished())
 		{
 			timer.stopTimer();
@@ -353,7 +358,6 @@ public class Minesweeper
 
 			}
 		}
-
 	}
 
 	/**
@@ -366,8 +370,8 @@ public class Minesweeper
 	}
 
 	/**
-	 * This method flips over all the mines and shows a dialog box to either
-	 * restart or cancel the round.
+	 * Flips over all the mines and shows a dialog box to either
+	 * restart or cancel the round
 	 */
 	private void gameOver()
 	{
@@ -413,8 +417,7 @@ public class Minesweeper
 	}
 
 	/**
-	 * 
-	 * @param button
+	 * toggel flag on right click
 	 */
 	private void rightMouseClick(Cell button)
 	{
@@ -435,8 +438,8 @@ public class Minesweeper
 	}
 
 	/**
-	 * Method to flip over a button.
-	 * @param button The button to flip over.
+	 * Flip over a button
+	 * @param button The button to flip over
 	 */
 	private void flipButton(Cell button)
 	{
@@ -450,22 +453,21 @@ public class Minesweeper
 	}
 
 	/**
-	 * Get a cell if it is enabled. 
+	 * Get a cell if it is enabled
 	 * @param x The row of the button
 	 * @param y The column of the button
-	 * @return The button that is enabled or null if it is disabled.
+	 * @return The button that is enabled or null if it is disabled
 	 */
 	private Cell getActiveCell(int x, int y)
 	{
 		if (x >= 0 && x < gameData.getRows() && y >= 0 && y < gameData.getColumns() && squares[x][y].isEnabled())
 			return squares[x][y];
-		// return null if the cell is not in the grid
 		return null;
 	}
 
 	/**
-	 * Method to reset the board
-	 * @return True if the new board is the same size or false if it is different.
+	 * Reset the board
+	 * @return True if the new board is the same size or false if it is different
 	 */
 	public boolean reset()
 	{
@@ -492,28 +494,9 @@ public class Minesweeper
 		}
 		return false;
 	}
-
+	
 	/**
-	 * Method to get the number of rows in the squares grid.
-	 * @return The length of rows in the squares grid.
-	 */
-	public int getSquaresRows()
-	{
-		return squares.length;
-	}
-
-	/**
-	 * Method to get the number of columns in the squares grid
-	 * @param row The row to get the count of columns for.
-	 * @return The length of columns in the squares grid.
-	 */
-	public int getSquaresColumns(int row)
-	{
-		return squares[row].length;
-	}
-
-	/**
-	 * Method to reset the size of the squares grid
+	 * Reset the size of the squares grid
 	 */
 	public void resetSize()
 	{
@@ -521,7 +504,20 @@ public class Minesweeper
 	}
 
 	/**
-	 * Method to get a button
+	 * getters and setters
+	 */
+	public int getSquaresRows()
+	{
+		return squares.length;
+	}
+
+	public int getSquaresColumns(int row)
+	{
+		return squares[row].length;
+	}
+
+	/**
+	 * Get a button
 	 * @param x The row coordinate of the button
 	 * @param y The column coordinate of the button
 	 * @return The cell at the given coordinates. 
